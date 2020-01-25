@@ -9,6 +9,7 @@ import {
 import menustructurejson from "../auth/menustructure.json";
 import { AllOrders } from "./orders/index";
 import { AllCustomers } from "./customers/index";
+import { WrappedNormalCreateOrdersForm } from "./orders/createorder";
 const { Header, Sider, Content } = Layout;
 export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
   const [collapsed, setcollapsed] = useState(false);
@@ -97,13 +98,19 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
             <Route
               path="/orders"
               component={(props: RouteComponentProps) => (
-                <AllOrders token={token} {...props} />
+                <AllOrders  {...props} />
               )}
             />
             <Route
               path="/customers"
               component={(props: RouteComponentProps) => (
-                <AllCustomers token={token} {...props} />
+                <AllCustomers  {...props} />
+              )}
+            />
+            <Route
+              path="/createorder"
+              component={(props: RouteComponentProps) => (
+                <WrappedNormalCreateOrdersForm  {...props} />
               )}
             />
           </Content>

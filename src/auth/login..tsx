@@ -15,7 +15,7 @@ const NormalLoginForm: React.FC<ILoginProps> = (props: any) => {
     e.preventDefault();
     props.form.validateFields((err: any, values: any) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        // console.log("Received values of form: ", values);
       }
       props.handlelogin({ ...values });
     });

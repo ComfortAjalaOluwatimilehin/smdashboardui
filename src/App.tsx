@@ -10,9 +10,7 @@ const App: React.FC = observer(() => {
   return (
     <AuthWrapper>
       <authContext.Consumer>
-        {({ token, logout }) => (
-          <Skeleton token={token} logout={logout}></Skeleton>
-        )}
+        {({ logout }) => <Skeleton logout={logout}></Skeleton>}
       </authContext.Consumer>
     </AuthWrapper>
   );

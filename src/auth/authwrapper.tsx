@@ -4,29 +4,35 @@ import { AuthStore } from "./auth.store";
 import { Wrapper } from "./wrapper";
 import { authContext } from "./authcontext";
 import { WrappedNormalLoginForm } from "./login.";
+import { toJS } from "mobx";
 export const AuthWrapper: React.FC<any> = observer(({ children }) => {
   const store = useObservable(AuthStore);
-  const { token } = store;
+  let { isValid, initcomplete } = store;
+  isValid = toJS(isValid);
+  initcomplete = toJS(initcomplete);
   useEffect(() => {
     console.log("already rendered");
-  }, [token]);
+  }, [isValid]);
 
   return (
     <React.Fragment>
-      <Wrapper>
-        {token ? (
-          <authContext.Provider
-            value={{
-              token,
-              logout: () => store.logout()
-            }}
-          >
-            {children}
-          </authContext.Provider>
-        ) : (
-          <WrappedNormalLoginForm handlelogin={values => store.login(values)} />
-        )}
-      </Wrapper>
+      {initcomplete && (
+        <Wrapper>
+          {isValid ? (
+            <authContext.Provider
+              value={{
+                logout: () => store.logout()
+              }}
+            >
+              {children}
+            </authContext.Provider>
+          ) : (
+            <WrappedNormalLoginForm
+              handlelogin={values => store.login(values)}
+            />
+          )}
+        </Wrapper>
+      )}
     </React.Fragment>
   );
 });

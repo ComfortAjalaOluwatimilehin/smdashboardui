@@ -16,5 +16,11 @@
     "value": "All Customers",
     "path": "/customers",
     "key": "customers"
+  },
+  {
+    "icontype": "plus",
+    "value": "createorder",
+    "path": "/createorder",
+    "key": "createorder"
   }
 ]
