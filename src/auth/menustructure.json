@@ -1,0 +1,20 @@
+[
+  {
+    "icontype": "home",
+    "value": "Home",
+    "path": "/",
+    "key": "home"
+  },
+  {
+    "icontype": "file-search",
+    "value": "All Orders",
+    "path": "/orders",
+    "key": "orders"
+  },
+  {
+    "icontype": "team",
+    "value": "All Customers",
+    "path": "/customers",
+    "key": "customers"
+  }
+]
