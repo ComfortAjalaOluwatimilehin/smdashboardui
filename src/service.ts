@@ -19,10 +19,10 @@ class SmdashboardServiceSingleton extends RestClientSingleton {
 
             const { data } = await this.getclient().post(`http://localhost:8080/login`, { email, password })
             if (typeof data !== "string") throw new Error("Format of login request response is invalid")
-            console.log(data)
+            //  console.log(data)
             return data
         } catch (err) {
-            console.error(err)
+            
             throw err
         }
 
@@ -33,56 +33,50 @@ class SmdashboardServiceSingleton extends RestClientSingleton {
             const isvalid: boolean = await this.getclient().get(`http://localhost:8080/api/fvfjcnys`)
             return isvalid
         } catch (err) {
-            console.error(err)
-            return false
+            throw err
         }
 
 
     }
     async orders(): Promise<IOrder[]> {
-        let defaultorders: IOrder[] = []
+
         try {
             const { data } = await this.getclient().get("http://localhost:8080/api/orders")
             if (Array.isArray(data)) return data
             throw new Error("data format for orders is invalid")
         } catch (err) {
 
-            console.error(err)
-            return defaultorders
+            throw err
         }
     }
     async customers(): Promise<ICustomer[]> {
-        let defaultcustomers: ICustomer[] = []
+
         try {
             const { data } = await this.getclient().get("http://localhost:8080/api/customers")
             if (Array.isArray(data)) return data
             throw new Error("data format for customers is invalid")
         } catch (err) {
 
-            console.error(err)
-            return defaultcustomers
+            throw err
         }
     }
     async products(): Promise<IProduct[]> {
-        let defaultproducts: IProduct[] = []
+
         try {
             const { data } = await this.getclient().get("http://localhost:8080/api/products")
             if (Array.isArray(data)) return data
             throw new Error("data format for products is invalid")
         } catch (err) {
-
-            console.error(err)
-            return defaultproducts
+            throw err
         }
     }
-    async createorder(order: any): Promise<boolean> {
+    async createorder(order: any): Promise<string> {
 
         try {
             await this.getclient().post("http://localhost:8080/api/orders", order)
-            return true
+            return "Order added"
         } catch (err) {
-            console.error(err)
-            return false
+            throw err
         }
     }
 }

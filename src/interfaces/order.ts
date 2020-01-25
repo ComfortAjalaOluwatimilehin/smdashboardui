@@ -19,9 +19,19 @@ export interface IOrderProduct {
 
 }
 
-export interface ICreateOrder {
+export interface ICreateOrder1 {
     full_name: string;
     phone_number: number;
     addresses: string[];
-    orderproducts: IOrderProduct[]
+    orderproducts: IOrderProduct[],
+    delivery_address: string,
+    delivery_date: string
+}
+
+export interface ICreateOrder2 {
+    orderproducts: IOrderProduct[],
+    customer_id: string,
+    addresses: string[],
+    delivery_address: string,
+    delivery_date: string
 }

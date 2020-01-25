@@ -25,7 +25,7 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
   }> = menustructurejson;
   return (
     <Router>
-      <Layout style={{ height: "100vh", overflow: "hidden" }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="logo" />
           <section
@@ -98,19 +98,19 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
             <Route
               path="/orders"
               component={(props: RouteComponentProps) => (
-                <AllOrders  {...props} />
+                <AllOrders {...props} />
               )}
             />
             <Route
               path="/customers"
               component={(props: RouteComponentProps) => (
-                <AllCustomers  {...props} />
+                <AllCustomers {...props} />
               )}
             />
             <Route
               path="/createorder"
               component={(props: RouteComponentProps) => (
-                <WrappedNormalCreateOrdersForm  {...props} />
+                <WrappedNormalCreateOrdersForm {...props} />
               )}
             />
           </Content>

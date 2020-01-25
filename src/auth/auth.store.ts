@@ -1,5 +1,4 @@
 import { action, computed, observable } from "mobx"
-import { message } from "antd"
 import { SmdashboardService } from "../service";
 
 class AuthStoreSingleton {
@@ -12,13 +11,19 @@ class AuthStoreSingleton {
 
     }
     async init() {
-        const isvalid = await SmdashboardService.vtoken()
-        if (isvalid === false) {
-            this.isValid = isvalid
+        try {
+            const isvalid = await SmdashboardService.vtoken()
+            if (isvalid === false) {
+                this.isValid = false
+                this.logout()
+            } else {
+                this.isValid = true
+            }
+        } catch (err) {
+            this.isValid = false
             this.logout()
-        } else {
-            this.isValid = true
         }
+
         this.initcomplete = true
     }
     get role(): string | undefined { return "" }
@@ -30,8 +35,8 @@ class AuthStoreSingleton {
             SmdashboardService.settoken(token)
             this.isValid = true
         } catch (err) {
-            console.error(err)
-            message.error(err.message)
+            // console.error(err)
+            // message.error(err.message)
             this.isValid = false
         }
     }
