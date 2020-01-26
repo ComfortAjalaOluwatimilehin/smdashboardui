@@ -10,6 +10,7 @@ import menustructurejson from "../auth/menustructure.json";
 import { AllOrders } from "./orders/index";
 import { AllCustomers } from "./customers/index";
 import { WrappedNormalCreateOrdersForm } from "./orders/createorder";
+import { SingleOrder } from "./orders/single";
 const { Header, Sider, Content } = Layout;
 export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
   const [collapsed, setcollapsed] = useState(false);
@@ -97,20 +98,30 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
             />
             <Route
               path="/orders"
+              exact
               component={(props: RouteComponentProps) => (
                 <AllOrders {...props} />
               )}
             />
             <Route
               path="/customers"
+              exact
               component={(props: RouteComponentProps) => (
                 <AllCustomers {...props} />
               )}
             />
             <Route
               path="/createorder"
+              exact
               component={(props: RouteComponentProps) => (
                 <WrappedNormalCreateOrdersForm {...props} />
+              )}
+            />
+            <Route
+              path="/orders/:orderid"
+              exact
+              component={(props: RouteComponentProps) => (
+                <SingleOrder {...props} />
               )}
             />
           </Content>

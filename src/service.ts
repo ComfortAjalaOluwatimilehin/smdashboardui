@@ -22,7 +22,7 @@ class SmdashboardServiceSingleton extends RestClientSingleton {
             //  console.log(data)
             return data
         } catch (err) {
-            
+
             throw err
         }
 
@@ -37,6 +37,27 @@ class SmdashboardServiceSingleton extends RestClientSingleton {
         }
 
 
+    }
+    async order({ orderid }: { orderid: string }): Promise<IOrder> {
+
+        try {
+            const { data } = await this.getclient().get(`http://localhost:8080/api/orders/${orderid}`)
+            if (typeof data === "object") return data
+            throw new Error("data format for order is invalid")
+        } catch (err) {
+            throw err
+        }
+    }
+    async orderstatus(): Promise<string[]> {
+
+        try {
+            const { data } = await this.getclient().get(`http://localhost:8080/api/orders/status`)
+
+            if (Array.isArray(data)) return data
+            throw new Error("data format for order  status is invalid")
+        } catch (err) {
+            throw err
+        }
     }
     async orders(): Promise<IOrder[]> {
 
@@ -79,6 +100,17 @@ class SmdashboardServiceSingleton extends RestClientSingleton {
             throw err
         }
     }
+
+    async patchorder({ orderid, update }: { orderid: string, update: any }): Promise<any> {
+
+        try {
+            await this.getclient().patch(`http://localhost:8080/api/orders/${orderid}`, update)
+            return
+        } catch (err) {
+            throw err
+        }
+    }
+
 }
 
 export const SmdashboardService = new SmdashboardServiceSingleton()
