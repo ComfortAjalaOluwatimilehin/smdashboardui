@@ -11,7 +11,8 @@ import {
   List,
   DatePicker,
   Tooltip,
-  Card
+  Card,
+  Switch
 } from "antd";
 import { FormComponentProps } from "antd/lib/form/Form";
 import { useObservable, observer } from "mobx-react-lite";
@@ -94,22 +95,6 @@ const CreateOrders: React.FC<ICreateOrders> = observer((props: any) => {
           className="login-form"
           {...formItemLayout}
         >
-          <Button
-            type="primary"
-            size="large"
-            onClick={() => {
-              if (customers.length > 0) {
-                if (hascustomerid === false) {
-                  setcurrentcustomer(undefined);
-                }
-                store.togglehascustomerid();
-              }
-            }}
-          >
-            {hascustomerid && customers.length > 0
-              ? "New Customer"
-              : "Registered Customer"}
-          </Button>
           <Tooltip
             title={
               hascustomerid && customers.length > 0
@@ -117,6 +102,20 @@ const CreateOrders: React.FC<ICreateOrders> = observer((props: any) => {
                 : "If customer is already registered, click here"
             }
           >
+            <Switch
+              onChange={() => {
+                if (customers.length > 0) {
+                  if (hascustomerid === false) {
+                    setcurrentcustomer(undefined);
+                  }
+                  store.togglehascustomerid();
+                }
+              }}
+            >
+              {hascustomerid && customers.length > 0
+                ? "New Customer"
+                : "Registered Customer"}
+            </Switch>
             <Icon type="info-circle" />
           </Tooltip>
           {hascustomerid && customers.length > 0 ? (
@@ -434,6 +433,7 @@ const CreateOrders: React.FC<ICreateOrders> = observer((props: any) => {
           <Form.Item {...formItemLayout}>
             <Button
               type="primary"
+              size="large"
               htmlType="submit"
               className="login-form-button"
             >
