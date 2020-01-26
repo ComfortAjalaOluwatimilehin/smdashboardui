@@ -27,7 +27,7 @@ export const SingleOrder: React.FC<ISingleOrdersProps> = observer(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderid]);
 
-  //  console.log(orderstatus, order);
+   // console.log(orderstatus, order);
   //  console.log(currentstatusposition, order);
 
   return (
