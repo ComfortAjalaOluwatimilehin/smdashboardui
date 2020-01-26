@@ -20,3 +20,16 @@ body {
 .App-link {
   color: #61dafb;
 }
+
+.ant-layout-sider-collapsed section a span {
+  display: none;
+}
+
+.table-widget {
+  max-width: 800px;
+}
+
+span.tillmidnight {
+  color: #009688;
+  font-weight: 600;
+}

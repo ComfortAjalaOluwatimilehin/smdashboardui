@@ -11,6 +11,7 @@ import { AllOrders } from "./orders/index";
 import { AllCustomers } from "./customers/index";
 import { WrappedNormalCreateOrdersForm } from "./orders/createorder";
 import { SingleOrder } from "./orders/single";
+import { Home } from "./home";
 const { Header, Sider, Content } = Layout;
 export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
   const [collapsed, setcollapsed] = useState(false);
@@ -27,7 +28,13 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
   return (
     <Router>
       <Layout style={{ minHeight: "100vh" }}>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          breakpoint="lg"
+          collapsedWidth="0"
+        >
           <div className="logo" />
           <section
             style={{
@@ -94,7 +101,7 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
             <Route
               path="/"
               exact
-              component={(props: RouteComponentProps) => <h1>Hello</h1>}
+              component={(props: RouteComponentProps) => <Home {...props} />}
             />
             <Route
               path="/orders"

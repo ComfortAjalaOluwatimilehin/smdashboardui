@@ -13,7 +13,7 @@ export const AllCustomers: React.FC<IAllCustomersProps> = observer(() => {
   useEffect(() => {
     store.init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasAccess, customers.length]);
+  }, []);
   const tablecolumns: { title: string; dataIndex: string; key: string }[] = [
     { key: "full_name", value: "Full Name" },
     { key: "phone_number", value: "Phone Number" },
@@ -40,6 +40,7 @@ export const AllCustomers: React.FC<IAllCustomersProps> = observer(() => {
       {hasAccess && (
         <Card title={<Typography.Title>Customers</Typography.Title>}>
           <Table
+            scroll={{ x: true }}
             dataSource={customers}
             columns={tablecolumns}
             rowKey="orderlist"

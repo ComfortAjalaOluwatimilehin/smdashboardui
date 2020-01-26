@@ -10,11 +10,18 @@ interface ISingleOrdersProps extends RouteComponentProps {}
 export const SingleOrder: React.FC<ISingleOrdersProps> = observer(() => {
   const store = useObservable(SingleOrderStore);
   const { orderid } = useParams();
-  let { order, hasAccess, orderstatus, currentstatusposition } = store;
+  let {
+    order,
+    hasAccess,
+    orderstatus,
+    currentstatusposition,
+    ordertotal
+  } = store;
   order = toJS(order);
   hasAccess = toJS(hasAccess);
   orderstatus = toJS(orderstatus);
   currentstatusposition = toJS(currentstatusposition);
+  ordertotal = toJS(ordertotal);
   useEffect(() => {
     store.init(orderid);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -30,7 +37,15 @@ export const SingleOrder: React.FC<ISingleOrdersProps> = observer(() => {
           <Typography.Title level={3}>
             Reports: {order.order_status}
           </Typography.Title>
-
+          <Card
+            title={<Typography.Title level={4}>Bill: </Typography.Title>}
+            style={{ maxWidth: "300px" }}
+          >
+            <Typography.Title style={{ color: " #009688" }}>
+              {ordertotal}
+            </Typography.Title>
+          </Card>
+          <Divider />
           <Card title="Progress">
             {orderstatus && orderstatus.length > 0 && (
               <Steps
@@ -71,6 +86,7 @@ export const SingleOrder: React.FC<ISingleOrdersProps> = observer(() => {
           <Divider />
           <Card title="Shipping Details">
             <Table
+              scroll={{ x: true }}
               pagination={false}
               columns={[
                 { key: "delivery_address", title: "Shipping Address" },
@@ -96,6 +112,7 @@ export const SingleOrder: React.FC<ISingleOrdersProps> = observer(() => {
           <Divider />
           <Card title="Product details">
             <Table
+              scroll={{ x: true }}
               pagination={false}
               columns={[
                 { key: "product_name", title: "Product Item" },

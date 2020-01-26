@@ -95,6 +95,8 @@ const CreateOrders: React.FC<ICreateOrders> = observer((props: any) => {
           {...formItemLayout}
         >
           <Button
+            type="primary"
+            size="large"
             onClick={() => {
               if (customers.length > 0) {
                 if (hascustomerid === false) {
@@ -105,12 +107,23 @@ const CreateOrders: React.FC<ICreateOrders> = observer((props: any) => {
             }}
           >
             {hascustomerid && customers.length > 0
-              ? "New Customer?"
-              : "Old Customer?"}
+              ? "New Customer"
+              : "Registered Customer"}
           </Button>
+          <Tooltip
+            title={
+              hascustomerid && customers.length > 0
+                ? "If new customer, click here to type in details"
+                : "If customer is already registered, click here"
+            }
+          >
+            <Icon type="info-circle" />
+          </Tooltip>
           {hascustomerid && customers.length > 0 ? (
             <>
-              <Typography.Title level={2}>Select Customer</Typography.Title>
+              <Typography.Title level={2}>
+                Select Registered Customer
+              </Typography.Title>
               <Form.Item
                 label={
                   <span>
@@ -221,7 +234,7 @@ const CreateOrders: React.FC<ICreateOrders> = observer((props: any) => {
             label={
               <span>
                 Delivery Date
-                <Tooltip title="Click below to select the date of delivery. If time entry is needed, please type it in the manager's note field below">
+                <Tooltip title="Click below to select the date of delivery. If a desired time is provided, please type it in the manager's note field below">
                   <Icon type="info-circle" />
                 </Tooltip>
               </span>
@@ -271,7 +284,13 @@ const CreateOrders: React.FC<ICreateOrders> = observer((props: any) => {
             label={
               <span>
                 Add new Address
-                <Tooltip title="Type in the address of the new customer or add a new (delivery) address of an already registered customer">
+                <Tooltip
+                  title={
+                    hascustomerid && customers.length > 0
+                      ? "Add a new (delivery) address of an already registered customer"
+                      : "Type in the address of the new customer."
+                  }
+                >
                   <Icon type="info-circle" />
                 </Tooltip>
               </span>
@@ -383,7 +402,7 @@ const CreateOrders: React.FC<ICreateOrders> = observer((props: any) => {
                         <span>{orderproduct.name}</span>
                         {"  "}
                       </p>
-                      <p style={{ marginRight: "10px" }}> 
+                      <p style={{ marginRight: "10px" }}>
                         <Icon
                           style={{ marginLeft: "10px" }}
                           type="close-circle"
@@ -409,14 +428,7 @@ const CreateOrders: React.FC<ICreateOrders> = observer((props: any) => {
                   type: "string"
                 }
               ]
-            })(
-              <Input
-                prefix={
-                  <Icon type="text" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
-                placeholder="Order Note"
-              />
-            )}
+            })(<Input.TextArea placeholder="Order Note" />)}
           </Form.Item>
 
           <Form.Item {...formItemLayout}>

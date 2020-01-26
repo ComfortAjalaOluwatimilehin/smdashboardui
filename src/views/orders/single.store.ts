@@ -16,7 +16,18 @@ class SingleOrderStoreSingleton extends BaseStoreSingleton {
         }
     }
 
+    @computed get ordertotal(): string {
 
+        let total: number = 0
+        const order = toJS(this.order)
+        if (order) {
+            for (let orderproduct of order.orderproducts) {
+                const cost: number = orderproduct.quantity * orderproduct.product_unit_price
+                total += cost
+            }
+        }
+        return `₦ ${total.toFixed(3)}`
+    }
     @computed get currentstatusposition(): number {
         const order = toJS(this.order)
         const statusoptions = toJS(this.orderstatus)

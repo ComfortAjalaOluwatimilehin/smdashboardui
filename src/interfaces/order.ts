@@ -19,7 +19,7 @@ export interface IOrderProduct {
     quantity: number;
     name: string
     product_name: string,
-    product_unit_price: string
+    product_unit_price: number
 
 }
 
