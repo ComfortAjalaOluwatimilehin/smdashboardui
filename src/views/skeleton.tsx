@@ -33,7 +33,7 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
           collapsible
           collapsed={collapsed}
           breakpoint="lg"
-          collapsedWidth="0"
+          collapsedWidth="50"
         >
           <div className="logo" />
           <section

@@ -116,7 +116,7 @@ const CreateOrders: React.FC<ICreateOrders> = observer((props: any) => {
                 ? "New Customer"
                 : "Registered Customer"}
             </Switch>
-            <Icon type="info-circle" />
+            <Icon type="info-circle" style={{ marginLeft: "10px" }} />
           </Tooltip>
           {hascustomerid && customers.length > 0 ? (
             <>
