@@ -7,8 +7,6 @@ export interface ITodaysDeliveriesWidget {
   orders: IOrder[];
 }
 export const TodaysDeliveriesWidget: React.FC<ITodaysDeliveriesWidget> = props => {
-  const todaylastminute = moment().endOf("day");
-
   return (
     <Card
       className="table-widget"

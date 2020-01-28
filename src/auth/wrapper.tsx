@@ -1,9 +1,18 @@
 import React, { ReactChild, ReactChildren } from "react";
-
+import { Row } from "antd";
 export const Wrapper = ({
   children
 }: {
   children: ReactChild | ReactChildren;
 }) => {
-  return <div style={{ padding: "5px" }}>{children}</div>;
+  return (
+    <Row
+      justify="center"
+      align="middle"
+      style={{ width: "100vw", minHeight: "100vh" }}
+      type="flex"
+    >
+      {children}
+    </Row>
+  );
 };

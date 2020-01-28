@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { observer, useObservable } from "mobx-react-lite";
 import { AuthStore } from "./auth.store";
 import { Wrapper } from "./wrapper";
@@ -15,7 +15,7 @@ export const AuthWrapper: React.FC<any> = observer(({ children }) => {
   }, [isValid]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       {initcomplete && (
         <Wrapper>
           {isValid ? (
@@ -33,6 +33,6 @@ export const AuthWrapper: React.FC<any> = observer(({ children }) => {
           )}
         </Wrapper>
       )}
-    </React.Fragment>
+    </Fragment>
   );
 });
