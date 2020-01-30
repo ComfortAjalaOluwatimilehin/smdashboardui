@@ -1,5 +1,5 @@
-import { Layout, Icon, Row, Col } from "antd";
-import React, { useState } from "react";
+import { Layout, Icon, Menu } from "antd";
+import React from "react";
 import {
   BrowserRouter as Router,
   NavLink,
@@ -12,13 +12,8 @@ import { AllCustomers } from "./customers/index";
 import { WrappedNormalCreateOrdersForm } from "./orders/createorder";
 import { SingleOrder } from "./orders/single";
 import { Home } from "./home";
-const { Header, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
-  const [collapsed, setcollapsed] = useState(false);
-
-  const toggle = () => {
-    setcollapsed(!collapsed);
-  };
   const menulist: Array<{
     icontype: string;
     key: string;
@@ -28,69 +23,63 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
   return (
     <Router>
       <Layout style={{ minHeight: "100vh" }}>
-        <Sider
-          trigger={null}
-          collapsible
-          collapsed={collapsed}
-          breakpoint="lg"
-          collapsedWidth="50"
-        >
+        <Header className="header">
           <div className="logo" />
-          <section
-            style={{
-              height: "inherit",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            {menulist.map((menu, index) => {
-              return (
-                <div style={{ width: "100%" }}>
-                  <NavLink
-                    exact
-                    to={menu.path}
-                    key={menu.key}
-                    style={{
-                      fontSize: " 21px",
-                      padding: " .5em",
-                      boxSizing: "border-box",
-                      display: "block"
-                    }}
-                    activeStyle={{
-                      fontWeight: "bold",
-                      color: "white"
-                    }}
-                  >
-                    <Icon type={menu.icontype} />
-                    <span> {menu.value}</span>
-                  </NavLink>
-                </div>
-              );
-            })}
-          </section>
-        </Sider>
+        </Header>
+
         <Layout>
           <Header style={{ background: "#fff", padding: 0 }}>
-            <Row justify="center">
-              <Col xs={2} sm={4} md={20} lg={20} xl={20}>
-                <Icon
-                  style={{ paddingLeft: "5px" }}
-                  className="trigger"
-                  type={collapsed ? "menu-unfold" : "menu-fold"}
-                  onClick={toggle}
-                />
-              </Col>
-              <Col xs={2} sm={4} md={4} lg={4} xl={4}>
-                <Icon
-                  type="logout"
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              defaultSelectedKeys={["2"]}
+              style={{ lineHeight: "64px" }}
+            >
+              {menulist.map((menu, index) => {
+                return (
+                  <Menu.Item key="1">
+                    <NavLink
+                      exact
+                      to={menu.path}
+                      key={menu.key}
+                      style={{
+                        fontSize: " 21px",
+                        padding: " .5em",
+                        boxSizing: "border-box",
+                        display: "block"
+                      }}
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "white"
+                      }}
+                    >
+                      <Icon type={menu.icontype} />
+                      <span> {menu.value}</span>
+                    </NavLink>
+                  </Menu.Item>
+                );
+              })}
+
+              <Menu.Item key="logout">
+                <a
+                  href="#/"
                   onClick={() => {
                     logout();
                   }}
-                />
-              </Col>
-            </Row>
+                  style={{
+                    fontSize: " 21px",
+                    padding: "0.5em",
+                    boxSizing: "border-box",
+                    display: " block",
+
+                    color: "white"
+                  }}
+                >
+                  <Icon type="logout" />
+                  <span>Logout</span>
+                </a>
+              </Menu.Item>
+            </Menu>
           </Header>
           <Content
             style={{
