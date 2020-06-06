@@ -45,12 +45,19 @@ export const CreateSales: React.FC<any> = (props: any) => {
       props.history.push("/");
     }
   };
-
+  const priceRateOptions = [10, 11, 12, 13, 14].map((item) => ({
+    text: `₦1000 per ${item} bags`,
+    value: 1000 / item,
+  }));
   return (
     <Card>
       <Form onSubmit={handleSubmit} className="createsaless-form">
         <Form.Item label="Date of Sale" required={true}>
           <DatePicker
+            disabledDate={(current: Moment | null) => {
+              if (current === null) return true;
+              return moment(current).isAfter(moment());
+            }}
             onChange={(date: Moment | null) => {
               if (!date || date == null) return;
               setcreate({ ...create, sale_date: date.valueOf() });
@@ -60,7 +67,6 @@ export const CreateSales: React.FC<any> = (props: any) => {
         <Form.Item label="Number of Bags Sold">
           <InputNumber
             min={1}
-            max={10}
             defaultValue={1}
             onChange={(value: number | undefined) => {
               if (!value) return;
@@ -71,14 +77,15 @@ export const CreateSales: React.FC<any> = (props: any) => {
         <Form.Item label="Price Rate">
           <Select
             defaultValue={1000 / 10}
-            style={{ width: 120 }}
+            style={{ width: "auto" }}
             onChange={(value: number | undefined) => {
               if (!value) return;
               setcreate({ ...create, price_rate: value });
             }}
           >
-            <Option value={1000 / 10}>{"1000 / 10"}</Option>
-            <Option value={1000 / 12}>{"1000 / 12"}</Option>
+            {priceRateOptions.map((option) => {
+              return <Option value={option.value}>{option.text}</Option>;
+            })}
           </Select>
         </Form.Item>
         <Form.Item label="How much cash is with you ?">
