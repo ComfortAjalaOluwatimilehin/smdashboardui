@@ -4,7 +4,7 @@ import { ICustomer } from "./interfaces/customer";
 import { IProduct } from "./interfaces/product";
 import Cookie from "js-cookie"
 import { TCurrentDateFilter, IMonthlySales } from "./views/stats/stats.store";
-import Axios, { AxiosResponse } from "axios";
+
 class SmdashboardServiceSingleton extends RestClientSingleton {
     uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "http://localhost:8080"
 
@@ -127,6 +127,41 @@ class SmdashboardServiceSingleton extends RestClientSingleton {
 
         try {
             await this.getclient().post(`${this.uri}/api/v1/sales`, { ...props })
+            return
+
+        } catch (err) {
+            if (err.response) {
+                return err.response.data
+            } return err.message
+        }
+    }
+    async createExpense(props: any): Promise<string | undefined> {
+
+        try {
+            await this.getclient().post(`${this.uri}/api/v1/expenses`, [{ ...props }])
+            return
+
+        } catch (err) {
+            if (err.response) {
+                return err.response.data
+            } return err.message
+        }
+    }
+    async fetchExpenseTypes(): Promise<string[]> {
+
+        try {
+            const { data } = await this.getclient().get(`${this.uri}/api/v1/expenses/getExpenseTypes`)
+            return data;
+        } catch (err) {
+            throw err;
+        }
+    }
+
+
+    async createPaidOutstanding(props: any): Promise<string | undefined> {
+
+        try {
+            await this.getclient().post(`${this.uri}/api/v1/paidoutstandings`, [{ ...props }])
             return
 
         } catch (err) {

@@ -3,7 +3,7 @@ import { toJS } from "mobx";
 import { StatsStore } from "./stats.store";
 import { useEffect } from "react";
 import React from "react";
-import { Row, Col, DatePicker, Radio, Table, Card } from "antd";
+import { Row, Col, DatePicker, Radio, Table, Card, Typography } from "antd";
 import moment, { Moment } from "moment";
 export const ReadStats: React.FC<any> = observer(() => {
   const store = useLocalStore(() => new StatsStore());
@@ -20,13 +20,13 @@ export const ReadStats: React.FC<any> = observer(() => {
   }, [stats]);
   return (
     <div id="readstatsview">
-      <h1>Here are the Stats</h1>
-      <Row>
-        <Col>
+      <Typography.Title>Here are the Stats</Typography.Title>
+      <Row type="flex" style={{ alignItems: "center" }}>
+        <Col span={12}>
           <DatePicker
             format="YYYY/MM/DD"
             defaultPickerValue={moment(currenttimestamp)}
-            onChange={(date: Moment | null, dateString: string) => {
+            onChange={(date: Moment | null) => {
               if (!date || date == null) return;
               store.setCurrentTimestamp(date.valueOf());
               return;
@@ -43,11 +43,12 @@ export const ReadStats: React.FC<any> = observer(() => {
             }}
           >
             <Radio value={"Y"}>By Year</Radio>
-            <Radio value={"D"}>By Month</Radio>
-            <Radio value={"M"}>By Date</Radio>
+            <Radio value={"M"}>By Month</Radio>
+            <Radio value={"D"}>By Date</Radio>
           </Radio.Group>
         </Col>
       </Row>
+      <p />
       <Row>
         <Card title="Simple Stats">
           <Table
