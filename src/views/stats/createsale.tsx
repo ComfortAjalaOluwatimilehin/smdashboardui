@@ -67,7 +67,6 @@ export const CreateSales: React.FC<any> = (props: any) => {
         <Form.Item label="Number of Bags Sold">
           <InputNumber
             min={1}
-            max={10}
             defaultValue={1}
             onChange={(value: number | undefined) => {
               if (!value) return;
