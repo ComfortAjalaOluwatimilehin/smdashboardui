@@ -170,6 +170,18 @@ class SmdashboardServiceSingleton extends RestClientSingleton {
             } return err.message
         }
     }
+
+    async deleteStatsByDate(timestamp: number): Promise<string | undefined> {
+
+        try {
+            await this.getclient().delete(`${this.uri}/api/v1/stats?timestamp=${timestamp}`)
+            return
+        } catch (err) {
+            if (err.response) {
+                return err.response.data
+            } return err.message
+        }
+    }
 }
 
 export const SmdashboardService = new SmdashboardServiceSingleton()
