@@ -25,7 +25,7 @@ export const ReadStats: React.FC<any> = observer(() => {
         <Col span={12}>
           <DatePicker
             format="YYYY/MM/DD"
-            defaultPickerValue={moment(currenttimestamp)}
+            defaultValue={moment(currenttimestamp)}
             onChange={(date: Moment | null) => {
               if (!date || date == null) return;
               store.setCurrentTimestamp(date.valueOf());
