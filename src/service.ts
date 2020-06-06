@@ -6,7 +6,7 @@ import Cookie from "js-cookie"
 import { TCurrentDateFilter, IMonthlySales } from "./views/stats/stats.store";
 
 class SmdashboardServiceSingleton extends RestClientSingleton {
-    uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "http://localhost:8080"
+    uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "https://arcane-bastion-12919.herokuapp.com"
 
     init() {
         const token: string | undefined = this.extracttoken()
