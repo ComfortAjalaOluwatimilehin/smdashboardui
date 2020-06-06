@@ -16,6 +16,7 @@ import {
 } from "antd";
 import moment, { Moment } from "moment";
 import { SmdashboardService } from "../../service";
+import { HomeStyles } from "./homestyles";
 
 export const ReadStats: React.FC<any> = observer(() => {
   const store = useLocalStore(() => new StatsStore());
@@ -109,7 +110,24 @@ export const ReadStats: React.FC<any> = observer(() => {
         title: "Unpaid Outstanding",
         dataIndex: "remaining_outstanding",
         key: "remaining_outstanding",
-        render: (value: number) => Number(value).toFixed(2),
+        render: (value: number) => {
+          const label: string = Number(value).toFixed(2);
+          if (value === 0)
+            return (
+              <span className="highlightedoutstanding greedfree">{label}</span>
+            );
+          if (value < 50)
+            return (
+              <span className="highlightedoutstanding lightred">{label}</span>
+            );
+          if (value >= 50 && value < 100)
+            return (
+              <span className="highlightedoutstanding mediumred">{label}</span>
+            );
+          return (
+            <span className="highlightedoutstanding deepred">{label}</span>
+          );
+        },
       },
     ];
     if (currentDateFilter === "D") {
@@ -127,7 +145,12 @@ export const ReadStats: React.FC<any> = observer(() => {
                     "An error occured while deleting the record, please contact the IT department"
                   );
                 } else {
-                  return handledelete(record);
+                  const res = window.confirm("are you sure about deleting ?");
+                  if (res === true) {
+                    return handledelete(record);
+                  } else {
+                    message.info("Nothing was deleted...");
+                  }
                 }
               }}
             >
@@ -144,6 +167,7 @@ export const ReadStats: React.FC<any> = observer(() => {
   return (
     <div id="readstatsview">
       <Typography.Title>Here are the Stats</Typography.Title>
+      <HomeStyles />
       <Row type="flex" style={{ alignItems: "center" }}>
         <Col span={12}>
           <DatePicker
