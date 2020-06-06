@@ -43,6 +43,8 @@ export const CreateExpenses: React.FC<any> = (props: any) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    const res = window.confirm("Are you sure ? Pleae check all inputs");
+    if (res === false) return;
     const response: string | undefined = await SmdashboardService.createExpense(
       {
         ...create,
