@@ -1,26 +1,20 @@
 import React from "react";
-import { Form, Icon, Input, Button, Col, Typography } from "antd";
-import { FormComponentProps } from "antd/lib/form/Form";
-interface ILoginProps extends FormComponentProps {
+import { Form, Input, Button, Col, Typography } from "antd";
+import Icon from "@ant-design/icons";
+interface ILoginProps {
   handlelogin: ({
     email,
-    password
+    password,
   }: {
     email: string;
     password: string;
   }) => any;
 }
 const NormalLoginForm: React.FC<ILoginProps> = (props: any) => {
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    props.form.validateFields((err: any, values: any) => {
-      if (!err) {
-        // console.log("Received values of form: ", values);
-      }
-      props.handlelogin({ ...values });
-    });
+  const onFinish = (values: any) => {
+    console.log("Received values of form: ", values);
+    props.handlelogin({ ...values });
   };
-  const { getFieldDecorator } = props.form;
   return (
     <Col style={{ maxWidth: "500px", flex: 1 }}>
       <Typography.Title
@@ -29,29 +23,25 @@ const NormalLoginForm: React.FC<ILoginProps> = (props: any) => {
       >
         Login to TQ Sales Management Dashboard
       </Typography.Title>
-      <Form onSubmit={handleSubmit} className="login-form">
-        <Form.Item>
-          {getFieldDecorator("email", {
-            rules: [{ required: true, message: "Please input your email!" }]
-          })(
-            <Input
-              prefix={
-                <Icon type="email" style={{ color: "rgba(0,0,0,.25)" }} />
-              }
-              placeholder="Email"
-            />
-          )}
+      <Form onFinish={onFinish} className="login-form">
+        <Form.Item
+          name="email"
+          rules={[{ required: true, message: "Please input your email!" }]}
+        >
+          <Input
+            prefix={<Icon type="email" style={{ color: "rgba(0,0,0,.25)" }} />}
+            placeholder="Email"
+          />
         </Form.Item>
-        <Form.Item>
-          {getFieldDecorator("password", {
-            rules: [{ required: true, message: "Please input your Password!" }]
-          })(
-            <Input
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-              type="password"
-              placeholder="Password"
-            />
-          )}
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: "Please input your Password!" }]}
+        >
+          <Input
+            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+            type="password"
+            placeholder="Password"
+          />
         </Form.Item>
         <Form.Item>
           <Button
@@ -67,6 +57,4 @@ const NormalLoginForm: React.FC<ILoginProps> = (props: any) => {
   );
 };
 
-export const WrappedNormalLoginForm = Form.create<ILoginProps>({
-  name: "normal_login"
-})(NormalLoginForm);
+export const WrappedNormalLoginForm = NormalLoginForm;

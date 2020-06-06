@@ -138,7 +138,8 @@ export const ReadStats: React.FC<any> = observer(() => {
         render: (text: any, record: any) => {
           return (
             <Button
-              type="danger"
+              danger
+              type="primary"
               onClick={() => {
                 if (!record.hasOwnProperty("dateAsString")) {
                   message.error(
@@ -168,7 +169,7 @@ export const ReadStats: React.FC<any> = observer(() => {
     <div id="readstatsview">
       <Typography.Title>Here are the Stats</Typography.Title>
       <HomeStyles />
-      <Row type="flex" style={{ alignItems: "center" }}>
+      <Row style={{ alignItems: "center" }}>
         <Col span={12}>
           <DatePicker
             format="YYYY/MM/DD"

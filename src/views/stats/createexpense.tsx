@@ -10,6 +10,7 @@ import {
 } from "antd";
 import moment, { Moment } from "moment";
 import { SmdashboardService } from "../../service";
+import { SelectValue } from "antd/lib/select";
 
 const { Option } = Select;
 
@@ -41,8 +42,10 @@ export const CreateExpenses: React.FC<any> = (props: any) => {
     });
   }, []);
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async (values: any) => {
+    console.log("values", values);
+    const res = window.confirm("Are you sure ? Pleae check all inputs");
+    if (res === false) return;
     const response: string | undefined = await SmdashboardService.createExpense(
       {
         ...create,
@@ -58,7 +61,7 @@ export const CreateExpenses: React.FC<any> = (props: any) => {
 
   return (
     <Card>
-      <Form onSubmit={handleSubmit} className="createsaless-form">
+      <Form onFinish={handleSubmit} className="createsaless-form">
         <Form.Item label="Date of Expense" required={true}>
           <DatePicker
             disabledDate={(current: Moment | null) => {
@@ -76,9 +79,9 @@ export const CreateExpenses: React.FC<any> = (props: any) => {
           <Form.Item label="Type of Expense">
             <Select
               style={{ minWidth: "100px" }}
-              onChange={(value: string | undefined) => {
+              onChange={(value: SelectValue) => {
                 if (!value) return;
-                setcreate({ ...create, type: value });
+                setcreate({ ...create, type: value + "" });
               }}
             >
               {expenseTypes.map((option: string) => {
@@ -91,9 +94,9 @@ export const CreateExpenses: React.FC<any> = (props: any) => {
           <InputNumber
             min={0}
             defaultValue={0}
-            onChange={(value: number | undefined) => {
+            onChange={(value: string | number | undefined) => {
               if (!value) return;
-              setcreate({ ...create, amount: value });
+              setcreate({ ...create, amount: Number(value) });
             }}
           />
         </Form.Item>

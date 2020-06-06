@@ -1,4 +1,5 @@
-import { Layout, Icon, Menu } from "antd";
+import { Layout, Menu } from "antd";
+import Icon, { LogoutOutlined } from "@ant-design/icons";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -74,7 +75,7 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
                     color: "white",
                   }}
                 >
-                  <Icon type="logout" />
+                  <LogoutOutlined />
                   <span>Logout</span>
                 </a>
               </Menu.Item>
