@@ -5,7 +5,7 @@ import { Wrapper } from "./wrapper";
 import { authContext } from "./authcontext";
 import { WrappedNormalLoginForm } from "./login.";
 import { toJS } from "mobx";
-export const AuthWrapper: React.FC<any> = observer(({ children }) => {
+export const AuthWrapper: React.FC<any> = observer(({ children }:{children:any}) => {
   const store = useObservable(AuthStore);
   let { isValid, initcomplete } = store;
   isValid = toJS(isValid);
@@ -28,7 +28,7 @@ export const AuthWrapper: React.FC<any> = observer(({ children }) => {
             </authContext.Provider>
           ) : (
             <WrappedNormalLoginForm
-              handlelogin={values => store.login(values)}
+              handlelogin={(values:any) => store.login(values)}
             />
           )}
         </Wrapper>

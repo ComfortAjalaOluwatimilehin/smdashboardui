@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 
-import { Form, Input, Tooltip, Icon, Row, Col, Button } from "antd";
-
-import { FormComponentProps } from "antd/lib/form/Form";
-interface IRegister extends FormComponentProps {}
-const NormalRegister: React.FC<IRegister> = (props: any) => {
+import { Form, Input, Tooltip, Row, Col, Button } from "antd";
+import Icon from "@ant-design/icons";
+const NormalRegister: React.FC<any> = (props: any) => {
   const [confirmDirty, setconfirmDirty] = useState(false);
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    props.form.validateFieldsAndScroll((err: any, values: any) => {
-      if (!err) {
-        console.log("Received values of form: ", values);
-      }
-    });
+  const [form] = Form.useForm();
+  const onFinish = (values: any) => {
+    console.log("Received values of form: ", values);
   };
 
   const handleConfirmBlur = (e: any) => {
@@ -31,80 +25,94 @@ const NormalRegister: React.FC<IRegister> = (props: any) => {
   };
 
   const validateToNextPassword = (rule: any, value: any, callback: any) => {
-    const { form } = props;
     if (value && confirmDirty) {
-      form.validateFields(["confirm"], { force: true });
+      form.validateFields(["confirm"]);
     }
     callback();
   };
 
-  const { getFieldDecorator } = props.form;
   const formItemLayout = {
     labelCol: {
       xs: { span: 24 },
-      sm: { span: 8 }
+      sm: { span: 8 },
     },
     wrapperCol: {
       xs: { span: 24 },
-      sm: { span: 16 }
-    }
+      sm: { span: 16 },
+    },
   };
   const tailFormItemLayout = {
     wrapperCol: {
       xs: {
         span: 24,
-        offset: 0
+        offset: 0,
       },
       sm: {
         span: 16,
-        offset: 8
-      }
-    }
+        offset: 8,
+      },
+    },
   };
 
   return (
-    <Form {...formItemLayout} onSubmit={handleSubmit}>
-      <Form.Item label="E-mail">
-        {getFieldDecorator("email", {
-          rules: [
-            {
-              type: "email",
-              message: "The input is not valid E-mail!"
-            },
-            {
-              required: true,
-              message: "Please input your E-mail!"
-            }
-          ]
-        })(<Input />)}
-      </Form.Item>
-      <Form.Item label="Password" hasFeedback>
-        {getFieldDecorator("password", {
-          rules: [
-            {
-              required: true,
-              message: "Please input your password!"
-            },
-            {
-              validator: validateToNextPassword
-            }
-          ]
-        })(<Input.Password />)}
-      </Form.Item>
-      <Form.Item label="Confirm Password" hasFeedback>
-        {getFieldDecorator("confirm", {
-          rules: [
-            {
-              required: true,
-              message: "Please confirm your password!"
-            },
-            {
-              validator: compareToFirstPassword
-            }
-          ]
-        })(<Input.Password onBlur={handleConfirmBlur} />)}
+    <Form {...formItemLayout} onFinish={onFinish}>
+      <Form.Item
+        label="E-mail"
+        name="email"
+        rules={[
+          {
+            type: "email",
+            message: "The input is not valid E-mail!",
+          },
+          {
+            required: true,
+            message: "Please input your E-mail!",
+          },
+        ]}
+      >
+        <Input />
       </Form.Item>
       <Form.Item
+        label="Password"
+        hasFeedback
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: "Please input your password!",
+          },
+          {
+            validator: validateToNextPassword,
+          },
+        ]}
+      >
+        <Input.Password />
+      </Form.Item>
+      <Form.Item
+        label="Confirm Password"
+        hasFeedback
+        name="confirm"
+        rules={[
+          {
+            required: true,
+            message: "Please confirm your password!",
+          },
+          {
+            validator: compareToFirstPassword,
+          },
+        ]}
+      >
+        <Input.Password onBlur={handleConfirmBlur} />
+      </Form.Item>
+      <Form.Item
+        name="nickname"
+        rules={[
+          {
+            required: true,
+            message: "Please input your nickname!",
+            whitespace: true,
+          },
+        ]}
         label={
           <span>
             Nickname&nbsp;
@@ -114,28 +122,23 @@ const NormalRegister: React.FC<IRegister> = (props: any) => {
           </span>
         }
       >
-        {getFieldDecorator("nickname", {
-          rules: [
-            {
-              required: true,
-              message: "Please input your nickname!",
-              whitespace: true
-            }
-          ]
-        })(<Input />)}
+        <Input />
       </Form.Item>
 
       <Form.Item
         label="Captcha"
+        name="captcha"
         extra="We must make sure that your are a human."
+        rules={[
+          {
+            required: true,
+            message: "Please input the captcha you got!",
+          },
+        ]}
       >
         <Row gutter={8}>
           <Col span={12}>
-            {getFieldDecorator("captcha", {
-              rules: [
-                { required: true, message: "Please input the captcha you got!" }
-              ]
-            })(<Input />)}
+            <Input />
           </Col>
           <Col span={12}>
             <Button>Get captcha</Button>
@@ -151,6 +154,4 @@ const NormalRegister: React.FC<IRegister> = (props: any) => {
   );
 };
 
-export const WrappedRegister = Form.create<IRegister>({ name: "normal_register" })(
-  NormalRegister
-);
+export const WrappedRegister = NormalRegister;

@@ -33,8 +33,8 @@ export const CreateSales: React.FC<any> = (props: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async (values: any) => {
+    console.log("values", values);
     const response: string | undefined = await SmdashboardService.createSale({
       ...create,
     });
@@ -51,7 +51,7 @@ export const CreateSales: React.FC<any> = (props: any) => {
   }));
   return (
     <Card>
-      <Form onSubmit={handleSubmit} className="createsaless-form">
+      <Form onFinish={handleSubmit} className="createsaless-form">
         <Form.Item label="Date of Sale" required={true}>
           <DatePicker
             disabledDate={(current: Moment | null) => {
@@ -68,9 +68,9 @@ export const CreateSales: React.FC<any> = (props: any) => {
           <InputNumber
             min={1}
             defaultValue={1}
-            onChange={(value: number | undefined) => {
+            onChange={(value: string | number | undefined) => {
               if (!value) return;
-              setcreate({ ...create, bags_solds: value });
+              setcreate({ ...create, bags_solds: Number(value) });
             }}
           />
         </Form.Item>
@@ -92,9 +92,9 @@ export const CreateSales: React.FC<any> = (props: any) => {
           <InputNumber
             min={1}
             defaultValue={1}
-            onChange={(value: number | undefined) => {
+            onChange={(value: string | number | undefined) => {
               if (!value) return;
-              setcreate({ ...create, paid_cash: value });
+              setcreate({ ...create, paid_cash: Number(value) });
             }}
           />
         </Form.Item>

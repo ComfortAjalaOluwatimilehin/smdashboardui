@@ -1,7 +1,7 @@
 import React, { ReactChild, ReactChildren } from "react";
 import { Row } from "antd";
 export const Wrapper = ({
-  children
+  children,
 }: {
   children: ReactChild | ReactChildren;
 }) => {
@@ -10,7 +10,6 @@ export const Wrapper = ({
       justify="center"
       align="middle"
       style={{ width: "100vw", minHeight: "100vh" }}
-      type="flex"
     >
       {children}
     </Row>
