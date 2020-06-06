@@ -7,20 +7,20 @@
   },
   {
     "icontype": "file-search",
-    "value": "All Orders",
-    "path": "/orders",
-    "key": "orders"
+    "value": "Create Sales",
+    "path": "/createsales",
+    "key": "createsales"
   },
   {
     "icontype": "team",
-    "value": "All Customers",
-    "path": "/customers",
-    "key": "customers"
+    "value": "Create Expenses",
+    "path": "/createexpenses",
+    "key": "createexpenses"
   },
   {
     "icontype": "plus",
-    "value": "createorder",
-    "path": "/createorder",
-    "key": "createorder"
+    "value": "Pay Outstanding",
+    "path": "/payoutstanding",
+    "key": "payoutstanding"
   }
 ]

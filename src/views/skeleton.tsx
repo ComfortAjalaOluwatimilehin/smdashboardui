@@ -4,14 +4,11 @@ import {
   BrowserRouter as Router,
   NavLink,
   Route,
-  RouteComponentProps
+  RouteComponentProps,
 } from "react-router-dom";
 import menustructurejson from "../auth/menustructure.json";
-import { AllOrders } from "./orders/index";
-import { AllCustomers } from "./customers/index";
-import { WrappedNormalCreateOrdersForm } from "./orders/createorder";
-import { SingleOrder } from "./orders/single";
 import { Home } from "./home";
+import { CreateSales } from "./stats/createsale";
 const { Header, Content } = Layout;
 export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
   const menulist: Array<{
@@ -46,11 +43,11 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
                         fontSize: " 21px",
                         padding: " .5em",
                         boxSizing: "border-box",
-                        display: "block"
+                        display: "block",
                       }}
                       activeStyle={{
                         fontWeight: "bold",
-                        color: "white"
+                        color: "white",
                       }}
                     >
                       <Icon type={menu.icontype} />
@@ -72,7 +69,7 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
                     boxSizing: "border-box",
                     display: " block",
 
-                    color: "white"
+                    color: "white",
                   }}
                 >
                   <Icon type="logout" />
@@ -84,7 +81,7 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
           <Content
             style={{
               margin: "24px 16px",
-              minHeight: 280
+              minHeight: 280,
             }}
           >
             <Route
@@ -93,31 +90,10 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
               component={(props: RouteComponentProps) => <Home {...props} />}
             />
             <Route
-              path="/orders"
+              path="/createsales"
               exact
               component={(props: RouteComponentProps) => (
-                <AllOrders {...props} />
-              )}
-            />
-            <Route
-              path="/customers"
-              exact
-              component={(props: RouteComponentProps) => (
-                <AllCustomers {...props} />
-              )}
-            />
-            <Route
-              path="/createorder"
-              exact
-              component={(props: RouteComponentProps) => (
-                <WrappedNormalCreateOrdersForm {...props} />
-              )}
-            />
-            <Route
-              path="/orders/:orderid"
-              exact
-              component={(props: RouteComponentProps) => (
-                <SingleOrder {...props} />
+                <CreateSales {...props} />
               )}
             />
           </Content>

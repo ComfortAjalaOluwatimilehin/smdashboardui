@@ -3,8 +3,11 @@ import { IOrder } from "./interfaces/order";
 import { ICustomer } from "./interfaces/customer";
 import { IProduct } from "./interfaces/product";
 import Cookie from "js-cookie"
+import { TCurrentDateFilter, IMonthlySales } from "./views/stats/stats.store";
+import Axios, { AxiosResponse } from "axios";
 class SmdashboardServiceSingleton extends RestClientSingleton {
-    uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "https://arcane-bastion-12919.herokuapp.com"
+    uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "http://localhost:8080"
+
     init() {
         const token: string | undefined = this.extracttoken()
 
@@ -111,6 +114,27 @@ class SmdashboardServiceSingleton extends RestClientSingleton {
         }
     }
 
+    async fetchStats({ timestamp, filterType }: { timestamp: number, filterType: TCurrentDateFilter }): Promise<IMonthlySales[]> {
+        let route = filterType === "Y" ? "getStatsByYear" : filterType === "D" ? "getStatsByDate" : "getStatsByMonth"
+        try {
+            const { data } = await this.getclient().get(`${this.uri}/api/v1/stats/${route}?timestamp=${timestamp}`)
+            return data
+        } catch (err) {
+            throw err
+        }
+    }
+    async createSale(props: any): Promise<string | undefined> {
+
+        try {
+            await this.getclient().post(`${this.uri}/api/v1/sales`, { ...props })
+            return
+
+        } catch (err) {
+            if (err.response) {
+                return err.response.data
+            } return err.message
+        }
+    }
 }
 
 export const SmdashboardService = new SmdashboardServiceSingleton()
