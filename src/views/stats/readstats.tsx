@@ -154,8 +154,14 @@ export const ReadStats: React.FC<any> = observer(() => {
   };
 
   return (
-    <Card title={<Typography.Title level={3}>Simple Stats</Typography.Title>}>
-      <Table dataSource={stats} columns={columns()} />
+    <Card
+      title={
+        <Typography.Title level={3}>
+          {store.datefiltertitle} sales summary
+        </Typography.Title>
+      }
+    >
+      <Table dataSource={stats} columns={columns()} scroll={{ x: true }} />
     </Card>
   );
 });

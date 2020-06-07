@@ -97,8 +97,8 @@ export const ReadExpenses: React.FC<any> = observer(() => {
   };
 
   return (
-    <Card title={<Typography.Title level={3}>Expenses</Typography.Title>}>
-      <Table dataSource={expenses} columns={columns()} />
+    <Card title={<Typography.Title level={3}>{store.datefiltertitle} expenses</Typography.Title>}>
+      <Table dataSource={expenses} columns={columns()} scroll={{ x: true }} />
     </Card>
   );
 });

@@ -98,9 +98,9 @@ export const ReadPos: React.FC<any> = observer(() => {
 
   return (
     <Card
-      title={<Typography.Title level={3}>Paid Outstandings</Typography.Title>}
+      title={<Typography.Title level={3}>{store.datefiltertitle} paid outstandings</Typography.Title>}
     >
-      <Table dataSource={pos} columns={columns()} />
+      <Table dataSource={pos} columns={columns()} scroll={{ x: true }} />
     </Card>
   );
 });

@@ -1,123 +1,85 @@
-import { Layout, Menu } from "antd";
-import Icon, { LogoutOutlined } from "@ant-design/icons";
+import { Menu } from "antd";
 import React from "react";
 import {
   BrowserRouter as Router,
-  NavLink,
   Route,
   RouteComponentProps,
 } from "react-router-dom";
-import menustructurejson from "../auth/menustructure.json";
 import { Home } from "./home";
 import { CreateSales } from "./stats/createsale";
 import { CreateExpenses } from "./stats/createexpense";
 import { CreatePaidOutstanding } from "./stats/createpoustanding";
 import { GeneralStyles } from "./generalstyling";
-const { Header, Content } = Layout;
+import { menustructurejson, IMenuItem } from "../auth/menustructure";
+
+const TQMenu: React.FC<any> = (props) => {
+  const handleMenuOnClick = ({
+    key,
+  }: {
+    item: any;
+    key: any;
+    keyPath: any;
+    domEvent: any;
+  }) => {
+    if (key === "logout") {
+      props.logout();
+    } else {
+      props.history.push(key);
+    }
+  };
+  return (
+    <div>
+      <Menu onClick={handleMenuOnClick} mode="horizontal">
+        {menustructurejson.map((menu: IMenuItem, index: number) => {
+          return (
+            <Menu.Item key={menu.path} icon={menu.icon} title={menu.value} />
+          );
+        })}
+      </Menu>
+    </div>
+  );
+};
 export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
-  const menulist: Array<{
-    icontype: string;
-    key: string;
-    value: string;
-    path: string;
-  }> = menustructurejson;
   return (
     <Router>
-      <Layout style={{ minHeight: "100vh" }}>
+      <main>
         <GeneralStyles />
-        <Header className="header">
-          <div className="logo" />
-        </Header>
-
-        <Layout>
-          <Header style={{ background: "#fff", padding: 0 }}>
-            <Menu
-              theme="dark"
-              mode="horizontal"
-              defaultSelectedKeys={["2"]}
-              style={{ lineHeight: "64px" }}
-            >
-              {menulist.map((menu, index) => {
-                return (
-                  <Menu.Item key="1">
-                    <NavLink
-                      exact
-                      to={menu.path}
-                      key={menu.key}
-                      style={{
-                        fontSize: " 21px",
-                        padding: " .5em",
-                        boxSizing: "border-box",
-                        display: "block",
-                      }}
-                      activeStyle={{
-                        fontWeight: "bold",
-                        color: "white",
-                      }}
-                    >
-                      <Icon type={menu.icontype} />
-                      <span> {menu.value}</span>
-                    </NavLink>
-                  </Menu.Item>
-                );
-              })}
-
-              <Menu.Item key="logout">
-                <a
-                  href="#/"
-                  onClick={() => {
-                    logout();
-                  }}
-                  style={{
-                    fontSize: " 21px",
-                    padding: "0.5em",
-                    boxSizing: "border-box",
-                    display: " block",
-
-                    color: "white",
-                  }}
-                >
-                  <LogoutOutlined />
-                  <span>Logout</span>
-                </a>
-              </Menu.Item>
-            </Menu>
-          </Header>
-          <Content
-            style={{
-              margin: "24px 16px",
-              minHeight: 280,
-            }}
-          >
-            <Route
-              path="/"
-              exact
-              component={(props: RouteComponentProps) => <Home {...props} />}
-            />
-            <Route
-              path="/createsales"
-              exact
-              component={(props: RouteComponentProps) => (
-                <CreateSales {...props} />
-              )}
-            />
-            <Route
-              path="/createexpenses"
-              exact
-              component={(props: RouteComponentProps) => (
-                <CreateExpenses {...props} />
-              )}
-            />
-            <Route
-              path="/payoutstanding"
-              exact
-              component={(props: RouteComponentProps) => (
-                <CreatePaidOutstanding {...props} />
-              )}
-            />
-          </Content>
-        </Layout>
-      </Layout>
+        <p id="tqsalesmanager">TQ Sales Manager</p>
+        <div>
+          <Route
+            path="/"
+            component={(props: RouteComponentProps) => (
+              <TQMenu {...props} logout={logout} />
+            )}
+          />
+          <Route
+            path="/"
+            exact
+            component={(props: RouteComponentProps) => <Home {...props} />}
+          />
+          <Route
+            path="/createsales"
+            exact
+            component={(props: RouteComponentProps) => (
+              <CreateSales {...props} />
+            )}
+          />
+          <Route
+            path="/createexpenses"
+            exact
+            component={(props: RouteComponentProps) => (
+              <CreateExpenses {...props} />
+            )}
+          />
+          <Route
+            path="/payoutstanding"
+            exact
+            component={(props: RouteComponentProps) => (
+              <CreatePaidOutstanding {...props} />
+            )}
+          />
+        </div>
+      </main>
     </Router>
   );
 };

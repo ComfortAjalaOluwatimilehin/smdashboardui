@@ -1,4 +1,4 @@
-import { observable, action } from "mobx";
+import { observable, action, computed } from "mobx";
 import moment from "moment";
 import { SmdashboardService } from "../../service";
 export interface IMonthlySales {
@@ -28,6 +28,7 @@ export interface IPos {
   amount_paid: number
 }
 export type TCurrentDateFilter = "year" | "month" | "day";
+export type TDateFilterTitle = "Annual" | "Monthly" | "Daily";
 export class StatsStoreSingleton {
   @observable stats: IMonthlySales[] = [];
   @observable expenses: IExpense[] = []
@@ -36,6 +37,9 @@ export class StatsStoreSingleton {
   @observable currentDateFilter: TCurrentDateFilter = "year";
   @observable hasAccess: boolean = false;
 
+  @computed get datefiltertitle(): TDateFilterTitle {
+    return this.currentDateFilter === "year" ? "Annual" : this.currentDateFilter === "day" ? "Daily" : "Monthly"
+  }
   constructor() {
     this.currenttimestamp = moment().utc().valueOf();
   }
