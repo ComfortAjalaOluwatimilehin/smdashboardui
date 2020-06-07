@@ -1,13 +1,14 @@
 import { RestClientSingleton } from "./auth/rest";
-import { IOrder } from "./interfaces/order";
-import { ICustomer } from "./interfaces/customer";
-import { IProduct } from "./interfaces/product";
 import Cookie from "js-cookie"
 import { TCurrentDateFilter, IMonthlySales } from "./views/stats/stats.store";
-
+import { tz } from "moment-timezone"
 class SmdashboardServiceSingleton extends RestClientSingleton {
-    uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "https://arcane-bastion-12919.herokuapp.com"
-
+    uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "http://localhost:8080"
+    tz: string;
+    constructor() {
+        super()
+        this.tz = tz.guess()
+    }
     init() {
         const token: string | undefined = this.extracttoken()
 
@@ -41,83 +42,13 @@ class SmdashboardServiceSingleton extends RestClientSingleton {
 
 
     }
-    async order({ orderid }: { orderid: string }): Promise<IOrder> {
-
-        try {
-            const { data } = await this.getclient().get(`${this.uri}/api/orders/${orderid}`)
-            if (typeof data === "object") return data
-            throw new Error("data format for order is invalid")
-        } catch (err) {
-            throw err
-        }
-    }
-    async orderstatus(): Promise<string[]> {
-
-        try {
-            const { data } = await this.getclient().get(`${this.uri}/api/orders/status`)
-
-            if (Array.isArray(data)) return data
-            throw new Error("data format for order  status is invalid")
-        } catch (err) {
-            throw err
-        }
-    }
-    async orders(): Promise<IOrder[]> {
-
-        try {
-            const { data } = await this.getclient().get(`${this.uri}/api/orders`)
-            if (Array.isArray(data)) return data
-            throw new Error("data format for orders is invalid")
-        } catch (err) {
-
-            throw err
-        }
-    }
-    async customers(): Promise<ICustomer[]> {
-
-        try {
-            const { data } = await this.getclient().get(`${this.uri}/api/customers`)
-            if (Array.isArray(data)) return data
-            throw new Error("data format for customers is invalid")
-        } catch (err) {
-
-            throw err
-        }
-    }
-    async products(): Promise<IProduct[]> {
-
-        try {
-            const { data } = await this.getclient().get(`${this.uri}/api/products`)
-            if (Array.isArray(data)) return data
-            throw new Error("data format for products is invalid")
-        } catch (err) {
-            throw err
-        }
-    }
-    async createorder(order: any): Promise<string> {
-
-        try {
-            await this.getclient().post(`${this.uri}/api/orders`, order)
-            return "Order added"
-        } catch (err) {
-            throw err
-        }
-    }
-
-    async patchorder({ orderid, update }: { orderid: string, update: any }): Promise<any> {
-
-        try {
-            await this.getclient().patch(`${this.uri}/api/orders/${orderid}`, update)
-            return
-        } catch (err) {
-            throw err
-        }
-    }
-
     async fetchStats({ timestamp, filterType }: { timestamp: number, filterType: TCurrentDateFilter }): Promise<IMonthlySales[]> {
         let route = filterType === "Y" ? "getStatsByYear" : filterType === "D" ? "getStatsByDate" : "getStatsByMonth"
+
+        const timezone = this.tz
+        timestamp = tz(timestamp, timezone).valueOf()
         try {
-            const { data } = await this.getclient().get(`${this.uri}/api/v1/stats/${route}?timestamp=${timestamp}`)
+            const { data } = await this.getclient().get(`${this.uri}/api/v1/stats/${route}?timestamp=${timestamp}&timezone=${timezone}`)
             return data
         } catch (err) {
             throw err
@@ -172,9 +103,10 @@ class SmdashboardServiceSingleton extends RestClientSingleton {
     }
 
     async deleteStatsByDate(timestamp: number): Promise<string | undefined> {
-
+        const timezone = this.tz
+        timestamp = tz(timestamp, timezone).valueOf()
         try {
-            await this.getclient().delete(`${this.uri}/api/v1/stats?timestamp=${timestamp}`)
+            await this.getclient().delete(`${this.uri}/api/v1/stats?timestamp=${timestamp}&timezone=${timezone}`)
             return
         } catch (err) {
             if (err.response) {

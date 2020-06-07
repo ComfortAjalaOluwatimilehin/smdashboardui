@@ -11,7 +11,7 @@ import {
 import moment, { Moment } from "moment";
 import { SmdashboardService } from "../../service";
 import { SelectValue } from "antd/lib/select";
-
+import { tz } from "moment-timezone";
 const { Option } = Select;
 
 export interface ICreateExpense {
@@ -70,7 +70,13 @@ export const CreateExpenses: React.FC<any> = (props: any) => {
             }}
             onChange={(date: Moment | null) => {
               if (!date || date == null) return;
-              setcreate({ ...create, expense_date: date.valueOf() });
+              setcreate({
+                ...create,
+                expense_date: tz(
+                  date.valueOf(),
+                  SmdashboardService.tz
+                ).valueOf(),
+              });
             }}
           />
         </Form.Item>

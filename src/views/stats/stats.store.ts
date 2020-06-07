@@ -20,11 +20,11 @@ export class StatsStore {
   @observable hasAccess: boolean = false;
 
   constructor() {
-    this.currenttimestamp = moment().valueOf();
+    this.currenttimestamp = moment().utc().valueOf();
   }
 
   @action public setCurrentDateFilter(filter: TCurrentDateFilter): void {
-    this.currentDateFilter = filter;
+    this.currentDateFilter = filter; 
   }
   @action public setCurrentTimestamp(timestamp: number): void {
     this.currenttimestamp = timestamp;

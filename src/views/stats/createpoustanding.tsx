@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Card, DatePicker, InputNumber, Button, message } from "antd";
 import moment, { Moment } from "moment";
 import { SmdashboardService } from "../../service";
-
+import { tz } from "moment-timezone";
 export interface ICreatePaidOutstanding {
   paid_date: number;
   amount_paid: number;
@@ -44,7 +44,10 @@ export const CreatePaidOutstanding: React.FC<any> = (props: any) => {
             }}
             onChange={(date: Moment | null) => {
               if (!date || date == null) return;
-              setcreate({ ...create, paid_date: date.valueOf() });
+              setcreate({
+                ...create,
+                paid_date: tz(date.valueOf(), SmdashboardService.tz).valueOf(),
+              });
             }}
           />
         </Form.Item>

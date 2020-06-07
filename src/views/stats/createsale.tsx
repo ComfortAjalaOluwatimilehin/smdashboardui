@@ -10,7 +10,7 @@ import {
 } from "antd";
 import moment, { Moment } from "moment";
 import { SmdashboardService } from "../../service";
-
+import { tz } from "moment-timezone";
 const { Option } = Select;
 
 export interface ICreateSale {
@@ -60,7 +60,10 @@ export const CreateSales: React.FC<any> = (props: any) => {
             }}
             onChange={(date: Moment | null) => {
               if (!date || date == null) return;
-              setcreate({ ...create, sale_date: date.valueOf() });
+              setcreate({
+                ...create,
+                sale_date: tz(date.valueOf(), SmdashboardService.tz).valueOf(),
+              });
             }}
           />
         </Form.Item>
