@@ -17,7 +17,7 @@ import {
 import moment, { Moment } from "moment";
 import { SmdashboardService } from "../../service";
 import { HomeStyles } from "./homestyles";
-
+import { tz } from "moment-timezone";
 export const ReadStats: React.FC<any> = observer(() => {
   const store = useLocalStore(() => new StatsStore());
   let { stats, currentDateFilter, currenttimestamp } = store;
@@ -173,10 +173,10 @@ export const ReadStats: React.FC<any> = observer(() => {
         <Col span={12}>
           <DatePicker
             format="YYYY/MM/DD"
-            defaultValue={moment(currenttimestamp)}
+            defaultValue={tz(currenttimestamp, SmdashboardService.tz)}
             onChange={(date: Moment | null) => {
               if (!date || date == null) return;
-              store.setCurrentTimestamp(date.valueOf());
+              store.setCurrentTimestamp(date.utc().valueOf());
               return;
             }}
           />
