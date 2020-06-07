@@ -3,7 +3,7 @@ import Cookie from "js-cookie"
 import { TCurrentDateFilter, IMonthlySales } from "./views/stats/stats.store";
 import { tz } from "moment-timezone"
 class SmdashboardServiceSingleton extends RestClientSingleton {
-    uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "http://localhost:8080"
+    uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "https://arcane-bastion-12919.herokuapp.com"
     tz: string;
     constructor() {
         super()
