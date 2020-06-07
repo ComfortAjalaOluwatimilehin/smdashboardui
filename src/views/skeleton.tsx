@@ -1,4 +1,4 @@
-import { Menu } from "antd";
+import { Menu, Typography } from "antd";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -44,7 +44,7 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
     <Router>
       <main>
         <GeneralStyles />
-
+        <p id="tqsalesmanager">TQ Sales Manager</p>
         <div>
           <Route
             path="/"

@@ -18,6 +18,14 @@ export const GeneralStyles = () => {
             .margin-md-left{margin-right:2em;}
             .margin-sm-right{margin-right:1em;}
             .margin-sm-left{margin-right:1em;}
+            #tqsalesmanager {
+              font-size: xx-large;
+              text-align: center;
+              margin: 0;
+              padding: 0;
+              font-weight: bolder;
+              background: #fafafa;
+          }
        </style>
         
         `,
