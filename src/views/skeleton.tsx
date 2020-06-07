@@ -12,6 +12,7 @@ import { Home } from "./home";
 import { CreateSales } from "./stats/createsale";
 import { CreateExpenses } from "./stats/createexpense";
 import { CreatePaidOutstanding } from "./stats/createpoustanding";
+import { GeneralStyles } from "./generalstyling";
 const { Header, Content } = Layout;
 export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
   const menulist: Array<{
@@ -23,6 +24,7 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
   return (
     <Router>
       <Layout style={{ minHeight: "100vh" }}>
+        <GeneralStyles />
         <Header className="header">
           <div className="logo" />
         </Header>

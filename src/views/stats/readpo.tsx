@@ -6,31 +6,32 @@ import React from "react";
 import { Table, Card, Button, message, Typography } from "antd";
 import moment from "moment";
 import { SmdashboardService } from "../../service";
-export const ReadStats: React.FC<any> = observer(() => {
+export const ReadPos: React.FC<any> = observer(() => {
   const store = useObservable(StatsStore);
-  let { stats, currentDateFilter, currenttimestamp } = store;
-  stats = toJS(stats);
+  let { pos, currentDateFilter, currenttimestamp } = store;
+  pos = toJS(pos);
   currentDateFilter = toJS(currentDateFilter);
   currenttimestamp = toJS(currenttimestamp);
   useEffect(() => {
-    store.fetchStats();
+    store.fetchPos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currenttimestamp, currentDateFilter]);
   useEffect(() => {
     //
-  }, [stats]);
+  }, [pos]);
 
   const handledelete = async (record: any) => {
-    const response = await SmdashboardService.deleteStatsByDate(
+    const response = await SmdashboardService.deletePosByDate(
       moment(record.dateAsString).valueOf()
     );
     if (response === undefined) {
       message.success("deleted...");
-      store.fetchStats();
+      store.fetchPos();
     } else {
       message.error(response);
     }
   };
+
   const columns = (): {
     title: string;
     dataIndex: string;
@@ -48,74 +49,16 @@ export const ReadStats: React.FC<any> = observer(() => {
         dataIndex: "dateAsString",
         key: "dateAsString",
       },
-      {
-        title: "Bags Sold",
-        dataIndex: "bags_solds",
-        key: "bags_solds",
-      },
-      {
-        title: "Expected Cash",
-        dataIndex: "derived_sales",
-        key: "derived_sales",
-        render: (value: number) =>
-          Number(value).toLocaleString(undefined, {
-            style: "currency",
-            currency: "NGN",
-          }),
-      },
-      {
-        title: "Paid Cash",
-        dataIndex: "paid_cash",
-        key: "paid_cash",
-        render: (value: number) =>
-          Number(value).toLocaleString(undefined, {
-            style: "currency",
-            currency: "NGN",
-          }),
-      },
 
       {
-        title: "Expenses",
-        dataIndex: "Expenses",
-        key: "Expenses",
-        render: (value: number) =>
-          Number(value).toLocaleString(undefined, {
-            style: "currency",
-            currency: "NGN",
-          }),
-      },
-      {
         title: "Paid Outstanding",
-        dataIndex: "PaidOutandings",
-        key: "PaidOutandings",
+        dataIndex: "amount_paid",
+        key: "amount_paid",
         render: (value: number) =>
           Number(value).toLocaleString(undefined, {
             style: "currency",
             currency: "NGN",
           }),
-      },
-      {
-        title: "Unpaid Outstanding",
-        dataIndex: "remaining_outstanding",
-        key: "remaining_outstanding",
-        render: (value: number) => {
-          const label: string = Number(value).toFixed(2);
-          if (value === 0)
-            return (
-              <span className="highlightedoutstanding greedfree">{label}</span>
-            );
-          if (value < 50)
-            return (
-              <span className="highlightedoutstanding lightred">{label}</span>
-            );
-          if (value >= 50 && value < 100)
-            return (
-              <span className="highlightedoutstanding mediumred">{label}</span>
-            );
-          return (
-            <span className="highlightedoutstanding deepred">{label}</span>
-          );
-        },
       },
     ];
     if (currentDateFilter === "day") {
@@ -154,8 +97,10 @@ export const ReadStats: React.FC<any> = observer(() => {
   };
 
   return (
-    <Card title={<Typography.Title level={3}>Simple Stats</Typography.Title>}>
-      <Table dataSource={stats} columns={columns()} />
+    <Card
+      title={<Typography.Title level={3}>Paid Outstandings</Typography.Title>}
+    >
+      <Table dataSource={pos} columns={columns()} />
     </Card>
   );
 });
