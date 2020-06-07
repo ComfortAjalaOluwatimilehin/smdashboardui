@@ -16,13 +16,13 @@ export const Home: React.FC<IHome> = observer((props) => {
     currentDateFilter === "day" ? {} : { picker: currentDateFilter };
   return (
     <Row justify="center" align="middle">
-      <Col span={24}>
+      <Col span={24} className="margin-sm-top">
         <HomeStyles />
       </Col>
       <Col span={24}>
         <div>
           <Row justify="center" align="middle">
-            <Col span={12}>
+            <Col span={12} className="margin-sm-top margin-sm-bottom">
               <DatePicker
                 {...datepickeroptions}
                 onChange={(date: Moment | null) => {
@@ -54,10 +54,26 @@ export const Home: React.FC<IHome> = observer((props) => {
           </div>
           <div className="margin-lg-top">
             <Row>
-              <Col span={12} flex="1" className="margin-sm-left">
+              <Col
+                xs={24}
+                sm={24}
+                md={24}
+                lg={12}
+                xl={12}
+                flex="1"
+                className="margin-sm-left"
+              >
                 <ReadExpenses />
               </Col>
-              <Col span={12} flex="1" className="margin-sm-right">
+              <Col
+                xs={24}
+                sm={24}
+                md={24}
+                lg={12}
+                xl={12}
+                flex="1"
+                className="margin-sm-right"
+              >
                 <ReadPos />
               </Col>
             </Row>
