@@ -6,6 +6,7 @@ import { tz } from "moment-timezone";
 export interface ICreatePaidOutstanding {
   paid_date: number;
   amount_paid: number;
+  timezone: string;
 }
 export const CreatePaidOutstanding: React.FC<any> = (props: any) => {
   const [create, setcreate]: [
@@ -14,10 +15,10 @@ export const CreatePaidOutstanding: React.FC<any> = (props: any) => {
   ] = useState({
     paid_date: moment().valueOf(),
     amount_paid: 0,
+    timezone: SmdashboardService.tz,
   });
 
   const handleSubmit = async (values: any) => {
-    console.log("values", values);
     const res = window.confirm("Are you sure ? Pleae check all inputs");
     if (res === false) return;
     const response:
