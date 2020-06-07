@@ -27,7 +27,17 @@ export const HomeStyles = () => {
             .deepred{
                 background: #e24b4b;font-weight:900;
             }
-
+            #statsexpensespos{
+              width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+            }
+            #statsexpensespos > div{
+              width:95%;
+            
+            }
        </style>
         
         `,
