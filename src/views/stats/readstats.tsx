@@ -161,7 +161,7 @@ export const ReadStats: React.FC<any> = observer(() => {
         </Typography.Title>
       }
     >
-      <Table dataSource={stats} columns={columns()} scroll={{ x: true }} />
+      <Table dataSource={stats} columns={columns()} scroll={{ x: true }} pagination={{pageSize:100}} />
     </Card>
   );
 });
