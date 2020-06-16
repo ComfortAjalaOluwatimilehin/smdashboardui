@@ -35,13 +35,16 @@ export class StatsStoreSingleton {
   @observable pos: IPos[] = []
   @observable currenttimestamp: number;
   @observable currentDateFilter: TCurrentDateFilter = "year";
-  @observable hasAccess: boolean = false;
+  @observable private hasAccess: boolean = false;
 
   @computed get datefiltertitle(): TDateFilterTitle {
     return this.currentDateFilter === "year" ? "Annual" : this.currentDateFilter === "day" ? "Daily" : "Monthly"
   }
   constructor() {
     this.currenttimestamp = moment().utc().valueOf();
+  }
+  @action public getHasAccess(): boolean {
+    return this.hasAccess
   }
 
   @action public setCurrentDateFilter(filter: TCurrentDateFilter): void {
@@ -61,7 +64,6 @@ export class StatsStoreSingleton {
       this.stats = stats;
     } catch (err) {
       this.stats = [];
-      this.hasAccess = true;
       console.error(err);
     }
   }
@@ -75,7 +77,6 @@ export class StatsStoreSingleton {
       this.expenses = expenses;
     } catch (err) {
       this.expenses = [];
-      this.hasAccess = true;
       console.error(err);
     }
   }
@@ -90,7 +91,6 @@ export class StatsStoreSingleton {
       this.pos = pos;
     } catch (err) {
       this.pos = [];
-      this.hasAccess = true;
       console.error(err);
     }
   }
