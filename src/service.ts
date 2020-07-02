@@ -1,7 +1,7 @@
 
 import { TCurrentDateFilter, IMonthlySales, IExpense, IPos } from "./views/stats/stats.store";
 import { tz } from "moment-timezone"
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 axios.defaults.withCredentials = true;
 export interface IExpenseType{
     type:string
@@ -23,8 +23,11 @@ class SmdashboardServiceSingleton  {
     async vtoken(): Promise<boolean> {
         try {
 
-            const isvalid: boolean = await axios.get(`${this.uri}/api/fvfjcnys`)
-            return isvalid
+            const response: AxiosResponse = await axios.get(`${this.uri}/api/fvfjcnys`)
+            if(response.status === 200){
+                return true 
+            }
+            else return false
         } catch (err) {
             console.error(err)
             return false

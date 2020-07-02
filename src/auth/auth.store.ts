@@ -6,21 +6,25 @@ class AuthStoreSingleton {
     @observable initcomplete: boolean = false
     constructor() {
         this.init()
-
+        this.intevalRepeat()
 
     }
-    async init() {
+    private async intevalRepeat():Promise<void>{
+        setInterval(async() => {
+            console.log("checked: checkIfStillValid")
+            await this.checkIfStillValid()
+        }, 600000)
+    }
+    private async checkIfStillValid():Promise<void>{
         try {
             const isvalid = await SmdashboardService.vtoken()
-            if (isvalid === false) {
-                this.isValid = false
-            } else {
-                this.isValid = true
-            }
+           this.isValid = isvalid
         } catch (err) {
             this.isValid = false
         }
-
+    }
+    private async init() {
+        await this.checkIfStillValid()
         this.initcomplete = true
     }
     get role(): string | undefined { return "" }
