@@ -12,7 +12,6 @@ interface ILoginProps {
 }
 const NormalLoginForm: React.FC<ILoginProps> = (props: any) => {
   const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
     props.handlelogin({ ...values });
   };
   return (

@@ -47,6 +47,19 @@ export const ReadStats: React.FC<any> = observer(() => {
         title: "Key",
         dataIndex: "dateAsString",
         key: "dateAsString",
+        render:(date:string) => {
+          console.log(currentDateFilter)
+          if(currentDateFilter === "day"){
+            return moment(date).format("dddd Do MMM YYYY")
+          }
+          else if(currentDateFilter === "month"){
+            return moment(date).format("dddd Do MMM YYYY")
+          }
+          else {
+            return moment(date).format("MMMM YYYY")
+          }
+            
+        }
       },
       {
         title: "Bags Sold",
@@ -100,15 +113,15 @@ export const ReadStats: React.FC<any> = observer(() => {
         key: "remaining_outstanding",
         render: (value: number) => {
           const label: string = Number(value).toFixed(2);
-          if (value === 0)
+          if (value <= 100)
             return (
               <span className="highlightedoutstanding greedfree">{label}</span>
             );
-          if (value < 50)
+          if (value > 100 && value < 1000)
             return (
               <span className="highlightedoutstanding lightred">{label}</span>
             );
-          if (value >= 50 && value < 100)
+          if (value > 1000 && value < 2000)
             return (
               <span className="highlightedoutstanding mediumred">{label}</span>
             );

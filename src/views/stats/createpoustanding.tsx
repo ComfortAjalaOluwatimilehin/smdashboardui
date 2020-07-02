@@ -9,6 +9,7 @@ export interface ICreatePaidOutstanding {
   timezone: string;
 }
 export const CreatePaidOutstanding: React.FC<any> = (props: any) => {
+  const [buttonIsOnRequest, setButtonIsOnRequest] = useState(false)
   const [create, setcreate]: [
     ICreatePaidOutstanding,
     (obj: ICreatePaidOutstanding) => any
@@ -21,6 +22,7 @@ export const CreatePaidOutstanding: React.FC<any> = (props: any) => {
   const handleSubmit = async (values: any) => {
     const res = window.confirm("Are you sure ? Pleae check all inputs");
     if (res === false) return;
+    setButtonIsOnRequest(true)
     const response:
       | string
       | undefined = await SmdashboardService.createPaidOutstanding({
@@ -29,9 +31,9 @@ export const CreatePaidOutstanding: React.FC<any> = (props: any) => {
     if (response) {
       message.error(response);
     } else {
-      message.success("Created. Redirecting...");
-      props.history.push("/");
+      message.success("Created");
     }
+    setButtonIsOnRequest(false)
   };
 
   return (
@@ -63,7 +65,7 @@ export const CreatePaidOutstanding: React.FC<any> = (props: any) => {
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" disabled={buttonIsOnRequest ? true : undefined}>
             Submit
           </Button>
         </Form.Item>

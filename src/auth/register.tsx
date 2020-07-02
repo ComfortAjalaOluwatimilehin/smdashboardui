@@ -6,7 +6,6 @@ const NormalRegister: React.FC<any> = (props: any) => {
   const [confirmDirty, setconfirmDirty] = useState(false);
   const [form] = Form.useForm();
   const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
   };
 
   const handleConfirmBlur = (e: any) => {

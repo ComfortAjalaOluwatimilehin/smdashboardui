@@ -31,12 +31,9 @@ class AuthStoreSingleton {
 
         try {
 
-            const token: string = await SmdashboardService.login({ email, password })
-            SmdashboardService.settoken(token)
+            await SmdashboardService.login({ email, password })
             this.isValid = true
         } catch (err) {
-            // console.error(err)
-            // message.error(err.message)
             this.isValid = false
         }
     }

@@ -2,8 +2,12 @@ import { RestClientSingleton } from "./auth/rest";
 import Cookie from "js-cookie"
 import { TCurrentDateFilter, IMonthlySales, IExpense, IPos } from "./views/stats/stats.store";
 import { tz } from "moment-timezone"
+
+export interface IExpenseType{
+    type:string
+}
 class SmdashboardServiceSingleton extends RestClientSingleton {
-    uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "https://arcane-bastion-12919.herokuapp.com"
+    uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "http://localhost:8080"
     tz: string;
     constructor() {
         super()
@@ -12,23 +16,19 @@ class SmdashboardServiceSingleton extends RestClientSingleton {
     init() {
         const token: string | undefined = this.extracttoken()
 
-        this.settoken(token)
+        if(token){
+            this.settoken(token)
+        }
     }
     private extracttoken(): string | undefined {
         const token: string | undefined = Cookie.get("token")
         return token
     }
-    async login({ email, password }: { email: string, password: string }): Promise<string> {
-        try {
-
+    async login({ email, password }: { email: string, password: string }): Promise<void> {
             const { data } = await this.getclient().post(`${this.uri}/login`, { email, password })
             if (typeof data !== "string") throw new Error("Format of login request response is invalid")
-            //  console.log(data)
-            return data
-        } catch (err) {
-
-            throw err
-        }
+            console.log(data)
+            this.settoken(data)
 
     }
     async vtoken(): Promise<boolean> {
@@ -104,7 +104,7 @@ class SmdashboardServiceSingleton extends RestClientSingleton {
             } return err.message
         }
     }
-    async fetchExpenseTypes(): Promise<string[]> {
+    async fetchExpenseTypes(): Promise<IExpenseType[]> {
 
         try {
             const { data } = await this.getclient().get(`${this.uri}/api/v1/expenses/getExpenseTypes`)

@@ -6,10 +6,11 @@ import {
   InputNumber,
   Select,
   Button,
+  Input,
   message,
 } from "antd";
 import moment, { Moment } from "moment";
-import { SmdashboardService } from "../../service";
+import { SmdashboardService, IExpenseType } from "../../service";
 import { SelectValue } from "antd/lib/select";
 import { tz } from "moment-timezone";
 const { Option } = Select;
@@ -18,8 +19,10 @@ export interface ICreateExpense {
   expense_date: number;
   type: string;
   amount: number;
+  manager_note?:string
 }
 export const CreateExpenses: React.FC<any> = (props: any) => {
+  const [buttonIsOnRequest, setButtonIsOnRequest] = useState(false)
   const [create, setcreate]: [
     ICreateExpense,
     (obj: ICreateExpense) => any
@@ -29,7 +32,7 @@ export const CreateExpenses: React.FC<any> = (props: any) => {
     amount: 0,
   });
   const [expenseTypes, setexpenseTypes]: [
-    string[],
+   IExpenseType[],
     (...args: any) => any
   ] = useState([]);
   useEffect(() => {
@@ -43,9 +46,9 @@ export const CreateExpenses: React.FC<any> = (props: any) => {
   }, []);
 
   const handleSubmit = async (values: any) => {
-    console.log("values", values);
     const res = window.confirm("Are you sure ? Pleae check all inputs");
     if (res === false) return;
+    setButtonIsOnRequest(true)
     const response: string | undefined = await SmdashboardService.createExpense(
       {
         ...create,
@@ -54,9 +57,10 @@ export const CreateExpenses: React.FC<any> = (props: any) => {
     if (response) {
       message.error(response);
     } else {
-      message.success("Created. Redirecting...");
-      props.history.push("/");
+      message.success("Created.");
+      
     }
+    setButtonIsOnRequest(false)
   };
 
   return (
@@ -90,8 +94,8 @@ export const CreateExpenses: React.FC<any> = (props: any) => {
                 setcreate({ ...create, type: value + "" });
               }}
             >
-              {expenseTypes.map((option: string) => {
-                return <Option value={option}>{option}</Option>;
+              {expenseTypes.map((option: IExpenseType) => {
+                return <Option value={option.type}>{option.type}</Option>;
               })}
             </Select>
           </Form.Item>
@@ -106,8 +110,15 @@ export const CreateExpenses: React.FC<any> = (props: any) => {
             }}
           />
         </Form.Item>
+        <Form.Item label="Extra Information?">
+          <Input.TextArea rows={4} defaultValue=""  onChange={(e) =>{
+            const value = e.target.value
+            if(!value) return 
+            setcreate({...create, manager_note:value})
+          }}/>
+        </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" disabled={buttonIsOnRequest ? true : undefined}>
             Submit
           </Button>
         </Form.Item>

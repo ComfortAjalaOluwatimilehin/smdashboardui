@@ -20,6 +20,7 @@ export interface ICreateSale {
   price_rate: number;
 }
 export const CreateSales: React.FC<any> = (props: any) => {
+  const [buttonIsOnRequest, setButtonIsOnRequest] = useState(false)
   const [create, setcreate]: [
     ICreateSale,
     (obj: ICreateSale) => any
@@ -34,16 +35,18 @@ export const CreateSales: React.FC<any> = (props: any) => {
   }, []);
 
   const handleSubmit = async (values: any) => {
-    console.log("values", values);
+    const res = window.confirm("Are you sure ? Pleae check all inputs");
+    if (res === false) return;
+    setButtonIsOnRequest(true)
     const response: string | undefined = await SmdashboardService.createSale({
       ...create,
     });
     if (response) {
       message.error(response);
     } else {
-      message.success("Created. Redirecting...");
-      props.history.push("/");
+      message.success("Created.");
     }
+    setButtonIsOnRequest(false)
   };
   const priceRateOptions = [10, 11, 12, 13, 14].map((item) => ({
     text: `₦1000 per ${item} bags`,
@@ -102,7 +105,7 @@ export const CreateSales: React.FC<any> = (props: any) => {
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" disabled={buttonIsOnRequest ? true : undefined}>
             Submit
           </Button>
         </Form.Item>
