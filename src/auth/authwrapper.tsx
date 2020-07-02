@@ -11,7 +11,7 @@ export const AuthWrapper: React.FC<any> = observer(({ children }:{children:any})
   isValid = toJS(isValid);
   initcomplete = toJS(initcomplete);
   useEffect(() => {
-    console.log("already rendered");
+    console.log("isvalid" ,isValid);
   }, [isValid]);
 
   return (
