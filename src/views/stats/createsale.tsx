@@ -6,7 +6,7 @@ import {
   InputNumber,
   Select,
   Button,
-  message,
+  message,Alert 
 } from "antd";
 import moment, { Moment } from "moment";
 import { SmdashboardService } from "../../service";
@@ -93,6 +93,10 @@ export const CreateSales: React.FC<any> = (props: any) => {
               return <Option value={option.value}>{option.text}</Option>;
             })}
           </Select>
+        </Form.Item>
+        <Form.Item>
+          <Alert  type="info" message={`Expected Cash`} description= {`${(create.bags_solds * create.price_rate).toFixed(2)}`}/>
+          <small>Difference: <b>{create.paid_cash - (create.bags_solds * create.price_rate)}</b></small>
         </Form.Item>
         <Form.Item label="How much cash is with you ?">
           <InputNumber
