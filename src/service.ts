@@ -7,7 +7,7 @@ export interface IExpenseType{
     type:string
 }
 class SmdashboardServiceSingleton  {
-    uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "http://localhost:8080"
+    uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "https://arcane-bastion-12919.herokuapp.com"
     tz: string;
     constructor() {
         this.tz = tz.guess()
