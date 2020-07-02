@@ -20,7 +20,7 @@ class AuthStoreSingleton {
             const isvalid = await SmdashboardService.vtoken()
            this.isValid = isvalid
         } catch (err) {
-            this.isValid = false
+            this.logout()
         }
     }
     private async init() {
