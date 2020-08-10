@@ -6,6 +6,7 @@ import React from "react";
 import { Table, Card, Button, message, Typography } from "antd";
 import moment from "moment";
 import { SmdashboardService } from "../../service";
+import { GraphicalRepresentation } from "../plots/plot";
 export const ReadStats: React.FC<any> = observer(() => {
   const store = useObservable(StatsStore);
   let { stats, currentDateFilter, currenttimestamp } = store;
@@ -18,6 +19,7 @@ export const ReadStats: React.FC<any> = observer(() => {
   }, [currenttimestamp, currentDateFilter]);
   useEffect(() => {
     //
+    console.log(stats)
   }, [stats]);
 
   const handledelete = async (record: any) => {
@@ -175,6 +177,7 @@ export const ReadStats: React.FC<any> = observer(() => {
       }
     >
       <Table dataSource={stats} columns={columns()} scroll={{ x: true }} pagination={{pageSize:100}} />
+    <GraphicalRepresentation data={stats} />
     </Card>
   );
 });

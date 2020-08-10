@@ -10,6 +10,12 @@ class SmdashboardServiceSingleton  {
     uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" = "https://arcane-bastion-12919.herokuapp.com"
     tz: string;
     constructor() {
+        const url : string = global.window.location.href 
+        if(url.search("localhost")){
+            this.uri = "http://localhost:8080"
+        }else{
+            this.uri = "https://arcane-bastion-12919.herokuapp.com"
+        }
         this.tz = tz.guess()
     }
 
