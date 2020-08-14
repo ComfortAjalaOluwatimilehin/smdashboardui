@@ -1,7 +1,7 @@
 
 import React from "react"
 import { Row, Card } from "antd";
-import {Chart, Geom, Legend, Axis} from "bizcharts"
+import {Chart, Legend, Axis, Interval} from "bizcharts"
 import { IMonthlySales } from "../stats/stats.store";
 import { toJS } from "mobx";
 export const GraphicalRepresentation: React.FC<{data:IMonthlySales[]}> = ((props:any) => {
@@ -20,12 +20,11 @@ export const GraphicalRepresentation: React.FC<{data:IMonthlySales[]}> = ((props
             data={toJS(props.data)}
             scale={scale}
             position="dateAsString*paid_cash">
-         <Legend />
-          <Axis name="dateAsString" />
-          <Axis
-            name="paid_cash"/>
-           <Geom type="line" position="dateAsString*paid_cash" 
-            shape={"smooth"}   size={3} />
+            <Legend />
+            <Axis name="dateAsString" />
+            <Axis
+              name="paid_cash"/>
+            <Interval position="dateAsString*paid_cash" />
         </Chart>
           </Card>
         </Row>
