@@ -7,7 +7,7 @@ import { toJS } from "mobx";
 export const GraphicalRepresentation: React.FC<{data:IMonthlySales[]}> = ((props:any) => {
   
   const scale : any = {
-    dateAsString:{type:"time", mask: 'DD-MM-YYYY,dddd'},
+    dateAsString:{type:"time", mask: 'DD-MM-YY'},
     paid_cash:{type:"linear", formatter: (str: number) => str.toLocaleString("en") }
   }
     return (
