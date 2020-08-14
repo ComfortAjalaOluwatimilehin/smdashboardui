@@ -7,7 +7,7 @@ import { toJS } from "mobx";
 export const GraphicalRepresentation: React.FC<{data:IMonthlySales[]}> = ((props:any) => {
   
   const scale : any = {
-    dateAsString:{type:"time", mask: 'YYYY-MM-DD'},
+    dateAsString:{type:"time", mask: 'DD-MM-YYYY,dddd'},
     paid_cash:{type:"linear", formatter: (str: number) => str.toLocaleString("en") }
   }
     return (
@@ -19,7 +19,6 @@ export const GraphicalRepresentation: React.FC<{data:IMonthlySales[]}> = ((props
             height={200} 
             data={toJS(props.data)}
             scale={scale}
-            type="interval"
             position="dateAsString*paid_cash">
          <Legend />
           <Axis name="dateAsString" />
