@@ -103,6 +103,18 @@ class SmdashboardServiceSingleton  {
             } return err.message
         }
     }
+    async createMaterialEntry(props: any): Promise<string | undefined> {
+
+        try {
+            await axios.post(`${this.uri}/api/v1/materials/createMaterialEntry`, { ...props })
+            return
+
+        } catch (err) {
+            if (err.response) {
+                return err.response.data
+            } return err.message
+        }
+    }
     async fetchExpenseTypes(): Promise<IExpenseType[]> {
 
         try {
@@ -112,7 +124,15 @@ class SmdashboardServiceSingleton  {
             throw err;
         }
     }
+    async fetchMaterialTypes(): Promise<{type:string, value:string}[]> {
 
+        try {
+            const { data } = await axios.get(`${this.uri}/api/v1/materials/getTypes`)
+            return data;
+        } catch (err) {
+            throw err;
+        }
+    }
 
     async createPaidOutstanding(props: any): Promise<string | undefined> {
 

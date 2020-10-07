@@ -11,7 +11,7 @@ import { CreateExpenses } from "./stats/createexpense";
 import { CreatePaidOutstanding } from "./stats/createpoustanding";
 import { GeneralStyles } from "./generalstyling";
 import { menustructurejson, IMenuItem } from "../auth/menustructure";
-import { GraphicalRepresentation } from "./plots/plot";
+import { CreateMaterial } from "./stats/creatematerial";
 
 const TQMenu: React.FC<any> = (props) => {
   const handleMenuOnClick = ({
@@ -79,7 +79,13 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
               <CreatePaidOutstanding {...props} />
             )}
           />
-        
+        <Route
+            path="/creatematerial"
+            exact
+            component={(props: RouteComponentProps) => (
+              <CreateMaterial {...props} />
+            )}
+          />
         </div>
       </main>
     </Router>

@@ -5,7 +5,7 @@ import {
   TagOutlined,
   PaperClipOutlined,
   LogoutOutlined,
-  AreaChartOutlined
+AuditOutlined
 } from "@ant-design/icons";
 export interface IMenuItem {
   icon: React.ReactNode | string;
@@ -39,10 +39,10 @@ export const menustructurejson: Array<IMenuItem> = [
     key: "payoutstanding",
   },
   {
-    icon: <AreaChartOutlined />,
-    value: "Graph",
-    path: "/graphrepresentation",
-    key: "graphrepresentation",
+    icon: <AuditOutlined />,
+    value: "Materials",
+    path: "/creatematerial",
+    key: "creatematerial",
   },
   {
     icon: <LogoutOutlined />,
