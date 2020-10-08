@@ -1,12 +1,12 @@
 import { observer, useObservable } from "mobx-react-lite";
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { ReadStats } from "./stats/readstats";
-import { ReadExpenses } from "./stats/readexpenses";
-import { ReadPos } from "./stats/readpo";
+import { ReadStats } from "./subviews/readstats";
+import { ReadExpenses } from "./subviews/readexpenses";
+import { ReadPos } from "./subviews/readpo";
 import { Row, Col, DatePicker, Radio } from "antd";
-import { HomeStyles } from "./stats/homestyles";
-import { StatsStore } from "./stats/stats.store";
+import { HomeStyles } from "./subviews/homestyles";
+import { StatsStore } from "./subviews/stats.store";
 import { Moment } from "moment";
 export interface IHome extends RouteComponentProps {}
 export const Home: React.FC<IHome> = observer((props) => {

@@ -6,12 +6,13 @@ import {
   RouteComponentProps,
 } from "react-router-dom";
 import { Home } from "./home";
-import { CreateSales } from "./stats/createsale";
-import { CreateExpenses } from "./stats/createexpense";
-import { CreatePaidOutstanding } from "./stats/createpoustanding";
+import { CreateSales } from "./subviews/createsale";
+import { CreateExpenses } from "./subviews/createexpense";
+import { CreatePaidOutstanding } from "./subviews/createpoustanding";
 import { GeneralStyles } from "./generalstyling";
 import { menustructurejson, IMenuItem } from "../auth/menustructure";
-import { CreateMaterial } from "./stats/creatematerial";
+import { CreateMaterial } from "./subviews/creatematerial";
+import { CreateEmployee } from "./subviews/createemployee";
 
 const TQMenu: React.FC<any> = (props) => {
   const handleMenuOnClick = ({
@@ -84,6 +85,13 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
             exact
             component={(props: RouteComponentProps) => (
               <CreateMaterial {...props} />
+            )}
+          />
+          <Route
+            path="/createemployees"
+            exact
+            component={(props: RouteComponentProps) => (
+              <CreateEmployee {...props} />
             )}
           />
         </div>

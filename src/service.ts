@@ -1,5 +1,5 @@
 
-import { TCurrentDateFilter, IMonthlySales, IExpense, IPos } from "./views/stats/stats.store";
+import { TCurrentDateFilter, IMonthlySales, IExpense, IPos } from "./views/subviews/stats.store";
 import { tz } from "moment-timezone"
 import axios, { AxiosResponse } from "axios"
 axios.defaults.withCredentials = true;
@@ -146,7 +146,18 @@ class SmdashboardServiceSingleton  {
             } return err.message
         }
     }
+    async createEmployee(props: any): Promise<string | undefined> {
 
+        try {
+            await axios.post(`${this.uri}/api/v1/employees`, { ...props })
+            return
+
+        } catch (err) {
+            if (err.response) {
+                return err.response.data
+            } return err.message
+        }
+    }
     async deleteStatsByDate(timestamp: number): Promise<string | undefined> {
         const timezone = this.tz
         timestamp = tz(timestamp, timezone).valueOf()

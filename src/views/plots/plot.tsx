@@ -2,7 +2,7 @@
 import React from "react"
 import { Row, Card } from "antd";
 import {Chart, Legend, Axis, Interval} from "bizcharts"
-import { IMonthlySales } from "../stats/stats.store";
+import { IMonthlySales } from "../subviews/stats.store";
 import { toJS } from "mobx";
 export const GraphicalRepresentation: React.FC<{data:IMonthlySales[]}> = ((props:any) => {
   
