@@ -133,7 +133,15 @@ class SmdashboardServiceSingleton  {
             throw err;
         }
     }
+    async fetchMaterials(): Promise<any[]> {
 
+        try {
+            const { data } = await axios.get(`${this.uri}/api/v1/materials`)
+            return data;
+        } catch (err) {
+            throw err;
+        }
+    }
     async createPaidOutstanding(props: any): Promise<string | undefined> {
 
         try {

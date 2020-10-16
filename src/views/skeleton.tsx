@@ -11,8 +11,8 @@ import { CreateExpenses } from "./subviews/createexpense";
 import { CreatePaidOutstanding } from "./subviews/createpoustanding";
 import { GeneralStyles } from "./generalstyling";
 import { menustructurejson, IMenuItem } from "../auth/menustructure";
-import { CreateMaterial } from "./subviews/creatematerial";
 import { CreateEmployee } from "./subviews/createemployee";
+import { Materials } from "./material";
 
 const TQMenu: React.FC<any> = (props) => {
   const handleMenuOnClick = ({
@@ -81,10 +81,10 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
             )}
           />
         <Route
-            path="/creatematerial"
+            path="/materials"
             exact
             component={(props: RouteComponentProps) => (
-              <CreateMaterial {...props} />
+              <Materials {...props} />
             )}
           />
           <Route
