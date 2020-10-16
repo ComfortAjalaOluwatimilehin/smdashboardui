@@ -36,6 +36,12 @@ const cols : {
     title: "Amount",
     dataIndex: "number",
     key: "number"
+  },{
+    title: "Price",
+    dataIndex: "cost",
+    key: "cost", render:(cost:string) => {
+        return `₦ ${cost}`
+       }
   }]
 export const MaterialList: React.FC<any> = () => {
 
