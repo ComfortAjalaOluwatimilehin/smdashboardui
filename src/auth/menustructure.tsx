@@ -47,8 +47,8 @@ export const menustructurejson: Array<IMenuItem> = [
   {
     icon: <TeamOutlined />,
     value: "Employees",
-    path: "/createemployees",
-    key: "createemployees",
+    path: "/employees",
+    key: "employees",
   },
   {
     icon: <LogoutOutlined />,
