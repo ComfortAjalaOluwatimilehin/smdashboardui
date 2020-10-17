@@ -6,7 +6,7 @@ import React from "react";
 import { Table, Card, Button, message, Typography } from "antd";
 import moment from "moment";
 import { SmdashboardService } from "../../service";
-import { GraphicalRepresentation } from "../plots/plot";
+import { GraphicalRepresentation } from "../subviews/plot";
 export const ReadStats: React.FC<any> = observer(() => {
   const store = useObservable(StatsStore);
   let { stats, currentDateFilter, currenttimestamp } = store;
