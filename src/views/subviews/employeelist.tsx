@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
-import {Table} from "antd"
+import {Table, Switch} from "antd"
 import { SmdashboardService } from "../../service";
-import moment from "moment";
+
 export interface IEmployee{
     address: string
     date_joined: Date;
@@ -12,7 +12,7 @@ export interface IEmployee{
     notes: string;
     phone_number: string;
     salary_type:string;
-    status: true;
+    status: boolean;
     __v: number;
     _id:string;
 }
@@ -30,7 +30,16 @@ const cols : {
     title: "Phone number",
     dataIndex: "phone_number",
     key: "phone_number"
-  }]
+  },
+  {
+    title: "Active",
+    dataIndex: "status",
+    key: "status",
+    render:(status:boolean) => {
+      return <Switch disabled={true} defaultChecked={status} />
+    }
+  }
+]
 export const EmployeeList: React.FC<any> = () => {
 
         const [employees, setEmployees]: [IEmployee[], (...args:any) => any]  = useState([]);
