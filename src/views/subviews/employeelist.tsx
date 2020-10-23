@@ -48,7 +48,7 @@ export const EmployeeList: React.FC<any> = () => {
                 setEmployees(empl)
             })
         }, [])
-        console.log(employees)
+
         return (
                 <div>
                    <Table dataSource={employees} columns={cols}/>

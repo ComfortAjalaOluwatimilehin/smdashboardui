@@ -42,6 +42,13 @@ const cols : {
     key: "cost", render:(cost:string) => {
         return `₦ ${cost}`
        }
+  },
+  {
+    title: "Derived  price per unit",
+    dataIndex: "derived_price_per_unit",
+    key: "derived_price_per_unit", render:(derived_price_per_unit:number) => {
+        return `₦ ${derived_price_per_unit.toLocaleString()}`
+       }
   }]
 export const MaterialList: React.FC<any> = () => {
 
@@ -51,10 +58,9 @@ export const MaterialList: React.FC<any> = () => {
                     setMaterials(ms)
             })
         }, [])
-        console.log(materials)
         return (
                 <div>
-                   <Table dataSource={materials} columns={cols}/>
+                   <Table dataSource={materials.map((i, index) => ({...i, derived_price_per_unit: (i.cost / i.number) }))} columns={cols}/>
                 </div>
 
         )
