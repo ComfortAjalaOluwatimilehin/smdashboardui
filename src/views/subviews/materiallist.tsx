@@ -39,8 +39,8 @@ const cols : {
   },{
     title: "Price",
     dataIndex: "cost",
-    key: "cost", render:(cost:string) => {
-        return `₦ ${cost}`
+    key: "cost", render:(cost:number) => {
+        return `₦ ${cost.toLocaleString()}`
        }
   },
   {
