@@ -13,6 +13,7 @@ import { GeneralStyles } from "./generalstyling";
 import { menustructurejson, IMenuItem } from "../auth/menustructure";
 import { Materials } from "./material";
 import { Employees } from "./employee";
+import { Contacts } from "./contacts";
 
 const TQMenu: React.FC<any> = (props) => {
   const handleMenuOnClick = ({
@@ -93,7 +94,13 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
             component={(props: RouteComponentProps) => (
               <Employees {...props} />
             )}
-          />
+          /> <Route
+          path="/contacts"
+          exact
+          component={(props: RouteComponentProps) => (
+            <Contacts {...props} />
+          )}
+        />
         </div>
       </main>
     </Router>

@@ -149,6 +149,14 @@ class SmdashboardServiceSingleton  {
         } catch (err) {
             throw err;
         }
+    }async fetchContacts(): Promise<any[]> {
+
+        try {
+            const { data } = await axios.get(`${this.uri}/api/v1/contacts`)
+            return data;
+        } catch (err) {
+            throw err;
+        }
     }
     async createPaidOutstanding(props: any): Promise<string | undefined> {
 
@@ -166,6 +174,17 @@ class SmdashboardServiceSingleton  {
 
         try {
             await axios.post(`${this.uri}/api/v1/employees`, { ...props })
+            return
+
+        } catch (err) {
+            if (err.response) {
+                return err.response.data
+            } return err.message
+        }
+    }async createContact(props: any): Promise<string | undefined> {
+
+        try {
+            await axios.post(`${this.uri}/api/v1/contacts`, { ...props })
             return
 
         } catch (err) {

@@ -14,7 +14,7 @@ export const Materials : React.FC<any> = () => {
             <TabPane tab="Materials" key="1">
              <MaterialList />
             </TabPane>
-            <TabPane tab="Create new material" key="2">
+            <TabPane tab="New material" key="2">
               <CreateMaterial/>
             </TabPane>
           </Tabs>

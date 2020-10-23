@@ -47,7 +47,7 @@ const cols : {
     title: "Derived  price per unit",
     dataIndex: "derived_price_per_unit",
     key: "derived_price_per_unit", render:(derived_price_per_unit:number) => {
-        return `₦ ${derived_price_per_unit.toLocaleString()}`
+        return <span style={{color:"#2196F3",fontWeight:"bold"}}>`₦ ${derived_price_per_unit.toLocaleString()}`</span>
        }
   }]
 export const MaterialList: React.FC<any> = () => {
