@@ -9,7 +9,10 @@ import {
 import { SmdashboardService } from "../../service";
 
 export interface ICreateContact {
-   c
+  full_name: string;
+  address: string;
+  phone_number: string;
+  notes: string;
 }
 export const CreateContact: React.FC<any> = (props: any) => {
   const [buttonIsOnRequest, setButtonIsOnRequest] = useState(false)
