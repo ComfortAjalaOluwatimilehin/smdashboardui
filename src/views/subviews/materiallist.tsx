@@ -49,7 +49,8 @@ const cols : {
     key: "derived_price_per_unit", render:(derived_price_per_unit:number) => {
         return <span style={{color:"#2196F3",fontWeight:"bold"}}>`₦ ${derived_price_per_unit.toLocaleString()}`</span>
        }
-  }]
+  }
+]
 export const MaterialList: React.FC<any> = () => {
 
         const [materials, setMaterials]: [IMaterial[], (...args:any) => any]  = useState([]);
