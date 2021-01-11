@@ -1,32 +1,32 @@
 import { observer, useObservable } from "mobx-react-lite";
 import { toJS } from "mobx";
-import { StatsStore } from "./stats.store";
+import { StatsStore } from "../stats/store";
 import { useEffect } from "react";
 import React from "react";
 import { Table, Card, Button, message, Typography } from "antd";
 import moment from "moment";
 import { SmdashboardService } from "../../service";
-export const ReadExpenses: React.FC<any> = observer(() => {
+export const ReadPos: React.FC<any> = observer(() => {
   const store = useObservable(StatsStore);
-  let { expenses, currentDateFilter, currenttimestamp } = store;
-  expenses = toJS(expenses);
+  let { pos, currentDateFilter, currenttimestamp } = store;
+  pos = toJS(pos);
   currentDateFilter = toJS(currentDateFilter);
   currenttimestamp = toJS(currenttimestamp);
   useEffect(() => {
-    store.fetchExpenses();
+    store.fetchPos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currenttimestamp, currentDateFilter]);
   useEffect(() => {
     //
-  }, [expenses]);
+  }, [pos]);
 
   const handledelete = async (record: any) => {
-    const response = await SmdashboardService.deleteExpenseByDate(
+    const response = await SmdashboardService.deletePosByDate(
       moment(record.dateAsString).valueOf()
     );
     if (response === undefined) {
       message.success("deleted...");
-      store.fetchExpenses();
+      store.fetchPos();
     } else {
       message.error(response);
     }
@@ -51,9 +51,9 @@ export const ReadExpenses: React.FC<any> = observer(() => {
       },
 
       {
-        title: "Expenses",
-        dataIndex: "amount",
-        key: "amount",
+        title: "Paid Outstanding",
+        dataIndex: "amount_paid",
+        key: "amount_paid",
         render: (value: number) =>
           Number(value).toLocaleString(undefined, {
             style: "currency",
@@ -97,8 +97,10 @@ export const ReadExpenses: React.FC<any> = observer(() => {
   };
 
   return (
-    <Card title={<Typography.Title level={3}>{store.datefiltertitle} expenses</Typography.Title>}>
-      <Table dataSource={expenses} columns={columns()} scroll={{ x: true }} />
+    <Card
+      title={<Typography.Title level={3}>{store.datefiltertitle} paid outstandings</Typography.Title>}
+    >
+      <Table dataSource={pos} columns={columns()} scroll={{ x: true }} />
     </Card>
   );
 });

@@ -6,14 +6,14 @@ import {
   RouteComponentProps,
 } from "react-router-dom";
 import { Home } from "./home";
-import { CreateSales } from "./subviews/createsale";
-import { CreateExpenses } from "./subviews/createexpense";
-import { CreatePaidOutstanding } from "./subviews/createpoustanding";
+import { CreateSales } from "./stats/create";
+import { CreateExpenses } from "./expenses/create";
+import { CreatePaidOutstanding } from "./outstandings/create";
 import { GeneralStyles } from "./generalstyling";
 import { menustructurejson, IMenuItem } from "../auth/menustructure";
-import { Materials } from "./material";
-import { Employees } from "./employee";
-import { Contacts } from "./contacts";
+import { Materials } from "./materials/material";
+import { Employees } from "./employees/employee";
+import { Contacts } from "./contacts/contacts";
 
 const TQMenu: React.FC<any> = (props) => {
   const handleMenuOnClick = ({

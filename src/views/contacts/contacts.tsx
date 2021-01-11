@@ -1,9 +1,7 @@
 import React from "react"
 import {Tabs } from "antd"
-import { EmployeeList } from "./subviews/employeelist";
-import { CreateEmployee } from "./subviews/createemployee";
-import { ContactList } from "./subviews/contactlist";
-import { CreateContact } from "./subviews/createcontact";
+import { CreateContact } from "./create";
+import { ContactList } from "./table";
 
 const { TabPane } = Tabs;
 

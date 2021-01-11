@@ -1,7 +1,7 @@
-import React from "react"
-import {Tabs } from "antd"
-import { CreateMaterial } from "./subviews/creatematerial";
-import { MaterialList } from "./subviews/materiallist";
+import { Tabs } from "antd";
+import React from "react";
+import { CreateMaterial } from "./create";
+import { MaterialList } from "./table";
 
 const { TabPane } = Tabs;
 
