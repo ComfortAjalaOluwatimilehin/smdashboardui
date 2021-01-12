@@ -14,6 +14,7 @@ import { menustructurejson, IMenuItem } from "../auth/menustructure";
 import { Materials } from "./materials/material";
 import { Employees } from "./employees/employee";
 import { Contacts } from "./contacts/contacts";
+import { Customers } from "./customers/customers";
 
 const TQMenu: React.FC<any> = (props) => {
   const handleMenuOnClick = ({
@@ -81,26 +82,26 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
               <CreatePaidOutstanding {...props} />
             )}
           />
-        <Route
+          <Route
             path="/materials"
             exact
-            component={(props: RouteComponentProps) => (
-              <Materials {...props} />
-            )}
+            component={(props: RouteComponentProps) => <Materials {...props} />}
           />
           <Route
             path="/employees"
             exact
-            component={(props: RouteComponentProps) => (
-              <Employees {...props} />
-            )}
-          /> <Route
-          path="/contacts"
-          exact
-          component={(props: RouteComponentProps) => (
-            <Contacts {...props} />
-          )}
-        />
+            component={(props: RouteComponentProps) => <Employees {...props} />}
+          />{" "}
+          <Route
+            path="/contacts"
+            exact
+            component={(props: RouteComponentProps) => <Contacts {...props} />}
+          />
+          <Route
+            path="/customers"
+            exact
+            component={(props: RouteComponentProps) => <Customers {...props} />}
+          />
         </div>
       </main>
     </Router>
