@@ -13,7 +13,7 @@ import { GeneralStyles } from "./generalstyling";
 import { menustructurejson, IMenuItem } from "../auth/menustructure";
 import { Materials } from "./materials/material";
 import { Employees } from "./employees/employee";
-import { Contacts } from "./contacts/caontacts";
+import { Contacts } from "./contacts/contacts";
 
 const TQMenu: React.FC<any> = (props) => {
   const handleMenuOnClick = ({
