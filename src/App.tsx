@@ -4,7 +4,7 @@ import "./App.css";
 import { AuthWrapper } from "./auth/authwrapper";
 import { authContext } from "./auth/authcontext";
 import { observer } from "mobx-react-lite";
-import { Skeleton } from "./views/skeleton";
+import { Skeleton } from "./views/routes";
 
 const App: React.FC = observer(() => {
   return (
