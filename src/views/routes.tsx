@@ -96,6 +96,11 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
             exact
             component={(props: RouteComponentProps) => <Contacts {...props} />}
           />
+          <Route
+            path="/customers"
+            exact
+            component={(props: RouteComponentProps) => <Customers {...props} />}
+          />
          
         </div>
       </main>
