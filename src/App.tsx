@@ -1,8 +1,8 @@
 import React from "react";
 import "antd/dist/antd.css";
 import "./App.css";
-import { AuthWrapper } from "./auth/authwrapper";
-import { authContext } from "./auth/authcontext";
+import { AuthWrapper } from "./internal/authwrapper";
+import { authContext } from "./internal/authcontext";
 import { observer } from "mobx-react-lite";
 import { Skeleton } from "./views/routes";
 

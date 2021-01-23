@@ -10,10 +10,11 @@ import { CreateSales } from "./stats/create";
 import { CreateExpenses } from "./expenses/create";
 import { CreatePaidOutstanding } from "./outstandings/create";
 import { GeneralStyles } from "./generalstyling";
-import { menustructurejson, IMenuItem } from "../auth/menustructure";
+import { menustructurejson, IMenuItem } from "../internal/menustructure";
 import { Materials } from "./materials/material";
 import { Employees } from "./employees/employee";
 import { Contacts } from "./contacts/contacts";
+import { Customers } from "./customers/customers";
 
 const TQMenu: React.FC<any> = (props) => {
   const handleMenuOnClick = ({
