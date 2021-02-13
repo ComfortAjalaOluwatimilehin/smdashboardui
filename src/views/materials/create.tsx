@@ -124,8 +124,8 @@ export const CreateMaterial: React.FC<any> = (props: any) => {
           <InputNumber
             min={1}
             defaultValue={1}
-            onChange={(value: string | number | undefined) => {
-              if (!value) return;
+            onChange={(value: any) => {
+              if (!value || value == null) return;
               setcreate({ ...create, number: Number(value) });
             }}
           />
@@ -134,8 +134,8 @@ export const CreateMaterial: React.FC<any> = (props: any) => {
           <InputNumber
             min={1}
             defaultValue={1}
-            onChange={(value: string | number | undefined) => {
-              if (!value) return;
+            onChange={(value: any) => {
+              if (!value || value == null) return;
               setcreate({ ...create, cost: Number(value) });
             }}
           />

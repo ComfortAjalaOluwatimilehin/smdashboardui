@@ -74,8 +74,8 @@ export const CreateSales: React.FC<any> = (props: any) => {
           <InputNumber
             min={1}
             defaultValue={1}
-            onChange={(value: string | number | undefined) => {
-              if (!value) return;
+            onChange={(value:any) => {
+              if (!value || value == null) return;
               setcreate({ ...create, bags_solds: Number(value) });
             }}
           />
@@ -102,8 +102,8 @@ export const CreateSales: React.FC<any> = (props: any) => {
           <InputNumber
             min={1}
             defaultValue={1}
-            onChange={(value: string | number | undefined) => {
-              if (!value) return;
+            onChange={(value:any) => {
+              if (!value || value == null) return;
               setcreate({ ...create, paid_cash: Number(value) });
             }}
           />

@@ -104,8 +104,8 @@ export const CreateExpenses: React.FC<any> = (props: any) => {
           <InputNumber
             min={0}
             defaultValue={0}
-            onChange={(value: string | number | undefined) => {
-              if (!value) return;
+            onChange={(value: any) => {
+              if (!value || value == null) return;
               setcreate({ ...create, amount: Number(value) });
             }}
           />
