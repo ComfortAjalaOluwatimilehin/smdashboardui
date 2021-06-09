@@ -3,7 +3,7 @@ import React from "react";
 import { RouteComponentProps } from "react-router";
 import { ReadStats } from "./stats/table";
 import { ReadPos } from "./outstandings/table";
-import { Row, Col, DatePicker, Radio } from "antd";
+import { Row, Col, DatePicker, Radio, Button,message } from "antd";
 import { HomeStyles } from "./styles";
 import { StatsStore } from "./stats/store";
 import { Moment } from "moment";
@@ -18,6 +18,9 @@ export const Home: React.FC<IHome> = observer((props) => {
     <Row justify="center" align="middle">
       <Col span={24} className="margin-sm-top">
         <HomeStyles />
+        <Button onClick={() => {
+          message.info("exporting...")
+        }}>Export</Button>
       </Col>
       <Col span={24}>
         <div>

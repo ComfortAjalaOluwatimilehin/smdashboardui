@@ -37,6 +37,9 @@ export class StatsStoreSingleton {
   @observable currentDateFilter: TCurrentDateFilter = "year";
   @observable private hasAccess: boolean = false;
 
+  public exportDataAsCSV():void{
+      return;
+  }
   @computed get datefiltertitle(): TDateFilterTitle {
     return this.currentDateFilter === "year" ? "Annual" : this.currentDateFilter === "day" ? "Daily" : "Monthly"
   }
