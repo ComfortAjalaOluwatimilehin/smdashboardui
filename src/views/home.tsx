@@ -18,8 +18,8 @@ export const Home: React.FC<IHome> = observer((props) => {
     <Row justify="center" align="middle">
       <Col span={24} className="margin-sm-top">
         <HomeStyles />
-        <Button onClick={() => {
-          message.info("exporting...")
+        <Button loading={StatsStore.exportingData} onClick={() => {
+          StatsStore.exportDataAsCSV();
         }}>Export</Button>
       </Col>
       <Col span={24}>

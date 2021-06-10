@@ -36,9 +36,25 @@ export class StatsStoreSingleton {
   @observable currenttimestamp: number;
   @observable currentDateFilter: TCurrentDateFilter = "year";
   @observable private hasAccess: boolean = false;
-
+  @observable public exportingData:boolean = false;
   public exportDataAsCSV():void{
-      return;
+    this.exportingData = true;
+    let data = "";
+    data = "date,number of bags,cash collected\n"
+    for(const stat of this.stats){
+        data += `${stat.dateAsString}, ${stat.bags_solds}, ${stat.paid_cash}\n`
+    }
+    console.log(data)
+		const blob = new Blob([data], { type: "text/csv" });
+		const url = window.URL.createObjectURL(blob);
+		const anchorTag = document.createElement("a");
+		anchorTag.href = url;
+		anchorTag.download = "stats.csv";
+		anchorTag.click();
+    this.exportingData = false;
+    setTimeout(() => {
+      anchorTag.remove()
+    }, 1000)
   }
   @computed get datefiltertitle(): TDateFilterTitle {
     return this.currentDateFilter === "year" ? "Annual" : this.currentDateFilter === "day" ? "Daily" : "Monthly"
