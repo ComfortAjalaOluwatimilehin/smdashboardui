@@ -50,7 +50,6 @@ export const ReadStats: React.FC<any> = observer(() => {
         dataIndex: "dateAsString",
         key: "dateAsString",
         render:(date:string) => {
-          console.log(currentDateFilter)
           if(currentDateFilter === "day"){
             return moment(date).format("dddd Do MMM YYYY")
           }

@@ -40,11 +40,10 @@ export class StatsStoreSingleton {
   public exportDataAsCSV():void{
     this.exportingData = true;
     let data = "";
-    data = "date,number of bags,cash collected\n"
+    data = "date,number of bags,expenses,cash collected\n"
     for(const stat of this.stats){
-        data += `${stat.dateAsString}, ${stat.bags_solds}, ${stat.paid_cash}\n`
+        data += `${stat.dateAsString}, ${stat.bags_solds}, ${stat.Expenses},${stat.paid_cash}\n`
     }
-    console.log(data)
 		const blob = new Blob([data], { type: "text/csv" });
 		const url = window.URL.createObjectURL(blob);
 		const anchorTag = document.createElement("a");
