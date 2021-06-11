@@ -17,52 +17,64 @@ export interface IExpense {
   count: number;
   dateAsDateObject: string;
   dateAsString: string;
-  _id: number,
-  amount: number
+  _id: number;
+  amount: number;
 }
 
 export interface IPos {
   count: number;
   dateAsDateObject: string;
   dateAsString: string;
-  amount_paid: number
+  amount_paid: number;
 }
 export type TCurrentDateFilter = "year" | "month" | "day";
 export type TDateFilterTitle = "Annual" | "Monthly" | "Daily";
 export class StatsStoreSingleton {
   @observable stats: IMonthlySales[] = [];
-  @observable expenses: IExpense[] = []
-  @observable pos: IPos[] = []
+  @observable expenses: IExpense[] = [];
+  @observable pos: IPos[] = [];
   @observable currenttimestamp: number;
   @observable currentDateFilter: TCurrentDateFilter = "year";
   @observable private hasAccess: boolean = false;
-  @observable public exportingData:boolean = false;
-  public exportDataAsCSV():void{
+  @observable public exportingData: boolean = false;
+  public exportDataAsCSV(): void {
     this.exportingData = true;
     let data = "";
-    data = "date,number of bags,expenses,cash collected\n"
-    for(const stat of this.stats){
-        data += `${stat.dateAsString}, ${stat.bags_solds}, ${stat.Expenses},${stat.paid_cash}\n`
+    data = "date,number of bags,expenses,cash collected\n";
+    for (const stat of this.stats) {
+      data += `${stat.dateAsString}, ${
+        stat.bags_solds
+      }, ${stat.Expenses.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })},${stat.paid_cash.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}\n`;
     }
-		const blob = new Blob([data], { type: "text/csv" });
-		const url = window.URL.createObjectURL(blob);
-		const anchorTag = document.createElement("a");
-		anchorTag.href = url;
-		anchorTag.download = "stats.csv";
-		anchorTag.click();
+    const blob = new Blob([data], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const anchorTag = document.createElement("a");
+    anchorTag.href = url;
+    anchorTag.download = "stats.csv";
+    anchorTag.click();
     this.exportingData = false;
     setTimeout(() => {
-      anchorTag.remove()
-    }, 1000)
+      anchorTag.remove();
+    }, 1000);
   }
   @computed get datefiltertitle(): TDateFilterTitle {
-    return this.currentDateFilter === "year" ? "Annual" : this.currentDateFilter === "day" ? "Daily" : "Monthly"
+    return this.currentDateFilter === "year"
+      ? "Annual"
+      : this.currentDateFilter === "day"
+      ? "Daily"
+      : "Monthly";
   }
   constructor() {
     this.currenttimestamp = moment().utc().valueOf();
   }
   @action public getHasAccess(): boolean {
-    return this.hasAccess
+    return this.hasAccess;
   }
 
   @action public setCurrentDateFilter(filter: TCurrentDateFilter): void {
@@ -73,7 +85,7 @@ export class StatsStoreSingleton {
   }
 
   @action public async fetchStats(): Promise<void> {
-    this.stats = []
+    this.stats = [];
     try {
       const stats = await SmdashboardService.fetchStats({
         timestamp: this.currenttimestamp,
@@ -86,7 +98,7 @@ export class StatsStoreSingleton {
     }
   }
   @action public async fetchExpenses(): Promise<void> {
-    this.expenses = []
+    this.expenses = [];
     try {
       const expenses = await SmdashboardService.fetchExpenses({
         timestamp: this.currenttimestamp,
@@ -99,13 +111,12 @@ export class StatsStoreSingleton {
     }
   }
   @action public async fetchPos(): Promise<void> {
-    this.pos = []
+    this.pos = [];
     try {
-      const pos = await SmdashboardService.fetchPaidOutstandings
-        ({
-          timestamp: this.currenttimestamp,
-          filterType: this.currentDateFilter,
-        });
+      const pos = await SmdashboardService.fetchPaidOutstandings({
+        timestamp: this.currenttimestamp,
+        filterType: this.currentDateFilter,
+      });
       this.pos = pos;
     } catch (err) {
       this.pos = [];
@@ -114,5 +125,4 @@ export class StatsStoreSingleton {
   }
 }
 
-
-export const StatsStore = new StatsStoreSingleton()
+export const StatsStore = new StatsStoreSingleton();
