@@ -42,15 +42,7 @@ export class StatsStoreSingleton {
     let data = "";
     data = "date,number of bags,expenses,cash collected\n";
     for (const stat of this.stats) {
-      data += `${stat.dateAsString}, ${
-        stat.bags_solds
-      }, ${stat.Expenses.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })},${stat.paid_cash.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}\n`;
+      data += `${stat.dateAsString}, ${stat.bags_solds}, ${stat.Expenses},${stat.paid_cash}\n`;
     }
     const blob = new Blob([data], { type: "text/csv" });
     const url = window.URL.createObjectURL(blob);
