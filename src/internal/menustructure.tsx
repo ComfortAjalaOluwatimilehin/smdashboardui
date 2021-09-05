@@ -8,6 +8,7 @@ import {
   AuditOutlined,
   TeamOutlined,
   PhoneOutlined,
+  AccountBookOutlined,
   UserAddOutlined
 } from "@ant-design/icons";
 export interface IMenuItem {
@@ -34,6 +35,12 @@ export const menustructurejson: Array<IMenuItem> = [
     value: "Create Expenses",
     path: "/createexpenses",
     key: "createexpenses",
+  },
+  {
+    icon: <AccountBookOutlined />,
+    value: "Other products",
+    path: "/otherproducts",
+    key: "otherproducts",
   },
   {
     icon: <PaperClipOutlined />,

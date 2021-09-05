@@ -130,10 +130,8 @@ class SmdashboardServiceSingleton {
       await axios.post(`${this.uri}/api/v1/sales`, { ...props });
       return;
     } catch (err) {
-      if (err.response) {
-        return err.response.data;
-      }
-      return err.message;
+      console.log(err);
+      return undefined;
     }
   }
   async createExpense(props: any): Promise<string | undefined> {
@@ -141,10 +139,8 @@ class SmdashboardServiceSingleton {
       await axios.post(`${this.uri}/api/v1/expenses`, [{ ...props }]);
       return;
     } catch (err) {
-      if (err.response) {
-        return err.response.data;
-      }
-      return err.message;
+      console.log(err);
+      return undefined;
     }
   }
   async createMaterialEntry(props: any): Promise<string | undefined> {
@@ -154,10 +150,8 @@ class SmdashboardServiceSingleton {
       });
       return;
     } catch (err) {
-      if (err.response) {
-        return err.response.data;
-      }
-      return err.message;
+      console.log(err);
+      return undefined;
     }
   }
   async fetchExpenseTypes(): Promise<IExpenseType[]> {
@@ -167,7 +161,8 @@ class SmdashboardServiceSingleton {
       );
       return data;
     } catch (err) {
-      throw err;
+      console.log(err);
+      return [];
     }
   }
   async fetchMaterialTypes(): Promise<{ type: string; value: string }[]> {
@@ -175,7 +170,8 @@ class SmdashboardServiceSingleton {
       const { data } = await axios.get(`${this.uri}/api/v1/materials/getTypes`);
       return data;
     } catch (err) {
-      throw err;
+      console.log(err);
+      return [];
     }
   }
   async fetchMaterials(): Promise<any[]> {
@@ -183,7 +179,8 @@ class SmdashboardServiceSingleton {
       const { data } = await axios.get(`${this.uri}/api/v1/materials`);
       return data;
     } catch (err) {
-      throw err;
+      console.log(err);
+      return [];
     }
   }
   async fetchEmployees(): Promise<any[]> {
@@ -191,7 +188,8 @@ class SmdashboardServiceSingleton {
       const { data } = await axios.get(`${this.uri}/api/v1/employees`);
       return data;
     } catch (err) {
-      throw err;
+      console.log(err);
+      return [];
     }
   }
   async fetchCustomers(): Promise<any[]> {
@@ -199,7 +197,8 @@ class SmdashboardServiceSingleton {
       const { data } = await axios.get(`${this.uri}/api/v1/customers`);
       return data;
     } catch (err) {
-      throw err;
+      console.log(err);
+      return [];
     }
   }
   async fetchContacts(): Promise<any[]> {
@@ -207,7 +206,8 @@ class SmdashboardServiceSingleton {
       const { data } = await axios.get(`${this.uri}/api/v1/contacts`);
       return data;
     } catch (err) {
-      throw err;
+      console.log(err);
+      return [];
     }
   }
   async createPaidOutstanding(props: any): Promise<string | undefined> {
@@ -215,10 +215,8 @@ class SmdashboardServiceSingleton {
       await axios.post(`${this.uri}/api/v1/paidoutstandings`, [{ ...props }]);
       return;
     } catch (err) {
-      if (err.response) {
-        return err.response.data;
-      }
-      return err.message;
+      console.log(err);
+      return undefined;
     }
   }
   async createEmployee(props: any): Promise<string | undefined> {
@@ -226,10 +224,8 @@ class SmdashboardServiceSingleton {
       await axios.post(`${this.uri}/api/v1/employees`, { ...props });
       return;
     } catch (err) {
-      if (err.response) {
-        return err.response.data;
-      }
-      return err.message;
+      console.log(err);
+      return undefined;
     }
   }
   async createCustomer(props: any): Promise<string | undefined> {
@@ -237,10 +233,8 @@ class SmdashboardServiceSingleton {
       await axios.post(`${this.uri}/api/v1/customers`, { ...props });
       return;
     } catch (err) {
-      if (err.response) {
-        return err.response.data;
-      }
-      return err.message;
+      console.log(err);
+      return undefined;
     }
   }
   async createContact(props: any): Promise<string | undefined> {
@@ -248,10 +242,8 @@ class SmdashboardServiceSingleton {
       await axios.post(`${this.uri}/api/v1/contacts`, { ...props });
       return;
     } catch (err) {
-      if (err.response) {
-        return err.response.data;
-      }
-      return err.message;
+      console.log(err);
+      return undefined;
     }
   }
   async deleteStatsByDate(timestamp: number): Promise<string | undefined> {
@@ -263,10 +255,8 @@ class SmdashboardServiceSingleton {
       );
       return;
     } catch (err) {
-      if (err.response) {
-        return err.response.data;
-      }
-      return err.message;
+      console.log(err);
+      return undefined;
     }
   }
   async deleteExpenseByDate(timestamp: number): Promise<string | undefined> {
@@ -278,10 +268,8 @@ class SmdashboardServiceSingleton {
       );
       return;
     } catch (err) {
-      if (err.response) {
-        return err.response.data;
-      }
-      return err.message;
+      console.log(err);
+      return undefined;
     }
   }
   async deletePosByDate(timestamp: number): Promise<string | undefined> {
@@ -293,10 +281,16 @@ class SmdashboardServiceSingleton {
       );
       return;
     } catch (err) {
-      if (err.response) {
-        return err.response.data;
-      }
-      return err.message;
+      console.log(err);
+      return undefined;
+    }
+  }
+  async createProduct(props: any): Promise<undefined> {
+    try {
+      await axios.post(`${this.uri}/api/v1/products`, { ...props });
+      return;
+    } catch (err) {
+      throw err;
     }
   }
 }

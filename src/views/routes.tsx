@@ -15,6 +15,7 @@ import { Materials } from "./materials/material";
 import { Employees } from "./employees/employee";
 import { Contacts } from "./contacts/contacts";
 import { Customers } from "./customers/customers";
+import { OtherProducts } from "./otherproducts";
 
 const TQMenu: React.FC<any> = (props) => {
   const handleMenuOnClick = ({
@@ -101,6 +102,11 @@ export const Skeleton: React.FC<any> = ({ logout, token, children }) => {
             path="/customers"
             exact
             component={(props: RouteComponentProps) => <Customers {...props} />}
+          />
+           <Route
+            path="/otherproducts"
+            exact
+            component={(props: RouteComponentProps) => <OtherProducts {...props} />}
           />
          
         </div>
