@@ -137,10 +137,12 @@ export const Products: React.FC<any> = observer(() => {
                     }}
                     onValuesChange={(changedValues) => {
                       const amount = changedValues.amount;
+                      const unitPrice = changedValues.unitPrice;
                       if (amount !== undefined) {
                         const estimatedCosts =
-                          (OtherProductStore.activeProduct?.unitPrice || 0) *
-                          amount;
+                          (unitPrice ||
+                            OtherProductStore.activeProduct?.unitPrice ||
+                            0) * amount;
                         productSaleForm.setFieldsValue({
                           cash: estimatedCosts,
                         });
@@ -244,7 +246,9 @@ export const Products: React.FC<any> = observer(() => {
                 <Col span={2}>
                   {" "}
                   <Popconfirm
-                    title={"Are you sure you want to delete the product and all its records?"}
+                    title={
+                      "Are you sure you want to delete the product and all its records?"
+                    }
                     onCancel={() => {
                       message.info("Product not deleted");
                     }}
@@ -260,7 +264,6 @@ export const Products: React.FC<any> = observer(() => {
                       icon={<WarningOutlined />}
                     ></Button>
                   </Popconfirm>{" "}
-                 
                 </Col>
               </Row>
               <ProductStats activeProduct={OtherProductStore.activeProduct} />
