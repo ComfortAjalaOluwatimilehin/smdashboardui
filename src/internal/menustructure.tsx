@@ -31,22 +31,10 @@ export const menustructurejson: Array<IMenuItem> = [
     key: "home",
   },
   {
-    icon: <DollarCircleOutlined />,
-    value: "Create Sales",
-    path: "/createsales",
-    key: "createsales",
-  },
-  {
     icon: <TagOutlined />,
     value: "Create Expenses",
     path: "/createexpenses",
     key: "createexpenses",
-  },
-  {
-    icon: <PaperClipOutlined />,
-    value: "Pay Outstanding",
-    path: "/payoutstanding",
-    key: "payoutstanding",
   },
   {
     icon: <AuditOutlined />,
@@ -65,12 +53,6 @@ export const menustructurejson: Array<IMenuItem> = [
     value: "contacts",
     path: "/contacts",
     key: "contacts",
-  },
-  {
-    icon: <UserAddOutlined />,
-    value: "customers",
-    path: "/customers",
-    key: "customers",
   },
   {
     icon: <LogoutOutlined />,
