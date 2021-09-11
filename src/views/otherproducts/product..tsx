@@ -137,7 +137,7 @@ export const Products: React.FC<any> = observer(() => {
                     }}
                     onValuesChange={(changedValues) => {
                       const amount = changedValues.amount;
-                      const unitPrice = changedValues.unitPrice;
+                      const unitPrice = changedValues.soldUnitPrice;
                       if (amount !== undefined) {
                         const estimatedCosts =
                           (unitPrice ||
