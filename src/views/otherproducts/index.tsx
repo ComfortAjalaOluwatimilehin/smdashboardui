@@ -12,11 +12,11 @@ export const OtherProducts: React.FC<any> = observer(() => {
         <Tabs.TabPane tab="product" key="1">
           <Products />
         </Tabs.TabPane>
-        <Tabs.TabPane tab="create new product" key="2">
-          <CreateProduct />
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="all product stats" key="3">
+        <Tabs.TabPane tab="all product stats" key="2">
           <AllProductsStats />
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="create new product" key="3">
+          <CreateProduct />
         </Tabs.TabPane>
         <Tabs.TabPane tab="manager actions" key="4">
           Tab 4
