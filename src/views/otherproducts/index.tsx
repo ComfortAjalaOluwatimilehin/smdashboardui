@@ -6,15 +6,14 @@ import { CreateProduct } from "./create.product";
 import { Products } from "./product.";
 
 export const OtherProducts: React.FC<any> = observer(() => {
-
   return (
     <Card>
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="create new product" key="1">
-          <CreateProduct />
+          <Products />
         </Tabs.TabPane>
         <Tabs.TabPane tab="product stats" key="2">
-          <Products />
+          <CreateProduct />
         </Tabs.TabPane>
         <Tabs.TabPane tab="all product stats" key="3">
           <AllProductsStats />
