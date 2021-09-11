@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { DeleteFilled } from "@ant-design/icons";
+import { DeleteFilled, WarningOutlined } from "@ant-design/icons";
 import {
   Button,
   Input,
@@ -38,7 +38,7 @@ export const Products: React.FC<any> = observer(() => {
                 onSelect={(productId: any) => {
                   OtherProductStore.activeProduct = null;
                   setTimeout(() => {
-                    console.log("product id set")
+                    console.log("product id set");
                     OtherProductStore.setActiveProductById(productId);
                   }, 1000);
                 }}
@@ -257,9 +257,10 @@ export const Products: React.FC<any> = observer(() => {
                     <Button
                       shape="circle"
                       danger
-                      icon={<DeleteFilled />}
+                      icon={<WarningOutlined />}
                     ></Button>
                   </Popconfirm>{" "}
+                 
                 </Col>
               </Row>
               <ProductStats activeProduct={OtherProductStore.activeProduct} />

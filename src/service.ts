@@ -361,6 +361,20 @@ class SmdashboardServiceSingleton {
       throw err;
     }
   }
+
+  async deleteProductStatsByDate(timestamp: number, productId:string): Promise<string | undefined> {
+    const timezone = this.tz;
+    timestamp = tz(timestamp, timezone).valueOf();
+    try {
+      await axios.delete(
+        `${this.uri}/api/v1/productsales/stats/${productId}?timestamp=${timestamp}&timezone=${timezone}`
+      );
+      return;
+    } catch (err) {
+      console.log(err);
+      return undefined;
+    }
+  }
 }
 
 export const SmdashboardService = new SmdashboardServiceSingleton();

@@ -1,5 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Card, Row, Col, DatePicker, Radio } from "antd";
+import { DeleteFilled } from "@ant-design/icons";
+import {
+  Card,
+  Row,
+  Col,
+  DatePicker,
+  Radio,
+  Button,
+  message,
+  Popconfirm,
+} from "antd";
 import { Chart, Tooltip, Interaction, Line, Point } from "bizcharts";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
@@ -38,7 +48,6 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                 }}
               />
             </Col>
-            <Col span={2} />
             <Col span={10}>
               <Radio.Group
                 buttonStyle="solid"
@@ -52,6 +61,29 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                   label: value,
                 }))}
               />
+            </Col>
+            <Col span={2}  style={{textAlign:"right"}}>
+              {OtherProductStore.currentTimeStamp && (
+                <Popconfirm
+                  title={
+                    "Are you sure you want to delete data for selected date ?"
+                  }
+                  onCancel={() => {
+                    message.info("Product stats not deleted");
+                  }}
+                  onConfirm={() => {
+                    OtherProductStore.deleteProductStatsForSelectedDate(
+                      OtherProductStore.activeProduct ? OtherProductStore.activeProduct._id : "undefined"
+                    );
+                  }}
+                >
+                  <Button
+                    shape="circle"
+                    danger
+                    icon={<DeleteFilled />}
+                  ></Button>
+                </Popconfirm>
+              )}
             </Col>
           </Row>
           <Chart

@@ -106,6 +106,16 @@ class StoreInstance {
       message.error("something went wrong");
     }
   }
+  public async deleteProductStatsForSelectedDate(id: string): Promise<any> {
+    try {
+      await SmdashboardService.deleteProductStatsByDate(this.currentTimeStamp.valueOf(),id);
+      message.success("deleted");
+      void this.getProductStats()
+    } catch (err) {
+      console.error(err);
+      message.error("something went wrong");
+    }
+  }
   public async createProductSale(values: any, form: any): Promise<any> {
     try {
       await SmdashboardService.createProductSale(values);
