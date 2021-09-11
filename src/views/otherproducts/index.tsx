@@ -9,10 +9,10 @@ export const OtherProducts: React.FC<any> = observer(() => {
   return (
     <Card>
       <Tabs defaultActiveKey="1">
-        <Tabs.TabPane tab="create new product" key="1">
+        <Tabs.TabPane tab="product" key="1">
           <Products />
         </Tabs.TabPane>
-        <Tabs.TabPane tab="product stats" key="2">
+        <Tabs.TabPane tab="create new product" key="2">
           <CreateProduct />
         </Tabs.TabPane>
         <Tabs.TabPane tab="all product stats" key="3">
