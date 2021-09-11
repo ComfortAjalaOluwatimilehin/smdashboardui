@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  HomeFilled,
   DollarCircleOutlined,
   TagOutlined,
   PaperClipOutlined,
@@ -9,7 +8,8 @@ import {
   TeamOutlined,
   PhoneOutlined,
   AccountBookOutlined,
-  UserAddOutlined
+  UserAddOutlined,
+  CheckSquareOutlined
 } from "@ant-design/icons";
 export interface IMenuItem {
   icon: React.ReactNode | string;
@@ -19,7 +19,13 @@ export interface IMenuItem {
 }
 export const menustructurejson: Array<IMenuItem> = [
   {
-    icon: <HomeFilled />,
+    icon: <AccountBookOutlined />,
+    value: "Other products",
+    path: "/otherproducts",
+    key: "otherproducts",
+  },
+  {
+    icon: <CheckSquareOutlined />,
     value: "Home",
     path: "/",
     key: "home",
@@ -35,12 +41,6 @@ export const menustructurejson: Array<IMenuItem> = [
     value: "Create Expenses",
     path: "/createexpenses",
     key: "createexpenses",
-  },
-  {
-    icon: <AccountBookOutlined />,
-    value: "Other products",
-    path: "/otherproducts",
-    key: "otherproducts",
   },
   {
     icon: <PaperClipOutlined />,

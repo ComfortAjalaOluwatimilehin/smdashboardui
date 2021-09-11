@@ -244,7 +244,7 @@ export const Products: React.FC<any> = observer(() => {
                 <Col span={2}>
                   {" "}
                   <Popconfirm
-                    title={"Are you sure?"}
+                    title={"Are you sure you want to delete the product and all its records?"}
                     onCancel={() => {
                       message.info("Product not deleted");
                     }}
