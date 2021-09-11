@@ -6,6 +6,7 @@ import {
 } from "./views/stats/store";
 import { tz } from "moment-timezone";
 import axios, { AxiosResponse } from "axios";
+import { IProductAggregateSale } from "./views/otherproducts/store";
 axios.defaults.withCredentials = true;
 export interface IExpenseType {
   type: string;
@@ -289,6 +290,73 @@ class SmdashboardServiceSingleton {
     try {
       await axios.post(`${this.uri}/api/v1/products`, { ...props });
       return;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async getProducts(): Promise<any[]> {
+    try {
+      const { data } = await axios.get(`${this.uri}/api/v1/products`);
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async getProduct(id: string): Promise<any> {
+    try {
+      const { data } = await axios.get(`${this.uri}/api/v1/products/${id}`);
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async updateProduct(id: string, body: any): Promise<any> {
+    try {
+      await axios.patch(`${this.uri}/api/v1/products/${id}`, body);
+    } catch (err) {
+      throw err;
+    }
+  }
+  async deleteProduct(id: string): Promise<undefined> {
+    try {
+      await axios.delete(`${this.uri}/api/v1/products/${id}`);
+      return;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async createProductSale(props: any): Promise<undefined> {
+    try {
+      await axios.post(`${this.uri}/api/v1/productsales`, { ...props });
+      return;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async getProductStats({
+    timestamp,
+    filterType,
+    productId
+  }: {
+    timestamp: number;
+    filterType: TCurrentDateFilter;
+    productId?:string
+  }): Promise<IProductAggregateSale[]> {
+    let route =
+      filterType === "year"
+        ? "getStatsByYear"
+        : filterType === "day"
+        ? "getStatsByDate"
+        : "getStatsByMonth";
+
+    const timezone = this.tz;
+    timestamp = tz(timestamp, timezone).valueOf();
+    try {
+      const { data } = await axios.post(
+        `${this.uri}/api/v1/productsales/stats/${route}?timestamp=${timestamp}&timezone=${timezone}`,
+        {productId}
+      );
+      return data;
     } catch (err) {
       throw err;
     }

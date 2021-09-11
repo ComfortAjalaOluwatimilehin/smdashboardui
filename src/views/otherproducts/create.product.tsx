@@ -12,25 +12,40 @@ export const CreateProduct: React.FC<any> = observer(() => {
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 18 }}
       onFinish={(values) => {
-        OtherProductStore.createProduct(values)
+        OtherProductStore.createProduct(values, form);
       }}
     >
-      <Form.Item label="name" rules={[{ type: "string", required: true }]}>
+      <Form.Item
+        name="name"
+        label="name"
+        rules={[{ type: "string", required: true }]}
+      >
         <Input />
       </Form.Item>
       <Form.Item
+        name="description"
         label="description"
         rules={[{ type: "string", required: true }]}
       >
         <Input.TextArea rows={4} />
       </Form.Item>
       <Form.Item
+        name="unitPrice"
         label="price per unit"
         rules={[{ type: "number", required: true, min: 1 }]}
       >
         <InputNumber
           formatter={(value) => `₦${value}`}
           parser={(value: any) => value.replace("₦", "")}
+        />
+      </Form.Item>
+      <Form.Item
+        name="numberOfItemsPerUnit"
+        label="Number of items per unit"
+        initialValue={1}
+        rules={[{ type: "number", min: 1 }]}
+      >
+        <InputNumber min={1}
         />
       </Form.Item>
       <Form.Item>
