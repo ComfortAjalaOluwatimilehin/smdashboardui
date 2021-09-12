@@ -9,7 +9,8 @@ import {
   PhoneOutlined,
   AccountBookOutlined,
   UserAddOutlined,
-  CheckSquareOutlined
+  CheckSquareOutlined,
+  HomeFilled
 } from "@ant-design/icons";
 export interface IMenuItem {
   icon: React.ReactNode | string;
@@ -19,16 +20,10 @@ export interface IMenuItem {
 }
 export const menustructurejson: Array<IMenuItem> = [
   {
-    icon: <AccountBookOutlined />,
-    value: "Other products",
-    path: "/otherproducts",
-    key: "otherproducts",
-  },
-  {
-    icon: <CheckSquareOutlined />,
-    value: "Home",
+    icon: <HomeFilled />,
+    value: "home",
     path: "/",
-    key: "home",
+    key: "products",
   },
   {
     icon: <TagOutlined />,
