@@ -4,7 +4,7 @@ import React from "react";
 import { RouteComponentProps } from "react-router";
 import { ReadStats } from "./stats/table";
 import { ReadPos } from "./outstandings/table";
-import { Row, Col, DatePicker, Radio, Button, message } from "antd";
+import { Row, Col, DatePicker, Radio, Button } from "antd";
 import { HomeStyles } from "./styles";
 import { StatsStore } from "./stats/store";
 import { Moment } from "moment";

@@ -1,5 +1,5 @@
 import { message } from "antd";
-import { action, computed, observable, toJS } from "mobx";
+import { action, computed, observable } from "mobx";
 import moment, { Moment } from "moment";
 import { SmdashboardService } from "../../service";
 import { TCurrentDateFilter } from "../stats/store";
@@ -24,15 +24,17 @@ export interface IProductSale {
 export interface IProductAggregateSale {
   dateAsString: string;
   count: number;
-  amountSold: number;
   cash: number;
+  amount:number;
   derivedSales: number;
   productId: string;
   productName: string;
+  expenses:string;
 }
 class StoreInstance {
   @observable products: IProduct[] = [];
   @observable loading: boolean = false;
+  @observable isMigrating:boolean = false;
   @observable activeProduct: IProduct | null = null;
   @observable activeProductStats: IProductAggregateSale[] = [];
   @observable allProductsStats:IProductAggregateSale[]  = []
@@ -56,9 +58,10 @@ class StoreInstance {
       : 0;
   }
   @action public setActiveProductById(id: string): void {
+    this.activeProduct = null;
     const matchProduct = this.products.find((product) => product._id === id);
     if (matchProduct) {
-      this.activeProduct = matchProduct;
+      this.activeProduct = {...matchProduct};
     } else {
       this.activeProduct = null;
     }
@@ -151,6 +154,19 @@ class StoreInstance {
     } catch (err) {
       this.activeProductStats = [];
       console.error(err);
+    }
+  }
+
+  public async migrateOldSatchetSales(): Promise<void> {
+    try{
+      this.isMigrating = true;
+      await SmdashboardService.migrateOldSatchetSales()
+      message.success("Migration complete")
+    }catch(err){
+      console.error(err)
+      message.error("something went wrong during migration")
+    }finally{
+      this.isMigrating = false;
     }
   }
 }

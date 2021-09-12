@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { DeleteFilled, WarningOutlined } from "@ant-design/icons";
+import { WarningOutlined } from "@ant-design/icons";
 import {
   Button,
   Input,
@@ -27,6 +27,7 @@ export const Products: React.FC<any> = observer(() => {
     void OtherProductStore.getProducts();
   }, []);
 
+
   return (
     <div>
       {OtherProductStore.products.length > 0 && (
@@ -36,11 +37,10 @@ export const Products: React.FC<any> = observer(() => {
               <Select
                 placeholder="select product"
                 onSelect={(productId: any) => {
-                  OtherProductStore.activeProduct = null;
                   setTimeout(() => {
-                    console.log("product id set");
+                    productSaleForm.resetFields()
                     OtherProductStore.setActiveProductById(productId);
-                  }, 1000);
+                  }, 200);
                 }}
                 style={{ minWidth: "200px" }}
                 defaultActiveFirstOption={true}
@@ -135,9 +135,9 @@ export const Products: React.FC<any> = observer(() => {
                         productSaleForm
                       );
                     }}
-                    onValuesChange={(changedValues) => {
-                      const amount = changedValues.amount;
-                      const unitPrice = changedValues.soldUnitPrice;
+                    onValuesChange={(_, values) => {
+                      const amount = values.amount;
+                      const unitPrice = values.soldUnitPrice;
                       if (amount !== undefined) {
                         const estimatedCosts =
                           (unitPrice ||
@@ -237,9 +237,9 @@ export const Products: React.FC<any> = observer(() => {
                       >
                         <Input disabled />
                       </Form.Item>
-                      <Form.Item>
-                        <Button htmlType="submit">Save sale</Button>
-                      </Form.Item>
+                      <div style={{textAlign:"right"}}>
+                        <Button type="primary" htmlType="submit">Save sale</Button>
+                      </div>
                     </div>
                   </Form>
                 </Col>

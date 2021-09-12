@@ -9,8 +9,17 @@ import {
   Button,
   message,
   Popconfirm,
+  Table,
 } from "antd";
-import { Chart, Tooltip, Interaction, Line, Point } from "bizcharts";
+import {
+  Chart,
+  Tooltip,
+  Interaction,
+  Line,
+  Point,
+  View,
+  Axis,
+} from "bizcharts";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import moment from "moment";
@@ -25,9 +34,13 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
     }, [
       OtherProductStore.currentDateFilter,
       OtherProductStore.currentTimeStamp,
+      activeProduct,
     ]);
     const scale: any = {
       cash: {
+        formatter: (str: number) => `₦ ${str.toLocaleString("en")}`,
+      },
+      expenses: {
         formatter: (str: number) => `₦ ${str.toLocaleString("en")}`,
       },
     };
@@ -62,7 +75,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                 }))}
               />
             </Col>
-            <Col span={2}  style={{textAlign:"right"}}>
+            <Col span={2} style={{ textAlign: "right" }}>
               {OtherProductStore.currentTimeStamp && (
                 <Popconfirm
                   title={
@@ -73,7 +86,9 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                   }}
                   onConfirm={() => {
                     OtherProductStore.deleteProductStatsForSelectedDate(
-                      OtherProductStore.activeProduct ? OtherProductStore.activeProduct._id : "undefined"
+                      OtherProductStore.activeProduct
+                        ? OtherProductStore.activeProduct._id
+                        : "undefined"
                     );
                   }}
                 >
@@ -93,6 +108,14 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
             data={toJS(OtherProductStore.activeProductStats)}
             scale={scale}
           >
+            <View
+              data={toJS(OtherProductStore.activeProductStats)}
+              scale={scale}
+              padding={0}
+            >
+              <Axis name="expenses" position="left" visible={false} />
+              <Line color="pink" position="dateAsString*expenses" />
+            </View>
             <Point
               position="dateAsString*cash"
               color="productName"
@@ -113,6 +136,40 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
             <Interaction type="active-region" />
           </Chart>
         </Card>
+
+        <div style={{ marginTop: "10px" }} />
+        <Table
+          dataSource={OtherProductStore.activeProductStats}
+          columns={[
+            {
+              dataIndex: "dateAsString",
+              key: "dateAsString",
+              title:"Sale date"
+            },
+            {
+              dataIndex: "productName",
+              key: "productName",
+              title:"Product name"
+            },
+            {
+              dataIndex: "cash",
+              key: "cash",
+              title:"Collected cash",
+              render:(value ) => typeof value !== "number" ? value: `₦ ${value.toLocaleString("en")}`
+            },
+            {
+              dataIndex: "amount",
+              key: "amount",
+              title:"Number of items sold",
+              render:(value ) => typeof value !== "number" ? value: `₦ ${value.toLocaleString("en")}`
+            },
+            {
+              dataIndex: "expenses",
+              key: "expenses",
+              render:(value ) => typeof value !== "number" ? value: `₦ ${value.toLocaleString("en")}`
+            },
+          ]}
+        ></Table>
       </div>
     );
   });

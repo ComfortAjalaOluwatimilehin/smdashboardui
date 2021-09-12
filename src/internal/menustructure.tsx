@@ -1,15 +1,9 @@
 import React from "react";
 import {
-  DollarCircleOutlined,
-  TagOutlined,
-  PaperClipOutlined,
   LogoutOutlined,
   AuditOutlined,
   TeamOutlined,
   PhoneOutlined,
-  AccountBookOutlined,
-  UserAddOutlined,
-  CheckSquareOutlined,
   HomeFilled
 } from "@ant-design/icons";
 export interface IMenuItem {
@@ -24,12 +18,6 @@ export const menustructurejson: Array<IMenuItem> = [
     value: "home",
     path: "/",
     key: "products",
-  },
-  {
-    icon: <TagOutlined />,
-    value: "Create Expenses",
-    path: "/createexpenses",
-    key: "createexpenses",
   },
   {
     icon: <AuditOutlined />,

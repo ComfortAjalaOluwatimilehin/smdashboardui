@@ -336,11 +336,11 @@ class SmdashboardServiceSingleton {
   async getProductStats({
     timestamp,
     filterType,
-    productId
+    productId,
   }: {
     timestamp: number;
     filterType: TCurrentDateFilter;
-    productId?:string
+    productId?: string;
   }): Promise<IProductAggregateSale[]> {
     let route =
       filterType === "year"
@@ -354,7 +354,7 @@ class SmdashboardServiceSingleton {
     try {
       const { data } = await axios.post(
         `${this.uri}/api/v1/productsales/stats/${route}?timestamp=${timestamp}&timezone=${timezone}`,
-        {productId}
+        { productId }
       );
       return data;
     } catch (err) {
@@ -362,7 +362,10 @@ class SmdashboardServiceSingleton {
     }
   }
 
-  async deleteProductStatsByDate(timestamp: number, productId:string): Promise<string | undefined> {
+  async deleteProductStatsByDate(
+    timestamp: number,
+    productId: string
+  ): Promise<string | undefined> {
     const timezone = this.tz;
     timestamp = tz(timestamp, timezone).valueOf();
     try {
@@ -374,6 +377,11 @@ class SmdashboardServiceSingleton {
       console.log(err);
       return undefined;
     }
+  }
+  public async migrateOldSatchetSales(): Promise<any> {
+    return await axios.get(
+      `${this.uri}/api/v1/productsales/migration/satchets`
+    );
   }
 }
 
