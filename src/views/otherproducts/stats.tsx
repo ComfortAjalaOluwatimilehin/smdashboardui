@@ -114,7 +114,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
               padding={0}
             >
               <Axis name="expenses" position="left" visible={false} />
-              <Line color="pink" position="dateAsString*expenses" />
+              <Line color="red" position="dateAsString*expenses" />
             </View>
             <Point
               position="dateAsString*cash"
