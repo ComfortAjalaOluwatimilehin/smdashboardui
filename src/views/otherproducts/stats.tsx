@@ -144,29 +144,39 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
             {
               dataIndex: "dateAsString",
               key: "dateAsString",
-              title:"Sale date"
+              title: "Sale date",
             },
             {
               dataIndex: "productName",
               key: "productName",
-              title:"Product name"
+              title: "Product name",
             },
             {
               dataIndex: "cash",
               key: "cash",
-              title:"Collected cash",
-              render:(value ) => typeof value !== "number" ? value: `₦ ${value.toLocaleString("en")}`
+              title: "Collected cash",
+              render: (value) =>
+                typeof value !== "number"
+                  ? value
+                  : `₦ ${value.toLocaleString("en")}`,
             },
             {
               dataIndex: "amount",
               key: "amount",
-              title:"Number of items sold",
-              render:(value ) => typeof value !== "number" ? value: `₦ ${value.toLocaleString("en")}`
+              title: "Number of items sold",
+              render: (value) =>
+                typeof value !== "number"
+                  ? value
+                  : `₦ ${value.toLocaleString("en")}`,
             },
             {
               dataIndex: "expenses",
               key: "expenses",
-              render:(value ) => typeof value !== "number" ? value: `₦ ${value.toLocaleString("en")}`
+              title: "Expenses",
+              render: (value) =>
+                typeof value !== "number"
+                  ? value
+                  : `₦ ${value.toLocaleString("en")}`,
             },
           ]}
         ></Table>
