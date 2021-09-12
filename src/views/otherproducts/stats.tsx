@@ -167,7 +167,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
               render: (value) =>
                 typeof value !== "number"
                   ? value
-                  : `₦ ${value.toLocaleString("en")}`,
+                  : `${value.toLocaleString("en")}`,
             },
             {
               dataIndex: "expenses",
