@@ -39,9 +39,13 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
     const scale: any = {
       cash: {
         formatter: (str: number) => `₦ ${str.toLocaleString("en")}`,
+        min: OtherProductStore.minMaxCosts.min,
+        max:OtherProductStore.minMaxCosts.max
       },
       expenses: {
         formatter: (str: number) => `₦ ${str.toLocaleString("en")}`,
+        min: OtherProductStore.minMaxCosts.min,
+        max:OtherProductStore.minMaxCosts.max
       },
     };
     return (
@@ -125,7 +129,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
               scale={scale}
               padding={0}
             >
-              <Axis name="expenses" position="left" visible={false} />
+              <Axis name="expenses" position="right" grid={null} />
               <Line color="red" position="dateAsString*expenses" />
             </View>
             <Point

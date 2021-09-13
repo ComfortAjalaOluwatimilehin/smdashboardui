@@ -1,5 +1,5 @@
 import { message } from "antd";
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, toJS } from "mobx";
 import moment, { Moment } from "moment";
 import { SmdashboardService } from "../../service";
 import { TCurrentDateFilter } from "../stats/store";
@@ -37,7 +37,6 @@ class StoreInstance {
   @observable isMigrating:boolean = false;
   @observable activeProduct: IProduct | null = null;
   @observable activeProductStats: IProductAggregateSale[] = [];
-  @observable allProductsStats:IProductAggregateSale[]  = []
   @observable currentDateFilter: TCurrentDateFilter = "year";
   @observable currentTimeStamp: Moment = moment();
   @observable isExporting:boolean = false;
@@ -62,6 +61,15 @@ class StoreInstance {
   @action public resetProperties(): void {
     this.activeProduct = null;
     this.activeProductStats = [];
+  }
+  @computed get minMaxCosts():{min:number, max:number}{
+    const minMaxCosts : {min:number, max:number} = {min:0, max:0};
+    const sorted = [...this.activeProductStats].sort((a,b) => a.cash - b.cash)
+    const lastValue = sorted[sorted.length - 1];
+    if(lastValue){
+      minMaxCosts.max = lastValue.cash
+    }
+    return minMaxCosts
   }
   @computed get activeProductId(): string {
     return this.activeProduct ? this.activeProduct._id : "";
