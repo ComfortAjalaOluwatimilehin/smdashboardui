@@ -29,7 +29,7 @@ export interface IProductAggregateSale {
   derivedSales: number;
   productId: string;
   productName: string;
-  expenses:string;
+  expenses:number;
 }
 class StoreInstance {
   @observable products: IProduct[] = [];
@@ -40,6 +40,25 @@ class StoreInstance {
   @observable allProductsStats:IProductAggregateSale[]  = []
   @observable currentDateFilter: TCurrentDateFilter = "year";
   @observable currentTimeStamp: Moment = moment();
+  @observable isExporting:boolean = false;
+  public exportDataAsCSV(): void {
+    this.isExporting = true;
+    let data = "";
+    data = "date~productname~number of purchased items~paid cash~expenses\n";
+    for (const stat of this.activeProductStats) {
+      data += `${stat.dateAsString}~${stat.productName}~${stat.amount.toLocaleString("en")}~N ${stat.cash.toLocaleString("en")}~N ${stat.expenses.toLocaleString("en")}\n`;
+    }
+    const blob = new Blob([data], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const anchorTag = document.createElement("a");
+    anchorTag.href = url;
+    anchorTag.download = "stats.csv";
+    anchorTag.click();
+    this.isExporting = false;
+    setTimeout(() => {
+      anchorTag.remove();
+    }, 1000);
+  }
   @action public resetProperties(): void {
     this.activeProduct = null;
     this.activeProductStats = [];

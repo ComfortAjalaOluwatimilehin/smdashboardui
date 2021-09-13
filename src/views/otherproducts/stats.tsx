@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { DeleteFilled } from "@ant-design/icons";
+import { DeleteFilled, FileExcelFilled } from "@ant-design/icons";
 import {
   Card,
   Row,
@@ -77,27 +77,39 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
             </Col>
             <Col span={2} style={{ textAlign: "right" }}>
               {OtherProductStore.currentTimeStamp && (
-                <Popconfirm
-                  title={
-                    "Are you sure you want to delete data for selected date ?"
-                  }
-                  onCancel={() => {
-                    message.info("Product stats not deleted");
-                  }}
-                  onConfirm={() => {
-                    OtherProductStore.deleteProductStatsForSelectedDate(
-                      OtherProductStore.activeProduct
-                        ? OtherProductStore.activeProduct._id
-                        : "undefined"
-                    );
-                  }}
-                >
+                <>
+                  <Popconfirm
+                    title={
+                      "Are you sure you want to delete data for selected date ?"
+                    }
+                    onCancel={() => {
+                      message.info("Product stats not deleted");
+                    }}
+                    onConfirm={() => {
+                      OtherProductStore.deleteProductStatsForSelectedDate(
+                        OtherProductStore.activeProduct
+                          ? OtherProductStore.activeProduct._id
+                          : "undefined"
+                      );
+                    }}
+                  >
+                    <Button
+                      shape="circle"
+                      danger
+                      icon={<DeleteFilled />}
+                    ></Button>
+                  </Popconfirm>
                   <Button
-                    shape="circle"
-                    danger
-                    icon={<DeleteFilled />}
-                  ></Button>
-                </Popconfirm>
+                    style={{marginLeft:"5px"}}
+                    loading={OtherProductStore.isExporting}
+                    onClick={() => {
+                      OtherProductStore.exportDataAsCSV();
+                    }}
+                    icon={<FileExcelFilled />}
+                  >
+                    Export
+                  </Button>
+                </>
               )}
             </Col>
           </Row>
