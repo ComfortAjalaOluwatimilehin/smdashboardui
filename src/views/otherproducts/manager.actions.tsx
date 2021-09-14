@@ -1,6 +1,7 @@
 import { Button } from "antd";
 import { observer } from "mobx-react-lite";
 import React from "react";
+import { SmdashboardService } from "../../service";
 import { OtherProductStore } from "./store";
 
 export const ManagerActions: React.FC<any> = observer(() => {
@@ -14,6 +15,14 @@ export const ManagerActions: React.FC<any> = observer(() => {
         }}
       >
         Migrate old satchet sales
+      </Button>
+      <Button
+        type="default"
+        onClick={() => {
+          SmdashboardService.seedGuest()
+        }}
+      >
+        Seed guest
       </Button>
     </div>
   );

@@ -42,10 +42,10 @@ class StoreInstance {
   @observable isExporting:boolean = false;
   public exportDataAsCSV(): void {
     this.isExporting = true;
-    let data = "";
-    data = "date~productname~number of purchased items~paid cash~expenses\n";
+    let data = "\ufeff";
+    data += "date,productname,number of purchased items,paid cash,expenses\n";
     for (const stat of this.activeProductStats) {
-      data += `${stat.dateAsString}~${stat.productName}~${stat.amount.toLocaleString("en")}~N ${stat.cash.toLocaleString("en")}~N ${stat.expenses.toLocaleString("en")}\n`;
+      data += `${stat.dateAsString},${stat.productName},${stat.amount},N ${stat.cash},N ${stat.expenses}\n`;
     }
     const blob = new Blob([data], { type: "text/csv" });
     const url = window.URL.createObjectURL(blob);

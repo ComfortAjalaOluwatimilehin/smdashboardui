@@ -40,19 +40,19 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
       cash: {
         formatter: (str: number) => `₦ ${str.toLocaleString("en")}`,
         min: OtherProductStore.minMaxCosts.min,
-        max:OtherProductStore.minMaxCosts.max
+        max: OtherProductStore.minMaxCosts.max,
       },
       expenses: {
         formatter: (str: number) => `₦ ${str.toLocaleString("en")}`,
         min: OtherProductStore.minMaxCosts.min,
-        max:OtherProductStore.minMaxCosts.max
+        max: OtherProductStore.minMaxCosts.max,
       },
     };
     return (
       <div style={{ marginTop: "10px" }}>
         <Card style={{ width: "100%", minHeight: "500px" }}>
           <Row style={{ marginBottom: "50px" }}>
-            <Col span={10}>
+            <Col span={8} style={{minWidth:"300px"}}>
               <DatePicker
                 picker={"date"}
                 disabledDate={(date) => {
@@ -65,7 +65,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                 }}
               />
             </Col>
-            <Col span={10}>
+            <Col span={8}>
               <Radio.Group
                 buttonStyle="solid"
                 optionType="button"
@@ -79,7 +79,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                 }))}
               />
             </Col>
-            <Col span={2} style={{ textAlign: "right" }}>
+            <Col span={8} style={{ textAlign: "right", minWidth:"300px" }}>
               {OtherProductStore.currentTimeStamp && (
                 <>
                   <Popconfirm
@@ -104,14 +104,14 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                     ></Button>
                   </Popconfirm>
                   <Button
-                    style={{marginLeft:"5px"}}
+                    style={{ marginLeft: "5px", background: "#d3ffbd" }}
                     loading={OtherProductStore.isExporting}
                     onClick={() => {
                       OtherProductStore.exportDataAsCSV();
                     }}
                     icon={<FileExcelFilled />}
                   >
-                    Export
+                    Export as CSV
                   </Button>
                 </>
               )}
@@ -156,6 +156,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
         <div style={{ marginTop: "10px" }} />
         <Table
           dataSource={OtherProductStore.activeProductStats}
+          scroll={{x:"1000px"}}
           columns={[
             {
               dataIndex: "dateAsString",

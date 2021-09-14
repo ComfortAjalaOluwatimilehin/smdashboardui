@@ -11,6 +11,7 @@ export interface IMenuItem {
   value: string;
   path: string;
   key: string;
+  onlyAdmin?:true;
 }
 export const menustructurejson: Array<IMenuItem> = [
   {
@@ -24,18 +25,21 @@ export const menustructurejson: Array<IMenuItem> = [
     value: "Materials",
     path: "/materials",
     key: "materials",
+    onlyAdmin:true
   },
   {
     icon: <TeamOutlined />,
     value: "Employees",
     path: "/employees",
     key: "employees",
+    onlyAdmin:true
   },
   {
     icon: <PhoneOutlined />,
     value: "contacts",
     path: "/contacts",
     key: "contacts",
+    onlyAdmin:true
   },
   {
     icon: <LogoutOutlined />,

@@ -50,6 +50,17 @@ class SmdashboardServiceSingleton {
       return false;
     }
   }
+  async isGuest(): Promise<boolean> {
+    try {
+      const response: AxiosResponse = await axios.get(
+        `${this.uri}/api/isGuest`
+      );
+      return response.data
+    } catch (err) {
+      console.error(err);
+      return true;
+    }
+  }
   async fetchStats({
     timestamp,
     filterType,
@@ -381,6 +392,11 @@ class SmdashboardServiceSingleton {
   public async migrateOldSatchetSales(): Promise<any> {
     return await axios.get(
       `${this.uri}/api/v1/productsales/migration/satchets`
+    );
+  }
+  public async seedGuest(): Promise<any> {
+    return await axios.get(
+      `${this.uri}/api/users/seeds/guest`
     );
   }
 }
