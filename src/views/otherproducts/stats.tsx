@@ -24,6 +24,7 @@ import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import moment from "moment";
 import React, { useEffect } from "react";
+import { AuthStore } from "../../internal/auth.store";
 import { IProduct, OtherProductStore } from "./store";
 
 export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
@@ -52,7 +53,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
       <div style={{ marginTop: "10px" }}>
         <Card style={{ width: "100%", minHeight: "500px" }}>
           <Row style={{ marginBottom: "50px" }}>
-            <Col span={8} style={{minWidth:"300px"}}>
+            <Col span={8} style={{ minWidth: "300px" }}>
               <DatePicker
                 picker={"date"}
                 disabledDate={(date) => {
@@ -79,30 +80,32 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                 }))}
               />
             </Col>
-            <Col span={8} style={{ textAlign: "right", minWidth:"300px" }}>
+            <Col span={8} style={{ textAlign: "right", minWidth: "300px" }}>
               {OtherProductStore.currentTimeStamp && (
                 <>
-                  <Popconfirm
-                    title={
-                      "Are you sure you want to delete data for selected date ?"
-                    }
-                    onCancel={() => {
-                      message.info("Product stats not deleted");
-                    }}
-                    onConfirm={() => {
-                      OtherProductStore.deleteProductStatsForSelectedDate(
-                        OtherProductStore.activeProduct
-                          ? OtherProductStore.activeProduct._id
-                          : "undefined"
-                      );
-                    }}
-                  >
-                    <Button
-                      shape="circle"
-                      danger
-                      icon={<DeleteFilled />}
-                    ></Button>
-                  </Popconfirm>
+                  {!AuthStore.isGuest && (
+                    <Popconfirm
+                      title={
+                        "Are you sure you want to delete data for selected date ?"
+                      }
+                      onCancel={() => {
+                        message.info("Product stats not deleted");
+                      }}
+                      onConfirm={() => {
+                        OtherProductStore.deleteProductStatsForSelectedDate(
+                          OtherProductStore.activeProduct
+                            ? OtherProductStore.activeProduct._id
+                            : "undefined"
+                        );
+                      }}
+                    >
+                      <Button
+                        shape="circle"
+                        danger
+                        icon={<DeleteFilled />}
+                      ></Button>
+                    </Popconfirm>
+                  )}
                   <Button
                     style={{ marginLeft: "5px", background: "#d3ffbd" }}
                     loading={OtherProductStore.isExporting}
@@ -156,7 +159,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
         <div style={{ marginTop: "10px" }} />
         <Table
           dataSource={OtherProductStore.activeProductStats}
-          scroll={{x:"1000px"}}
+          scroll={{ x: "1000px" }}
           columns={[
             {
               dataIndex: "dateAsString",

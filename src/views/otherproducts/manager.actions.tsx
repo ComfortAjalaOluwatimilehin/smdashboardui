@@ -17,9 +17,10 @@ export const ManagerActions: React.FC<any> = observer(() => {
         Migrate old satchet sales
       </Button>
       <Button
+        disabled={true}
         type="default"
         onClick={() => {
-          SmdashboardService.seedGuest()
+          SmdashboardService.seedGuest();
         }}
       >
         Seed guest
