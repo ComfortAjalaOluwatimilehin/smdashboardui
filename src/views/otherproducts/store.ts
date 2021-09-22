@@ -45,7 +45,7 @@ class StoreInstance {
     let data = "\ufeff";
     data += "date,productname,number of purchased items,paid cash,expenses\n";
     for (const stat of this.activeProductStats) {
-      data += `${stat.dateAsString},${stat.productName},${stat.amount},N ${stat.cash},N ${stat.expenses}\n`;
+      data += `${stat.dateAsString},${stat.productName},${stat.amount},${stat.cash},${stat.expenses}\n`;
     }
     const blob = new Blob([data], { type: "text/csv" });
     const url = window.URL.createObjectURL(blob);
