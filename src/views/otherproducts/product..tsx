@@ -27,7 +27,6 @@ export const Products: React.FC<any> = observer(() => {
     void OtherProductStore.getProducts();
   }, []);
 
-
   return (
     <div>
       {OtherProductStore.products.length > 0 && (
@@ -38,7 +37,7 @@ export const Products: React.FC<any> = observer(() => {
                 placeholder="select product"
                 onSelect={(productId: any) => {
                   setTimeout(() => {
-                    productSaleForm.resetFields()
+                    productSaleForm.resetFields();
                     OtherProductStore.setActiveProductById(productId);
                   }, 200);
                 }}
@@ -135,17 +134,22 @@ export const Products: React.FC<any> = observer(() => {
                         productSaleForm
                       );
                     }}
-                    onValuesChange={(_, values) => {
-                      const amount = values.amount;
-                      const unitPrice = values.soldUnitPrice;
-                      if (amount !== undefined) {
-                        const estimatedCosts =
-                          (unitPrice ||
-                            OtherProductStore.activeProduct?.unitPrice ||
-                            0) * amount;
-                        productSaleForm.setFieldsValue({
-                          cash: estimatedCosts,
-                        });
+                    onValuesChange={(changedValues, values) => {
+                      if (
+                        changedValues.hasOwnProperty("amount") ||
+                        changedValues.hasOwnProperty("soldUnitPrice")
+                      ) {
+                        const amount = values.amount;
+                        const unitPrice = values.soldUnitPrice;
+                        if (amount !== undefined) {
+                          const estimatedCosts =
+                            (unitPrice ||
+                              OtherProductStore.activeProduct?.unitPrice ||
+                              0) * amount;
+                          productSaleForm.setFieldsValue({
+                            cash: estimatedCosts,
+                          });
+                        }
                       }
                     }}
                   >
@@ -237,8 +241,10 @@ export const Products: React.FC<any> = observer(() => {
                       >
                         <Input disabled />
                       </Form.Item>
-                      <div style={{textAlign:"right"}}>
-                        <Button type="primary" htmlType="submit">Save sale</Button>
+                      <div style={{ textAlign: "right" }}>
+                        <Button type="primary" htmlType="submit">
+                          Save sale
+                        </Button>
                       </div>
                     </div>
                   </Form>
