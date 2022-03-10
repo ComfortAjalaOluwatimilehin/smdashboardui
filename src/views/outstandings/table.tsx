@@ -1,11 +1,10 @@
-import { observer, useObservable } from "mobx-react-lite";
+import { Button, Card, message, Table, Typography } from "antd";
 import { toJS } from "mobx";
-import { StatsStore } from "../stats/store";
-import { useEffect } from "react";
-import React from "react";
-import { Table, Card, Button, message, Typography } from "antd";
+import { observer, useObservable } from "mobx-react-lite";
 import moment from "moment";
+import React, { useEffect } from "react";
 import { SmdashboardService } from "../../service";
+import { StatsStore } from "../stats/store";
 export const ReadPos: React.FC<any> = observer(() => {
   const store = useObservable(StatsStore);
   let { pos, currentDateFilter, currenttimestamp } = store;

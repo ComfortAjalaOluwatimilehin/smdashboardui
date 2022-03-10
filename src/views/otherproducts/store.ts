@@ -1,5 +1,5 @@
 import { message } from "antd";
-import { action, computed, observable, toJS } from "mobx";
+import { action, computed, observable } from "mobx";
 import moment, { Moment } from "moment";
 import { SmdashboardService } from "../../service";
 import { TCurrentDateFilter } from "../stats/store";
@@ -45,7 +45,9 @@ class StoreInstance {
     let data = "\ufeff";
     data += "date,productname,number of purchased items,paid cash,expenses\n";
     for (const stat of this.activeProductStats) {
-      data += `${stat.dateAsString},${stat.productName},${stat.amount},${stat.cash},${stat.expenses}\n`;
+      const amount  = (stat.amount +  "").split("N ")[1];
+      const expenses  = (stat.expenses +  "").split("N ")[1];
+      data += `${stat.dateAsString},${stat.productName},${stat.amount},${amount},${expenses}\n`;
     }
     const blob = new Blob([data], { type: "text/csv" });
     const url = window.URL.createObjectURL(blob);

@@ -1,12 +1,10 @@
-import {
-  TCurrentDateFilter,
-  IMonthlySales,
-  IExpense,
-  IPos,
-} from "./views/stats/store";
-import { tz } from "moment-timezone";
 import axios, { AxiosResponse } from "axios";
+import { tz } from "moment-timezone";
 import { IProductAggregateSale } from "./views/otherproducts/store";
+import
+  {
+    IExpense, IMonthlySales, IPos, TCurrentDateFilter
+  } from "./views/stats/store";
 axios.defaults.withCredentials = true;
 export interface IExpenseType {
   type: string;

@@ -1,25 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { WarningOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Input,
-  Select,
-  Form,
-  InputNumber,
-  Col,
-  Row,
-  DatePicker,
-  Popconfirm,
-  message,
-  Spin,
-} from "antd";
+import
+  {
+    Button, Col, DatePicker, Form, Input, InputNumber, message, Popconfirm, Row, Select, Spin
+  } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { observer } from "mobx-react-lite";
 import moment from "moment";
 import React, { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { ProductStats } from "./stats";
 import { OtherProductStore } from "./store";
-import { v4 as uuidv4 } from "uuid";
 export const Products: React.FC<any> = observer(() => {
   const [productSaleForm] = useForm();
   useEffect(() => {

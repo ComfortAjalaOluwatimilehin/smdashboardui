@@ -1,8 +1,8 @@
-import React from "react";
-import { Row, Card } from "antd";
-import { Chart, Legend, Axis, Interval } from "bizcharts";
-import { IMonthlySales } from "./stats/store";
+import { Card, Row } from "antd";
+import { Axis, Chart, Interval, Legend } from "bizcharts";
 import { toJS } from "mobx";
+import React from "react";
+import { IMonthlySales } from "./stats/store";
 export const GraphicalRepresentation: React.FC<{ data: IMonthlySales[] }> = (
   props: any
 ) => {

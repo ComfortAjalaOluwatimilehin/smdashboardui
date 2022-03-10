@@ -1,24 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { DeleteFilled, FileExcelFilled } from "@ant-design/icons";
 import {
-  Card,
-  Row,
-  Col,
-  DatePicker,
-  Radio,
-  Button,
-  message,
-  Popconfirm,
-  Table,
+    Button, Card, Col,
+    DatePicker, message,
+    Popconfirm, Radio, Row, Table
 } from "antd";
 import {
-  Chart,
-  Tooltip,
-  Interaction,
-  Line,
-  Point,
-  View,
-  Axis,
+    Axis, Chart, Interaction,
+    Line,
+    Point, Tooltip, View
 } from "bizcharts";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
