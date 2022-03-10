@@ -342,6 +342,29 @@ class SmdashboardServiceSingleton {
       throw err;
     }
   }
+
+  async getProductStatsPerRange({
+    startTimeStamp,
+    endTimeStamp,
+    productId,
+  }: {
+    startTimeStamp: number;
+    endTimeStamp: number;
+    productId?: string;
+  }): Promise<IProductAggregateSale[]> {
+    const timezone = this.tz;
+    startTimeStamp = tz(startTimeStamp, timezone).valueOf();
+    endTimeStamp = tz(endTimeStamp, timezone).valueOf();
+    try {
+      const { data } = await axios.post(
+        `${this.uri}/api/v1/productsales/stats/getStatsBetweenStartAndEndGroupByMonth?startTimeStamp=${startTimeStamp}&endTimeStamp=${endTimeStamp}&timezone=${timezone}`,
+        { productId }
+      );
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  }
   async getProductStats({
     timestamp,
     filterType,

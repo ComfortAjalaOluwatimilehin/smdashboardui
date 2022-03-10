@@ -39,6 +39,9 @@ class StoreInstance {
   @observable activeProductStats: IProductAggregateSale[] = [];
   @observable currentDateFilter: TCurrentDateFilter = "year";
   @observable currentTimeStamp: Moment = moment();
+  @observable startTimeStamp: Moment = moment().startOf("year");
+  @observable endTimeStamp: Moment = moment().endOf("year");
+  @observable isRangeDatePicker:boolean = false;
   @observable isExporting:boolean = false;
   public exportDataAsCSV(): void {
     this.isExporting = true;
@@ -171,11 +174,22 @@ class StoreInstance {
     }
     this.activeProductStats = [];
     try {
-      const stats = await SmdashboardService.getProductStats({
-        timestamp: this.currentTimeStamp.valueOf(),
-        filterType: this.currentDateFilter,
-        productId: this.activeProduct?._id,
-      });
+      let stats : IProductAggregateSale[] = [];
+
+      if(this.isRangeDatePicker){
+        stats = await SmdashboardService.getProductStatsPerRange({
+          startTimeStamp: this.startTimeStamp.valueOf(),
+          endTimeStamp:this.endTimeStamp.valueOf(),
+          productId: this.activeProduct?._id,
+        });
+      }else{
+        stats = await SmdashboardService.getProductStats({
+          timestamp: this.currentTimeStamp.valueOf(),
+          filterType: this.currentDateFilter,
+          productId: this.activeProduct?._id,
+        });
+      }
+     
       this.activeProductStats = stats.map((stat) => ({
         ...stat,
         productName: this.getProductNameById(stat.productId),

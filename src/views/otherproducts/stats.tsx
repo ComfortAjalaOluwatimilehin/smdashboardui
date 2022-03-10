@@ -1,15 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { DeleteFilled, FileExcelFilled } from "@ant-design/icons";
-import {
-    Button, Card, Col,
-    DatePicker, message,
-    Popconfirm, Radio, Row, Table
-} from "antd";
-import {
-    Axis, Chart, Interaction,
+import
+  {
+    Button,
+    Card,
+    Col,
+    DatePicker,
+    message,
+    Popconfirm,
+    Radio,
+    Row,
+    Switch,
+    Table
+  } from "antd";
+import
+  {
+    Axis,
+    Chart,
+    Interaction,
     Line,
-    Point, Tooltip, View
-} from "bizcharts";
+    Point,
+    Tooltip,
+    View
+  } from "bizcharts";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import moment from "moment";
@@ -25,6 +38,8 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
     }, [
       OtherProductStore.currentDateFilter,
       OtherProductStore.currentTimeStamp,
+      OtherProductStore.startTimeStamp,
+      OtherProductStore.endTimeStamp,
       activeProduct,
     ]);
     const scale: any = {
@@ -44,15 +59,43 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
         <Card style={{ width: "100%", minHeight: "500px" }}>
           <Row style={{ marginBottom: "50px" }}>
             <Col span={8} style={{ minWidth: "300px" }}>
-              <DatePicker
-                picker={"date"}
-                disabledDate={(date) => {
-                  return date.isAfter(moment(), "date");
-                }}
-                onChange={(value) => {
-                  if (value) {
-                    OtherProductStore.currentTimeStamp = value;
-                  }
+              {OtherProductStore.isRangeDatePicker ? (
+                <DatePicker.RangePicker
+                  picker={"date"}
+                  allowEmpty={[false, false]}
+                  allowClear={false}
+                  defaultPickerValue={[OtherProductStore.startTimeStamp, OtherProductStore.endTimeStamp]}
+                  disabledDate={(date) => {
+                    return date.isAfter(moment(), "date");
+                  }}
+                  onChange={(value) => {
+                    if (value && value[0] != null && value[1] != null) {
+                      const startTimeStamp:moment.Moment =  value[0];
+                      const endTimeStamp:moment.Moment =  value[1];
+                      OtherProductStore.startTimeStamp = startTimeStamp;
+                      OtherProductStore.endTimeStamp = endTimeStamp;
+                    }
+                  }}
+                />
+              ) : (
+                <DatePicker
+                  picker={"date"}
+                  disabledDate={(date) => {
+                    return date.isAfter(moment(), "date");
+                  }}
+                  onChange={(value) => {
+                    if (value) {
+                      OtherProductStore.currentTimeStamp = value;
+                    }
+                  }}
+                />
+              )}
+            </Col>
+            <Col span={8}>
+              <Switch
+                checked={OtherProductStore.isRangeDatePicker}
+                onChange={(checked: boolean) => {
+                  OtherProductStore.isRangeDatePicker = checked;
                 }}
               />
             </Col>
