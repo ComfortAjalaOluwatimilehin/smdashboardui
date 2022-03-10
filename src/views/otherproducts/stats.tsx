@@ -65,9 +65,6 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                   allowEmpty={[false, false]}
                   allowClear={false}
                   defaultPickerValue={[OtherProductStore.startTimeStamp, OtherProductStore.endTimeStamp]}
-                  disabledDate={(date) => {
-                    return date.isAfter(moment(), "date");
-                  }}
                   onChange={(value) => {
                     if (value && value[0] != null && value[1] != null) {
                       const startTimeStamp:moment.Moment =  value[0];
