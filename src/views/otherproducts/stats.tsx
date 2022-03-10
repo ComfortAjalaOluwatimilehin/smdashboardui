@@ -96,7 +96,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                 }}
               />
             </Col>
-            <Col span={8}>
+            {!OtherProductStore.isRangeDatePicker && <Col span={8}>
               <Radio.Group
                 buttonStyle="solid"
                 optionType="button"
@@ -109,7 +109,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                   label: value,
                 }))}
               />
-            </Col>
+            </Col>}
             <Col span={8} style={{ textAlign: "right", minWidth: "300px" }}>
               {OtherProductStore.currentTimeStamp && (
                 <>
