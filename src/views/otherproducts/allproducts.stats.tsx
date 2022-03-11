@@ -17,8 +17,7 @@ export const AllProductsStats: React.FC<any> = observer(() => {
       <Select
         placeholder="select product"
         allowClear={true}
-        onSelect={(value) => {
-          const productId: any = value;
+        onSelect={(productId:any) => {
           OtherProductStore.setActiveProductById(productId);
         }}
         style={{ minWidth: "200px" }}
