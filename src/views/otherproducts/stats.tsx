@@ -25,12 +25,15 @@ import
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import moment from "moment";
-import React from "react";
+import React, { useEffect } from "react";
 import { AuthStore } from "../../internal/auth.store";
 import { IProduct, OtherProductStore } from "./store";
 
 export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
   observer(({ activeProduct }) => {
+    useEffect(()=>{
+      void OtherProductStore.getProductStats();
+    },[])
     const scale: any = {
       cash: {
         formatter: (str: number) => `₦ ${str.toLocaleString("en")}`,
