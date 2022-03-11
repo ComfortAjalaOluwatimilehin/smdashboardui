@@ -63,6 +63,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                       const endTimeStamp: moment.Moment = value[1];
                       OtherProductStore.startTimeStamp = startTimeStamp;
                       OtherProductStore.endTimeStamp = endTimeStamp;
+                      void OtherProductStore.getProductStats();
                     }
                   }}
                 />
@@ -75,6 +76,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                   onChange={(value) => {
                     if (value) {
                       OtherProductStore.currentTimeStamp = value;
+                      void OtherProductStore.getProductStats();
                     }
                   }}
                 />
