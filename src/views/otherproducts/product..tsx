@@ -2,7 +2,17 @@
 import { WarningOutlined } from "@ant-design/icons";
 import
   {
-    Button, Col, DatePicker, Form, Input, InputNumber, message, Popconfirm, Row, Select, Spin
+    Button,
+    Col,
+    DatePicker,
+    Form,
+    Input,
+    InputNumber,
+    message,
+    Popconfirm,
+    Row,
+    Select,
+    Spin
   } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { observer } from "mobx-react-lite";
@@ -24,6 +34,7 @@ export const Products: React.FC<any> = observer(() => {
           <div>
             {OtherProductStore.products.length > 0 && (
               <Select
+                allowClear={true}
                 placeholder="select product"
                 onSelect={(productId: any) => {
                   setTimeout(() => {

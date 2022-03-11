@@ -48,8 +48,8 @@ class StoreInstance {
     let data = "\ufeff";
     data += "date,productname,number of purchased items,paid cash,expenses\n";
     for (const stat of this.activeProductStats) {
-      const amount = (stat.amount + "").split("N ")[1];
-      const expenses = (stat.expenses + "").split("N ")[1];
+      const amount = typeof stat.amount === "number"  ? stat.amount:   (stat.amount + "").split("N ")[1];
+      const expenses =typeof stat.expenses === "number"  ? stat.expenses:  (stat.expenses + "").split("N ")[1];
       data += `${stat.dateAsString},${stat.productName},${stat.amount},${amount},${expenses}\n`;
     }
     const blob = new Blob([data], { type: "text/csv" });
