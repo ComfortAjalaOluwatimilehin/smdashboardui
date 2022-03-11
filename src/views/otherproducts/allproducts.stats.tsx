@@ -19,6 +19,7 @@ export const AllProductsStats: React.FC<any> = observer(() => {
         allowClear={true}
         onSelect={(productId:any) => {
           OtherProductStore.setActiveProductById(productId);
+          void OtherProductStore.getProductStats();
         }}
         style={{ minWidth: "200px" }}
         defaultActiveFirstOption={true}
