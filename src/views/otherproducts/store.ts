@@ -25,31 +25,31 @@ export interface IProductAggregateSale {
   dateAsString: string;
   count: number;
   cash: number;
-  amount:number;
+  amount: number;
   derivedSales: number;
   productId: string;
   productName: string;
-  expenses:number;
+  expenses: number;
 }
 class StoreInstance {
   @observable products: IProduct[] = [];
   @observable loading: boolean = false;
-  @observable isMigrating:boolean = false;
+  @observable isMigrating: boolean = false;
   @observable activeProduct: IProduct | null = null;
   @observable activeProductStats: IProductAggregateSale[] = [];
   @observable currentDateFilter: TCurrentDateFilter = "year";
   @observable currentTimeStamp: Moment = moment();
   @observable startTimeStamp: Moment = moment().startOf("year");
   @observable endTimeStamp: Moment = moment().endOf("year");
-  @observable isRangeDatePicker:boolean = false;
-  @observable isExporting:boolean = false;
+  @observable isRangeDatePicker: boolean = false;
+  @observable isExporting: boolean = false;
   public exportDataAsCSV(): void {
     this.isExporting = true;
     let data = "\ufeff";
     data += "date,productname,number of purchased items,paid cash,expenses\n";
     for (const stat of this.activeProductStats) {
-      const amount  = (stat.amount +  "").split("N ")[1];
-      const expenses  = (stat.expenses +  "").split("N ")[1];
+      const amount = (stat.amount + "").split("N ")[1];
+      const expenses = (stat.expenses + "").split("N ")[1];
       data += `${stat.dateAsString},${stat.productName},${stat.amount},${amount},${expenses}\n`;
     }
     const blob = new Blob([data], { type: "text/csv" });
@@ -67,14 +67,14 @@ class StoreInstance {
     this.activeProduct = null;
     this.activeProductStats = [];
   }
-  @computed get minMaxCosts():{min:number, max:number}{
-    const minMaxCosts : {min:number, max:number} = {min:0, max:0};
-    const sorted = [...this.activeProductStats].sort((a,b) => a.cash - b.cash)
+  @computed get minMaxCosts(): { min: number; max: number } {
+    const minMaxCosts: { min: number; max: number } = { min: 0, max: 0 };
+    const sorted = [...this.activeProductStats].sort((a, b) => a.cash - b.cash);
     const lastValue = sorted[sorted.length - 1];
-    if(lastValue){
-      minMaxCosts.max = lastValue.cash
+    if (lastValue) {
+      minMaxCosts.max = lastValue.cash;
     }
-    return minMaxCosts
+    return minMaxCosts;
   }
   @computed get activeProductId(): string {
     return this.activeProduct ? this.activeProduct._id : "";
@@ -89,11 +89,15 @@ class StoreInstance {
       ? this.activeProduct.unit_price || this.activeProduct.unitPrice
       : 0;
   }
-  @action public setActiveProductById(id: string): void {
+  @action public setActiveProductById(id: string | undefined): void {
+    if (id === undefined) {
+      this.activeProduct = null;
+      return;
+    }
     this.activeProduct = null;
     const matchProduct = this.products.find((product) => product._id === id);
     if (matchProduct) {
-      this.activeProduct = {...matchProduct};
+      this.activeProduct = { ...matchProduct };
     } else {
       this.activeProduct = null;
     }
@@ -104,7 +108,7 @@ class StoreInstance {
       if (form) {
         form.resetFields();
       }
-      message.success("New product created")
+      message.success("New product created");
     } catch (err) {
       console.error(err);
       message.error("something went wrong");
@@ -143,9 +147,12 @@ class StoreInstance {
   }
   public async deleteProductStatsForSelectedDate(id: string): Promise<any> {
     try {
-      await SmdashboardService.deleteProductStatsByDate(this.currentTimeStamp.valueOf(),id);
+      await SmdashboardService.deleteProductStatsByDate(
+        this.currentTimeStamp.valueOf(),
+        id
+      );
       message.success("deleted");
-      void this.getProductStats()
+      void this.getProductStats();
     } catch (err) {
       console.error(err);
       message.error("something went wrong");
@@ -174,22 +181,22 @@ class StoreInstance {
     }
     this.activeProductStats = [];
     try {
-      let stats : IProductAggregateSale[] = [];
+      let stats: IProductAggregateSale[] = [];
 
-      if(this.isRangeDatePicker){
+      if (this.isRangeDatePicker) {
         stats = await SmdashboardService.getProductStatsPerRange({
           startTimeStamp: this.startTimeStamp.valueOf(),
-          endTimeStamp:this.endTimeStamp.valueOf(),
+          endTimeStamp: this.endTimeStamp.valueOf(),
           productId: this.activeProduct?._id,
         });
-      }else{
+      } else {
         stats = await SmdashboardService.getProductStats({
           timestamp: this.currentTimeStamp.valueOf(),
           filterType: this.currentDateFilter,
           productId: this.activeProduct?._id,
         });
       }
-     
+
       this.activeProductStats = stats.map((stat) => ({
         ...stat,
         productName: this.getProductNameById(stat.productId),
@@ -201,14 +208,14 @@ class StoreInstance {
   }
 
   public async migrateOldSatchetSales(): Promise<void> {
-    try{
+    try {
       this.isMigrating = true;
-      await SmdashboardService.migrateOldSatchetSales()
-      message.success("Migration complete")
-    }catch(err){
-      console.error(err)
-      message.error("something went wrong during migration")
-    }finally{
+      await SmdashboardService.migrateOldSatchetSales();
+      message.success("Migration complete");
+    } catch (err) {
+      console.error(err);
+      message.error("something went wrong during migration");
+    } finally {
       this.isMigrating = false;
     }
   }

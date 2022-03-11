@@ -1,3 +1,4 @@
+import { Select } from "antd";
 import { observer } from "mobx-react";
 import React, { useEffect } from "react";
 import { ProductStats } from "./stats";
@@ -11,5 +12,27 @@ export const AllProductsStats: React.FC<any> = observer(() => {
     }
   });
 
-  return <div>{OtherProductStore.products.length > 0 && <ProductStats activeProduct={null} />}</div>;
+  return (
+    <div>
+      <Select
+        placeholder="select product"
+        allowClear={true}
+        onSelect={(value) => {
+          const productId: any = value;
+          OtherProductStore.setActiveProductById(productId);
+        }}
+        style={{ minWidth: "200px" }}
+        defaultActiveFirstOption={true}
+        options={OtherProductStore.products.map((product) => {
+          return {
+            value: product._id,
+            label: product.product_name || product.name,
+          };
+        })}
+      ></Select>
+      {OtherProductStore.products.length > 0 && (
+        <ProductStats activeProduct={OtherProductStore.activeProduct} />
+      )}
+    </div>
+  );
 });

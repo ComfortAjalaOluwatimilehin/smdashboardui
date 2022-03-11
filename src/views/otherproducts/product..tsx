@@ -263,7 +263,6 @@ export const Products: React.FC<any> = observer(() => {
                   </Popconfirm>{" "}
                 </Col>
               </Row>
-              <ProductStats activeProduct={OtherProductStore.activeProduct} />
             </div>
           ) : (
             <Spin />
