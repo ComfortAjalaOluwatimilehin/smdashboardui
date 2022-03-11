@@ -1,6 +1,6 @@
-import { Select } from "antd";
 import { observer } from "mobx-react";
 import React, { useEffect } from "react";
+import { ProductListDropDown } from "./productlistdropdown";
 import { ProductStats } from "./stats";
 import { OtherProductStore } from "./store";
 
@@ -14,22 +14,7 @@ export const AllProductsStats: React.FC<any> = observer(() => {
 
   return (
     <div>
-      <Select
-        placeholder="select product"
-        allowClear={true}
-        onSelect={(productId:any) => {
-          OtherProductStore.setActiveProductById(productId);
-          void OtherProductStore.getProductStats();
-        }}
-        style={{ minWidth: "200px" }}
-        defaultActiveFirstOption={true}
-        options={OtherProductStore.products.map((product) => {
-          return {
-            value: product._id,
-            label: product.product_name || product.name,
-          };
-        })}
-      ></Select>
+       <ProductListDropDown />
       {OtherProductStore.products.length > 0 && (
         <ProductStats activeProduct={OtherProductStore.activeProduct} />
       )}

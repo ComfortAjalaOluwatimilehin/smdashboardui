@@ -90,6 +90,7 @@ class StoreInstance {
       : 0;
   }
   @action public setActiveProductById(id: string | undefined): void {
+    console.log("ID", id)
     if (id === undefined) {
       this.activeProduct = null;
       return;

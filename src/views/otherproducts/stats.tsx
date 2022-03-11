@@ -1,44 +1,36 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { DeleteFilled, FileExcelFilled } from "@ant-design/icons";
-import {
-  Button,
-  Card,
-  Col,
-  DatePicker,
-  message,
-  Popconfirm,
-  Radio,
-  Row,
-  Table,
-} from "antd";
-import {
-  Axis,
-  Chart,
-  Interaction,
-  Line,
-  Point,
-  Tooltip,
-  View,
-} from "bizcharts";
+import
+  {
+    Button,
+    Card,
+    Col,
+    DatePicker,
+    message,
+    Popconfirm,
+    Radio,
+    Row,
+    Table
+  } from "antd";
+import
+  {
+    Axis,
+    Chart,
+    Interaction,
+    Line,
+    Point,
+    Tooltip,
+    View
+  } from "bizcharts";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import moment from "moment";
-import React, { useEffect } from "react";
+import React from "react";
 import { AuthStore } from "../../internal/auth.store";
 import { IProduct, OtherProductStore } from "./store";
 
 export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
   observer(({ activeProduct }) => {
-    useEffect(() => {
-      OtherProductStore.activeProduct = activeProduct;
-      void OtherProductStore.getProductStats();
-    }, [
-      OtherProductStore.currentDateFilter,
-      OtherProductStore.currentTimeStamp,
-      OtherProductStore.startTimeStamp,
-      OtherProductStore.endTimeStamp,
-      activeProduct,
-    ]);
     const scale: any = {
       cash: {
         formatter: (str: number) => `₦ ${str.toLocaleString("en")}`,
@@ -55,13 +47,13 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
       <div style={{ marginTop: "10px" }}>
         <Card style={{ width: "100%", minHeight: "500px" }}>
           <Row style={{ marginBottom: "50px" }}>
-            <Col span={8} style={{ minWidth: "300px" }}>
+            <Col span={"auto"} style={{ minWidth: "300px" }}>
               {OtherProductStore.isRangeDatePicker ? (
                 <DatePicker.RangePicker
                   picker={"date"}
                   allowEmpty={[false, false]}
                   allowClear={false}
-                  defaultPickerValue={[
+                  defaultValue={[
                     OtherProductStore.startTimeStamp,
                     OtherProductStore.endTimeStamp,
                   ]}
@@ -97,7 +89,7 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
               />
             </Col> */}
             {!OtherProductStore.isRangeDatePicker && (
-              <Col span={8}>
+              <Col span={"auto"}>
                 <Radio.Group
                   buttonStyle="solid"
                   optionType="button"
