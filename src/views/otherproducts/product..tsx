@@ -9,7 +9,6 @@ import { observer } from "mobx-react-lite";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { ProductStats } from "./stats";
 import { OtherProductStore } from "./store";
 export const Products: React.FC<any> = observer(() => {
   const [productSaleForm] = useForm();
@@ -33,7 +32,6 @@ export const Products: React.FC<any> = observer(() => {
                   }, 200);
                 }}
                 style={{ minWidth: "200px" }}
-                defaultActiveFirstOption={true}
                 options={OtherProductStore.products.map((product) => {
                   return {
                     value: product._id,

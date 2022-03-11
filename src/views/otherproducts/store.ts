@@ -41,7 +41,7 @@ class StoreInstance {
   @observable currentTimeStamp: Moment = moment();
   @observable startTimeStamp: Moment = moment().startOf("year");
   @observable endTimeStamp: Moment = moment().endOf("year");
-  @observable isRangeDatePicker: boolean = false;
+  @observable isRangeDatePicker: boolean = true;
   @observable isExporting: boolean = false;
   public exportDataAsCSV(): void {
     this.isExporting = true;

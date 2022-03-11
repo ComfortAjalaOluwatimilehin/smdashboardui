@@ -1,28 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { DeleteFilled, FileExcelFilled } from "@ant-design/icons";
-import
-  {
-    Button,
-    Card,
-    Col,
-    DatePicker,
-    message,
-    Popconfirm,
-    Radio,
-    Row,
-    Switch,
-    Table
-  } from "antd";
-import
-  {
-    Axis,
-    Chart,
-    Interaction,
-    Line,
-    Point,
-    Tooltip,
-    View
-  } from "bizcharts";
+import {
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  message,
+  Popconfirm,
+  Radio,
+  Row,
+  Table,
+} from "antd";
+import {
+  Axis,
+  Chart,
+  Interaction,
+  Line,
+  Point,
+  Tooltip,
+  View,
+} from "bizcharts";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import moment from "moment";
@@ -64,11 +61,14 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                   picker={"date"}
                   allowEmpty={[false, false]}
                   allowClear={false}
-                  defaultPickerValue={[OtherProductStore.startTimeStamp, OtherProductStore.endTimeStamp]}
+                  defaultPickerValue={[
+                    OtherProductStore.startTimeStamp,
+                    OtherProductStore.endTimeStamp,
+                  ]}
                   onChange={(value) => {
                     if (value && value[0] != null && value[1] != null) {
-                      const startTimeStamp:moment.Moment =  value[0];
-                      const endTimeStamp:moment.Moment =  value[1];
+                      const startTimeStamp: moment.Moment = value[0];
+                      const endTimeStamp: moment.Moment = value[1];
                       OtherProductStore.startTimeStamp = startTimeStamp;
                       OtherProductStore.endTimeStamp = endTimeStamp;
                     }
@@ -88,28 +88,30 @@ export const ProductStats: React.FC<{ activeProduct: IProduct | null }> =
                 />
               )}
             </Col>
-            <Col span={8}>
+            {/**<Col span={8}>
               <Switch
                 checked={OtherProductStore.isRangeDatePicker}
                 onChange={(checked: boolean) => {
                   OtherProductStore.isRangeDatePicker = checked;
                 }}
               />
-            </Col>
-            {!OtherProductStore.isRangeDatePicker && <Col span={8}>
-              <Radio.Group
-                buttonStyle="solid"
-                optionType="button"
-                defaultValue={OtherProductStore.currentDateFilter}
-                onChange={(e) => {
-                  OtherProductStore.currentDateFilter = e.target.value;
-                }}
-                options={["year", "month", "day"].map((value: string) => ({
-                  value,
-                  label: value,
-                }))}
-              />
-            </Col>}
+            </Col> */}
+            {!OtherProductStore.isRangeDatePicker && (
+              <Col span={8}>
+                <Radio.Group
+                  buttonStyle="solid"
+                  optionType="button"
+                  defaultValue={OtherProductStore.currentDateFilter}
+                  onChange={(e) => {
+                    OtherProductStore.currentDateFilter = e.target.value;
+                  }}
+                  options={["year", "month", "day"].map((value: string) => ({
+                    value,
+                    label: value,
+                  }))}
+                />
+              </Col>
+            )}
             <Col span={8} style={{ textAlign: "right", minWidth: "300px" }}>
               {OtherProductStore.currentTimeStamp && (
                 <>
