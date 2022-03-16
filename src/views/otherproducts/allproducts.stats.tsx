@@ -15,9 +15,7 @@ export const AllProductsStats: React.FC<any> = observer(() => {
   return (
     <div>
        <ProductListDropDown />
-      {OtherProductStore.products.length > 0 && (
-        <ProductStats activeProduct={OtherProductStore.activeProduct} />
-      )}
+       <ProductStats activeProduct={OtherProductStore.activeProduct} />
     </div>
   );
 });

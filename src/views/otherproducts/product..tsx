@@ -22,10 +22,14 @@ import { OtherProductStore } from "./store";
 export const Products: React.FC<any> = observer(() => {
   const [productSaleForm] = useForm();
   useEffect(() => {
-    OtherProductStore.resetProperties();
     void OtherProductStore.getProducts();
   }, []);
-
+  useEffect(() => {
+    OtherProductStore.resetProperties();
+    if(OtherProductStore.activeProduct){
+      productSaleForm.setFieldsValue({soldUnitPrice: OtherProductStore.activeProduct.unitPrice})
+    }
+  }, [OtherProductStore.activeProduct]);
   return (
     <div>
       <div>

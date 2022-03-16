@@ -1,5 +1,5 @@
 import { message } from "antd";
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, toJS } from "mobx";
 import moment, { Moment } from "moment";
 import { SmdashboardService } from "../../service";
 import { TCurrentDateFilter } from "../stats/store";
@@ -64,7 +64,7 @@ class StoreInstance {
     }, 1000);
   }
   @action public resetProperties(): void {
-    this.activeProduct = null;
+    // this.activeProduct = null;
     this.activeProductStats = [];
   }
   @computed get minMaxCosts(): { min: number; max: number } {
@@ -95,13 +95,8 @@ class StoreInstance {
       this.activeProduct = null;
       return;
     }
-    this.activeProduct = null;
     const matchProduct = this.products.find((product) => product._id === id);
-    if (matchProduct) {
-      this.activeProduct = { ...matchProduct };
-    } else {
-      this.activeProduct = null;
-    }
+    this.activeProduct = matchProduct ? { ...toJS(matchProduct) } : null;
   }
   public async createProduct(values: any, form: any): Promise<any> {
     try {
