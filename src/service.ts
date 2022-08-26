@@ -10,15 +10,15 @@ export interface IExpenseType {
   type: string;
 }
 class SmdashboardServiceSingleton {
-  uri: "https://arcane-bastion-12919.herokuapp.com" | "http://localhost:8080" =
-    "https://arcane-bastion-12919.herokuapp.com";
+  uri: "https://whale-app-qeloi.ondigitalocean.app/" | "http://localhost:8080" =
+    "https://whale-app-qeloi.ondigitalocean.app/";
   tz: string;
   constructor() {
     const url: string = global.window.location.href;
     if (url.search("localhost") >= 0) {
       this.uri = "http://localhost:8080";
     } else {
-      this.uri = "https://arcane-bastion-12919.herokuapp.com";
+      this.uri = "https://whale-app-qeloi.ondigitalocean.app/";
     }
     this.tz = tz.guess();
   }
